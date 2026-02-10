@@ -12,7 +12,7 @@
     <style>
         :root {
             --primary: #2563eb;
-            --bg-color: #f1f5f9;
+            --bg-color: #f1f5f9; /* Fond pour voir les nuages */
             --card-border: rgba(37, 99, 235, 0.1);
         }
 
@@ -26,16 +26,15 @@
             overflow-x: hidden;
             min-height: 100dvh;
             -webkit-font-smoothing: antialiased;
-            transition: direction 0.3s ease;
         }
 
         /* --- BARRE DE PROGRESSION --- */
         #scroll-progress {
-            position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+            position: fixed; top: 0; left: 0; width: 0%; height: 4px;
             background: var(--primary); z-index: 1000; transition: width 0.1s ease-out;
         }
 
-        /* --- PRELOADER --- */
+        /* --- PRELOADER JAAD --- */
         #preloader {
             position: fixed; inset: 0; z-index: 2000;
             display: flex; background: var(--bg-color);
@@ -45,7 +44,7 @@
         .preloader-active .loader-panel:nth-child(even) { transform-origin: top; }
         .preloader-active .loader-panel:nth-child(odd) { transform-origin: bottom; }
         .loader-content { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2010; text-align: center; }
-        .jaad-reveal { font-size: clamp(3rem, 10vw, 5rem); font-weight: 900; color: var(--primary); letter-spacing: -5px; position: relative; overflow: hidden; }
+        .jaad-reveal { font-size: clamp(3.5rem, 12vw, 6rem); font-weight: 900; color: var(--primary); letter-spacing: -5px; position: relative; overflow: hidden; line-height: 1; }
         .jaad-reveal::after { content: 'JAAD.'; position: absolute; left: 0; top: 0; width: 100%; color: #1e293b; clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); animation: reveal-text 1s forwards; }
         @keyframes reveal-text { to { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); } }
 
@@ -62,41 +61,42 @@
         .cloud::before { width: 30%; height: 80%; top: -30%; left: 50%; }
         @keyframes floatCloud { from { transform: translate3d(-100%, 0, 0); } to { transform: translate3d(100vw, 0, 0); } }
 
-        /* --- BLOC DE SYNCHRONISATION (CORRIGÉ CENTRAGE ET TAILLE) --- */
-        .hero-sync-container {
+        /* --- HERO : ALIGNEMENT MATHÉMATIQUE --- */
+        .hero-visual-wrapper {
             position: absolute;
-            top: 75%; /* Bien bas pour libérer tout le menu mobile */
+            top: 62%; /* Position centrale-basse pour mobile */
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 100vw;
+            width: 100%;
             display: flex;
-            align-items: center; justify-content: center;
+            align-items: center;
+            justify-content: center;
             pointer-events: none;
             z-index: 150;
         }
 
         .giant-title {
-            font-size: 18vw; /* Plus petit pour ne pas toucher le bouton */
-            font-weight: 900; line-height: 0.8; text-align: center;
+            font-size: 22vw; 
+            font-weight: 900; line-height: 1; text-align: center;
             background: linear-gradient(180deg, #3b82f6 0%, #93c5fd 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             opacity: 0.15; z-index: 1; margin: 0;
-            will-change: transform;
+            white-space: nowrap;
         }
 
         #spline-hero-container {
             position: absolute;
             top: 50%; left: 50%;
-            /* Centrage horizontal parfait et réduction de taille */
-            transform: translate(-50%, -50%) scale(2.0); 
-            width: 100%; height: 50vh;
-            z-index: 160; 
+            transform: translate(-50%, -50%) scale(2.2); /* TAILLE AJUSTÉE MOBILE */
+            width: 100%; height: 100vh;
+            z-index: 200; /* DEVANT TOUT */
+            display: flex; align-items: center; justify-content: center;
         }
 
         @media (min-width: 768px) {
-            .hero-sync-container { top: 60%; }
-            .giant-title { font-size: 22vw; }
-            #spline-hero-container { transform: translate(-50%, -50%) scale(1.6); height: 70vh; }
+            .hero-visual-wrapper { top: 58%; }
+            .giant-title { font-size: 20vw; }
+            #spline-hero-container { transform: translate(-50%, -50%) scale(1.7); }
         }
 
         #spline-hero-container iframe { width: 100%; height: 100%; border: none; }
@@ -106,29 +106,29 @@
         .modern-card {
             border-radius: 32px; border: 1px solid rgba(255, 255, 255, 1);
             box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.08); 
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease, background 0.5s ease;
             background: rgba(255, 255, 255, 0.9); overflow: hidden;
             will-change: transform;
         }
-        .modern-card:hover { transform: translate3d(0, -10px, 0); background: #fff; box-shadow: 0 30px 60px -20px rgba(37, 99, 235, 0.15); }
+        .modern-card:hover { transform: translateY(-10px); background: #fff; box-shadow: 0 30px 60px -20px rgba(37, 99, 235, 0.15); }
 
-        /* E-LEARNING HOVER FIX : Reste bleu au survol */
+        /* E-LEARNING HOVER FIX : Ne devient plus blanc */
         .colored-card { background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%); color: white; border: none; }
         .colored-card:hover { 
             background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%) !important; 
             color: white !important; 
-            transform: translate3d(0, -10px, 0) !important;
+            transform: translateY(-10px) !important;
         }
 
         .cloud-btn {
             position: relative; background: var(--primary); 
             box-shadow: 0 15px 35px -10px rgba(37, 99, 235, 0.4);
             animation: floatBtn 4s ease-in-out infinite; transition: 0.3s;
-            z-index: 170;
+            z-index: 10;
         }
         @keyframes floatBtn { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        .lang-switcher { display: flex; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); padding: 3px; border-radius: 100px; gap: 2px; border: 1px solid rgba(0,0,0,0.05); }
+        .lang-switcher { display: flex; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); padding: 3px; border-radius: 100px; gap: 2px; border: 1px solid rgba(0,0,0,0.05); }
         .lang-item { padding: 6px 12px; border-radius: 100px; font-size: 10px; font-weight: 800; cursor: pointer; text-transform: uppercase; transition: 0.3s; color: #64748b; }
         .lang-item.active { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2); }
 
@@ -162,8 +162,8 @@
 
     <div class="noise-overlay"></div>
 
-    <!-- NAVIGATION (Z-200) -->
-    <nav class="fixed top-0 w-full z-[200] flex justify-center pt-4 md:pt-6 px-4">
+    <!-- NAVIGATION (Z-100) -->
+    <nav class="fixed top-0 w-full z-[100] flex justify-center pt-4 md:pt-6 px-4">
         <div class="bg-white/80 backdrop-blur-2xl border border-white/40 shadow-xl px-4 md:px-8 py-2 md:py-3 rounded-full flex items-center max-w-6xl w-full justify-between">
             <div class="flex items-center gap-6">
                 <a href="#" class="text-xl md:text-2xl font-black text-blue-600 tracking-tighter" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">JAAD.</a>
@@ -196,15 +196,15 @@
         </div>
     </nav>
 
-    <!-- HEADER (ROBOT AU CENTRE ET BAS) -->
-    <header class="relative h-[100dvh] w-full flex flex-col items-center justify-end pb-16 overflow-hidden">
-        <div class="hero-sync-container">
-            <h1 id="parallax-title" class="giant-title">JAAD</h1>
+    <!-- HEADER (ROBOT SOUDÉ AU TITRE) -->
+    <header class="relative h-[100dvh] w-full flex flex-col items-center justify-end pb-12 overflow-hidden">
+        <div class="hero-visual-wrapper">
+            <h1 class="giant-title">JAAD</h1>
             <div id="spline-hero-container">
                 <iframe src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' frameborder='0' onload="this.style.opacity='1'"></iframe>
             </div>
         </div>
-        <div class="relative text-center px-6" style="z-index: 180;">
+        <div class="relative text-center px-6" style="z-index: 210;">
             <div class="magnetic-wrap">
                 <a href="#contact" class="cloud-btn px-10 py-5 rounded-full text-base font-bold inline-flex items-center justify-center gap-4 text-white">
                     <span data-i18n="hero-btn">Lancer mon projet</span> <i data-lucide="chevron-right"></i>
@@ -236,7 +236,6 @@
                     <h3 class="text-xl font-bold mb-4" data-i18n="srv3-title">Studio 3D</h3>
                     <p class="text-slate-500 text-sm leading-relaxed" data-i18n="srv3-desc">Production visuelle immersive haute fidélité.</p>
                 </div>
-                <!-- E-Learning : Animation fixée -->
                 <div class="modern-card colored-card p-10 reveal-hidden group cursor-pointer" style="transition-delay: 300ms">
                     <div class="w-16 h-16 rounded-3xl bg-white/20 text-white flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 transition-transform"><i data-lucide="graduation-cap" class="w-8 h-8 text-white"></i></div>
                     <h3 class="text-xl font-bold text-white mb-4" data-i18n="srv4-title">E-Learning</h3>
@@ -299,11 +298,11 @@
     <script>
         lucide.createIcons();
 
-        // --- DICTIONNAIRE DE TRADUCTION ---
+        // --- TRADUCTION ---
         const translations = {
-            fr: { "nav-expertise": "Expertise", "nav-realisations": "Réalisations", "nav-contact": "Contact", "hero-btn": "Lancer mon projet", "exp-title": "Expertise Digitale.", "exp-subtitle": "L'art de l'immersion technologique", "srv1-title": "Web Design", "srv1-desc": "Interfaces haute couture et architectures modernes.", "srv2-title": "Apps Mobile", "srv2-desc": "Expériences tactiles fluides conçues pour demain.", "srv3-title": "Studio 3D", "srv3-desc": "Production visuelle interactive haute fidélité.", "srv4-title": "E-Learning", "srv4-desc": "Gamification et plateformes de formation interactives.", "port-title": "Réalisations.", "port1-label": "Bot Maintenance", "port2-label": "Humanoïde", "cont-title": "Parlons Futur.", "cont-btn": "Envoyer", "ph-name": "Nom", "ph-email": "Email", "ph-msg": "Votre projet..." },
+            fr: { "nav-expertise": "Expertise", "nav-realisations": "Réalisations", "nav-contact": "Contact", "hero-btn": "Lancer mon projet", "exp-title": "Expertise Digitale.", "exp-subtitle": "L'art de l'immersion technologique", "srv1-title": "Web Design", "srv1-desc": "Interfaces haute couture et architectures modernes.", "srv2-title": "Apps Mobile", "srv2-desc": "Expériences tactiles fluides pour le futur.", "srv3-title": "Studio 3D", "srv3-desc": "Production visuelle immersive haute fidélité.", "srv4-title": "E-Learning", "srv4-desc": "Gamification et plateformes de formation interactives.", "port-title": "Réalisations.", "port1-label": "Bot Maintenance", "port2-label": "Humanoïde", "cont-title": "Parlons Futur.", "cont-btn": "Envoyer", "ph-name": "Nom", "ph-email": "Email", "ph-msg": "Votre projet..." },
             en: { "nav-expertise": "Expertise", "nav-realisations": "Works", "nav-contact": "Contact", "hero-btn": "Start my project", "exp-title": "Digital Expertise.", "exp-subtitle": "The art of technological immersion", "srv1-title": "Web Design", "srv1-desc": "High-end interfaces and modern architectures.", "srv2-title": "Mobile Apps", "srv2-desc": "Fluid touch experiences designed for tomorrow.", "srv3-title": "3D Studio", "srv3-desc": "High-fidelity interactive visual production.", "srv4-title": "E-Learning", "srv4-desc": "Gamification and interactive learning platforms.", "port-title": "Projects.", "port1-label": "Maintenance Bot", "port2-label": "Humanoid", "cont-title": "Let's Talk Future.", "cont-btn": "Send", "ph-name": "Name", "ph-email": "Email", "ph-msg": "Your project..." },
-            es: { "nav-expertise": "Experiencia", "nav-realisations": "Proyectos", "nav-contact": "Contacto", "hero-btn": "Iniciar mi proyecto", "exp-title": "Experiencia Digital.", "exp-subtitle": "El arte de la inmersión tecnológica", "srv1-title": "Diseño Web", "srv1-desc": "Interfaces de alta costura y architectures modernes.", "srv2-title": "Apps Móviles", "srv2-desc": "Experiencias tactiles fluides para el mañana.", "srv3-title": "Estudio 3D", "srv3-desc": "Producción visual interactiva de alta fidelidad.", "srv4-title": "E-Learning", "srv4-desc": "Gamification y plataformas de formation interactives.", "port-title": "Proyectos.", "port1-label": "Bot de Mantenimiento", "port2-label": "Humanoide", "cont-title": "Hablemos de Futuro.", "cont-btn": "Enviar", "ph-name": "Nombre", "ph-email": "Email", "ph-msg": "Tu projet..." },
+            es: { "nav-expertise": "Experiencia", "nav-realisations": "Proyectos", "nav-contact": "Contacto", "hero-btn": "Iniciar mi proyecto", "exp-title": "Experiencia Digital.", "exp-subtitle": "El arte de la inmersión tecnológica", "srv1-title": "Diseño Web", "srv1-desc": "Interfaces de alta costura y architectures modernes.", "srv2-title": "Apps Móviles", "srv2-desc": "Experiencias tactiles fluides para el mañana.", "srv3-title": "Estudio 3D", "srv3-desc": "Producción visual interactiva de alta fidelidad.", "srv4-title": "E-Learning", "srv4-desc": "Gamification y plataformas de formation interactives.", "port-title": "Proyectos.", "port1-label": "Bot de Mantenimiento", "port2-label": "Humanoide", "cont-title": "Hablemos de Futuro.", "cont-btn": "Enviar", "ph-name": "Nombre", "ph-email": "Email", "ph-msg": "Tu proyecto..." },
             ar: { "nav-expertise": "الخبرة", "nav-realisations": "الأعمال", "nav-contact": "اتصل بنا", "hero-btn": "ابدأ مشروعي", "exp-title": "الخبرة الرقمية.", "exp-subtitle": "فن الانغماس التكنولوجي", "srv1-title": "تصميم المواقع", "srv1-desc": "واجهات راقية وهياكل حديثة للعلامات التجارية.", "srv2-title": "تطبيقات الجوال", "srv2-desc": "تجارب لمس سلسة مصممة للمستقبل.", "srv3-title": "استوديو ثلاثي الأبعاد", "srv3-desc": "إنتاج بصري تفاعلي عالي الدقة.", "srv4-title": "التعلم الإلكتروني", "srv4-desc": "اللعب والمنصات التفاعلية للجيل القادم.", "port-title": "إنجازاتنا.", "port1-label": "روبوت الصيانة", "port2-label": "بشري آلي", "cont-title": "لنتحدث عن المستقبل.", "cont-btn": "إرسال", "ph-name": "الاسم", "ph-email": "البريد الإلكتروني", "ph-msg": "مشروعك..." }
         };
 
@@ -322,11 +321,6 @@
                     setTimeout(() => document.getElementById('preloader').style.display = 'none', 1000);
                 }, 200);
             }, 1200);
-        });
-
-        window.addEventListener('scroll', () => {
-            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-            document.getElementById("scroll-progress").style.width = scrolled + "%";
         });
 
         const observer = new IntersectionObserver((entries) => {
