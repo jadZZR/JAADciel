@@ -34,7 +34,7 @@
             background: var(--primary); z-index: 1000; transition: width 0.1s ease-out;
         }
 
-        /* --- PRELOADER JAAD --- */
+        /* --- PRELOADER --- */
         #preloader {
             position: fixed; inset: 0; z-index: 2000;
             display: flex; background: var(--bg-color);
@@ -61,10 +61,10 @@
         .cloud::before { width: 30%; height: 80%; top: -30%; left: 50%; }
         @keyframes floatCloud { from { transform: translate3d(-100%, 0, 0); } to { transform: translate3d(100vw, 0, 0); } }
 
-        /* --- HERO : ALIGNEMENT MATHÉMATIQUE --- */
+        /* --- HERO : ALIGNEMENT MOBILE BAS --- */
         .hero-visual-wrapper {
             position: absolute;
-            top: 62%; /* Position centrale-basse pour mobile */
+            top: 78%; /* ABAISSÉ MAXIMUM SUR MOBILE */
             left: 50%;
             transform: translate(-50%, -50%);
             width: 100%;
@@ -76,7 +76,7 @@
         }
 
         .giant-title {
-            font-size: 22vw; 
+            font-size: 16vw; /* RÉDUIT POUR NE PAS TOUCHER LE BOUTON */
             font-weight: 900; line-height: 1; text-align: center;
             background: linear-gradient(180deg, #3b82f6 0%, #93c5fd 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -87,14 +87,14 @@
         #spline-hero-container {
             position: absolute;
             top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(2.2); /* TAILLE AJUSTÉE MOBILE */
+            transform: translate(-50%, -50%) scale(1.8); /* TAILLE RÉDUITE POUR PROPRETÉ */
             width: 100%; height: 100vh;
-            z-index: 200; /* DEVANT TOUT */
+            z-index: 200; 
             display: flex; align-items: center; justify-content: center;
         }
 
         @media (min-width: 768px) {
-            .hero-visual-wrapper { top: 58%; }
+            .hero-visual-wrapper { top: 58%; } /* RESTE AU MILIEU SUR ORDI */
             .giant-title { font-size: 20vw; }
             #spline-hero-container { transform: translate(-50%, -50%) scale(1.7); }
         }
@@ -112,7 +112,6 @@
         }
         .modern-card:hover { transform: translateY(-10px); background: #fff; box-shadow: 0 30px 60px -20px rgba(37, 99, 235, 0.15); }
 
-        /* E-LEARNING HOVER FIX : Ne devient plus blanc */
         .colored-card { background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%); color: white; border: none; }
         .colored-card:hover { 
             background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%) !important; 
@@ -124,7 +123,7 @@
             position: relative; background: var(--primary); 
             box-shadow: 0 15px 35px -10px rgba(37, 99, 235, 0.4);
             animation: floatBtn 4s ease-in-out infinite; transition: 0.3s;
-            z-index: 10;
+            z-index: 220; /* DEVANT TOUT */
         }
         @keyframes floatBtn { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
@@ -160,8 +159,6 @@
         <div class="cloud" style="top: 65%; width: 150px; height: 50px; animation-duration: 60s; animation-delay: -20s; left: 5%;"></div>
     </div>
 
-    <div class="noise-overlay"></div>
-
     <!-- NAVIGATION (Z-100) -->
     <nav class="fixed top-0 w-full z-[100] flex justify-center pt-4 md:pt-6 px-4">
         <div class="bg-white/80 backdrop-blur-2xl border border-white/40 shadow-xl px-4 md:px-8 py-2 md:py-3 rounded-full flex items-center max-w-6xl w-full justify-between">
@@ -196,7 +193,7 @@
         </div>
     </nav>
 
-    <!-- HEADER (ROBOT SOUDÉ AU TITRE) -->
+    <!-- HEADER -->
     <header class="relative h-[100dvh] w-full flex flex-col items-center justify-end pb-12 overflow-hidden">
         <div class="hero-visual-wrapper">
             <h1 class="giant-title">JAAD</h1>
@@ -204,12 +201,10 @@
                 <iframe src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' frameborder='0' onload="this.style.opacity='1'"></iframe>
             </div>
         </div>
-        <div class="relative text-center px-6" style="z-index: 210;">
-            <div class="magnetic-wrap">
-                <a href="#contact" class="cloud-btn px-10 py-5 rounded-full text-base font-bold inline-flex items-center justify-center gap-4 text-white">
-                    <span data-i18n="hero-btn">Lancer mon projet</span> <i data-lucide="chevron-right"></i>
-                </a>
-            </div>
+        <div class="relative text-center px-6" style="z-index: 220;">
+            <a href="#contact" class="cloud-btn px-10 py-5 rounded-full text-base font-bold inline-flex items-center justify-center gap-4 text-white">
+                <span data-i18n="hero-btn">Lancer mon projet</span> <i data-lucide="chevron-right"></i>
+            </a>
         </div>
     </header>
 
@@ -300,9 +295,9 @@
 
         // --- TRADUCTION ---
         const translations = {
-            fr: { "nav-expertise": "Expertise", "nav-realisations": "Réalisations", "nav-contact": "Contact", "hero-btn": "Lancer mon projet", "exp-title": "Expertise Digitale.", "exp-subtitle": "L'art de l'immersion technologique", "srv1-title": "Web Design", "srv1-desc": "Interfaces haute couture et architectures modernes.", "srv2-title": "Apps Mobile", "srv2-desc": "Expériences tactiles fluides pour le futur.", "srv3-title": "Studio 3D", "srv3-desc": "Production visuelle immersive haute fidélité.", "srv4-title": "E-Learning", "srv4-desc": "Gamification et plateformes de formation interactives.", "port-title": "Réalisations.", "port1-label": "Bot Maintenance", "port2-label": "Humanoïde", "cont-title": "Parlons Futur.", "cont-btn": "Envoyer", "ph-name": "Nom", "ph-email": "Email", "ph-msg": "Votre projet..." },
+            fr: { "nav-expertise": "Expertise", "nav-realisations": "Réalisations", "nav-contact": "Contact", "hero-btn": "Lancer mon projet", "exp-title": "Expertise Digitale.", "exp-subtitle": "L'art de l'immersion technologique", "srv1-title": "Web Design", "srv1-desc": "Interfaces haute couture et architectures modernes.", "srv2-title": "Apps Mobile", "srv2-desc": "Expériences tactiles fluides pour le futur.", "srv3-title": "Studio 3D", "srv3-desc": "Production visuelle interactive haute fidélité.", "srv4-title": "E-Learning", "srv4-desc": "Gamification et plateformes de formation interactives.", "port-title": "Réalisations.", "port1-label": "Bot Maintenance", "port2-label": "Humanoïde", "cont-title": "Parlons Futur.", "cont-btn": "Envoyer", "ph-name": "Nom", "ph-email": "Email", "ph-msg": "Votre projet..." },
             en: { "nav-expertise": "Expertise", "nav-realisations": "Works", "nav-contact": "Contact", "hero-btn": "Start my project", "exp-title": "Digital Expertise.", "exp-subtitle": "The art of technological immersion", "srv1-title": "Web Design", "srv1-desc": "High-end interfaces and modern architectures.", "srv2-title": "Mobile Apps", "srv2-desc": "Fluid touch experiences designed for tomorrow.", "srv3-title": "3D Studio", "srv3-desc": "High-fidelity interactive visual production.", "srv4-title": "E-Learning", "srv4-desc": "Gamification and interactive learning platforms.", "port-title": "Projects.", "port1-label": "Maintenance Bot", "port2-label": "Humanoid", "cont-title": "Let's Talk Future.", "cont-btn": "Send", "ph-name": "Name", "ph-email": "Email", "ph-msg": "Your project..." },
-            es: { "nav-expertise": "Experiencia", "nav-realisations": "Proyectos", "nav-contact": "Contacto", "hero-btn": "Iniciar mi proyecto", "exp-title": "Experiencia Digital.", "exp-subtitle": "El arte de la inmersión tecnológica", "srv1-title": "Diseño Web", "srv1-desc": "Interfaces de alta costura y architectures modernes.", "srv2-title": "Apps Móviles", "srv2-desc": "Experiencias tactiles fluides para el mañana.", "srv3-title": "Estudio 3D", "srv3-desc": "Producción visual interactiva de alta fidelidad.", "srv4-title": "E-Learning", "srv4-desc": "Gamification y plataformas de formation interactives.", "port-title": "Proyectos.", "port1-label": "Bot de Mantenimiento", "port2-label": "Humanoide", "cont-title": "Hablemos de Futuro.", "cont-btn": "Enviar", "ph-name": "Nombre", "ph-email": "Email", "ph-msg": "Tu proyecto..." },
+            es: { "nav-expertise": "Experiencia", "nav-realisations": "Proyectos", "nav-contact": "Contacto", "hero-btn": "Iniciar mi proyecto", "exp-title": "Experiencia Digital.", "exp-subtitle": "El arte de la inmersión tecnológica", "srv1-title": "Diseño Web", "srv1-desc": "Interfaces de alta costura et architectures modernes.", "srv2-title": "Apps Móviles", "srv2-desc": "Experiencias tactiles fluides para el mañana.", "srv3-title": "Estudio 3D", "srv3-desc": "Producción visual interactiva de alta fidelidad.", "srv4-title": "E-Learning", "srv4-desc": "Gamification y plataformas de formation interactives.", "port-title": "Proyectos.", "port1-label": "Bot de Mantenimiento", "port2-label": "Humanoide", "cont-title": "Hablemos de Futuro.", "cont-btn": "Enviar", "ph-name": "Nombre", "ph-email": "Email", "ph-msg": "Tu proyecto..." },
             ar: { "nav-expertise": "الخبرة", "nav-realisations": "الأعمال", "nav-contact": "اتصل بنا", "hero-btn": "ابدأ مشروعي", "exp-title": "الخبرة الرقمية.", "exp-subtitle": "فن الانغماس التكنولوجي", "srv1-title": "تصميم المواقع", "srv1-desc": "واجهات راقية وهياكل حديثة للعلامات التجارية.", "srv2-title": "تطبيقات الجوال", "srv2-desc": "تجارب لمس سلسة مصممة للمستقبل.", "srv3-title": "استوديو ثلاثي الأبعاد", "srv3-desc": "إنتاج بصري تفاعلي عالي الدقة.", "srv4-title": "التعلم الإلكتروني", "srv4-desc": "اللعب والمنصات التفاعلية للجيل القادم.", "port-title": "إنجازاتنا.", "port1-label": "روبوت الصيانة", "port2-label": "بشري آلي", "cont-title": "لنتحدث عن المستقبل.", "cont-btn": "إرسال", "ph-name": "الاسم", "ph-email": "البريد الإلكتروني", "ph-msg": "مشروعك..." }
         };
 
@@ -310,7 +305,7 @@
             document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr';
             document.querySelectorAll('.lang-item').forEach(btn => btn.classList.toggle('active', btn.innerText.toLowerCase() === lang));
             document.querySelectorAll('[data-i18n]').forEach(el => el.innerHTML = translations[lang][el.getAttribute('data-i18n')]);
-            document.querySelectorAll('[data-i18n-ph]').forEach(el => el.placeholder = translations[lang][el.getAttribute('data-i18n-ph')]);
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => el.placeholder = translations[lang][el.dataset.i18nPh]);
         }
 
         window.addEventListener('load', () => {
