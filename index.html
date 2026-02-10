@@ -13,6 +13,7 @@
         :root {
             --primary: #2563eb;
             --bg-color: #f1f5f9;
+            --card-border: rgba(37, 99, 235, 0.1);
         }
 
         html { scroll-padding-top: 100px; }
@@ -28,26 +29,23 @@
             transition: direction 0.3s ease;
         }
 
-        /* Support RTL */
-        [dir="rtl"] { text-align: right; }
-
         /* --- BARRE DE PROGRESSION --- */
         #scroll-progress {
             position: fixed; top: 0; left: 0; width: 0%; height: 3px;
             background: var(--primary); z-index: 1000; transition: width 0.1s ease-out;
         }
 
-        /* --- PRELOADER JAAD --- */
+        /* --- PRELOADER --- */
         #preloader {
             position: fixed; inset: 0; z-index: 2000;
             display: flex; background: var(--bg-color);
         }
         .loader-panel { flex: 1; height: 100%; background: var(--bg-color); transition: transform 0.8s cubic-bezier(0.8, 0, 0.2, 1); }
         .preloader-active .loader-panel { transform: scaleY(0); }
-        .preloader-active .loader-panel:nth-child(even) { transform-origin: top; }
-        .preloader-active .loader-panel:nth-child(odd) { transform-origin: bottom; }
+        .loader-active .loader-panel:nth-child(even) { transform-origin: top; }
+        .loader-active .loader-panel:nth-child(odd) { transform-origin: bottom; }
         .loader-content { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2010; text-align: center; }
-        .jaad-reveal { font-size: clamp(3.5rem, 12vw, 6rem); font-weight: 900; color: var(--primary); letter-spacing: -5px; position: relative; overflow: hidden; line-height: 1; }
+        .jaad-reveal { font-size: clamp(3rem, 10vw, 5rem); font-weight: 900; color: var(--primary); letter-spacing: -5px; position: relative; overflow: hidden; }
         .jaad-reveal::after { content: 'JAAD.'; position: absolute; left: 0; top: 0; width: 100%; color: #1e293b; clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); animation: reveal-text 1s forwards; }
         @keyframes reveal-text { to { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); } }
 
@@ -64,10 +62,10 @@
         .cloud::before { width: 30%; height: 80%; top: -30%; left: 50%; }
         @keyframes floatCloud { from { transform: translate3d(-100%, 0, 0); } to { transform: translate3d(100vw, 0, 0); } }
 
-        /* --- BLOC DE SYNCHRONISATION RIGIDE (FIX DÉFINITIF) --- */
+        /* --- BLOC DE SYNCHRONISATION (RÉGLÉ POUR MOBILE) --- */
         .hero-sync-container {
             position: absolute;
-            top: 82%; /* Position descendue pour libérer tout le haut sur mobile */
+            top: 60%; /* Remonté légèrement pour ne pas toucher le bouton */
             left: 50%;
             transform: translate(-50%, -50%);
             width: 100%;
@@ -78,23 +76,24 @@
         }
 
         .giant-title {
-            font-size: 28vw; font-weight: 900; line-height: 0.8; text-align: center;
+            font-size: 24vw; /* Un peu plus petit pour mobile */
+            font-weight: 900; line-height: 0.8; text-align: center;
             background: linear-gradient(180deg, #3b82f6 0%, #93c5fd 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            opacity: 0.18; z-index: 1; margin: 0;
+            opacity: 0.15; z-index: 1; margin: 0;
             will-change: transform;
         }
 
         #spline-hero-container {
             position: absolute;
             top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(3.1); /* Taille réduite et ajustée */
-            width: 100%; height: 100vh;
+            transform: translate(-50%, -50%) scale(2.5); /* Taille réduite pour mobile */
+            width: 100%; height: 80vh;
             z-index: 160; /* Devant la nav */
         }
 
         @media (min-width: 768px) {
-            .hero-sync-container { top: 65%; } /* Un peu plus haut sur ordi */
+            .hero-sync-container { top: 60%; }
             .giant-title { font-size: 22vw; }
             #spline-hero-container { transform: translate(-50%, -50%) scale(1.8); }
         }
@@ -146,7 +145,6 @@
 
     <div id="scroll-progress"></div>
 
-    <!-- PRELOADER -->
     <div id="preloader">
         <div class="loader-content" id="loader-content"><div class="jaad-reveal">JAAD.</div></div>
         <div class="loader-panel"></div><div class="loader-panel"></div><div class="loader-panel"></div><div class="loader-panel"></div><div class="loader-panel"></div>
@@ -155,9 +153,9 @@
 
     <!-- NUAGES -->
     <div class="cloud-layer">
-        <div class="cloud" style="top: 15%; width: 220px; height: 70px; animation-duration: 50s; left: -10%;"></div>
-        <div class="cloud" style="top: 38%; width: 320px; height: 100px; animation-duration: 75s; animation-delay: -5s; right: -5%;"></div>
-        <div class="cloud" style="top: 65%; width: 180px; height: 55px; animation-duration: 60s; animation-delay: -20s; left: 5%;"></div>
+        <div class="cloud" style="top: 15%; width: 200px; height: 60px; animation-duration: 50s; left: -10%;"></div>
+        <div class="cloud" style="top: 38%; width: 300px; height: 90px; animation-duration: 75s; animation-delay: -5s; right: -5%;"></div>
+        <div class="cloud" style="top: 65%; width: 150px; height: 50px; animation-duration: 60s; animation-delay: -20s; left: 5%;"></div>
     </div>
 
     <div class="noise-overlay"></div>
@@ -175,9 +173,9 @@
                 </div>
             </div>
             <div class="hidden md:flex gap-8 text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em]">
-                <a href="#services" data-i18n="nav-expertise">Expertise</a>
-                <a href="#portfolio" data-i18n="nav-realisations">Réalisations</a>
-                <a href="#contact" class="text-blue-600" data-i18n="nav-contact">Contact</a>
+                <a href="#services" data-i18n="nav-expertise" class="hover:text-blue-600 transition-colors">Expertise</a>
+                <a href="#portfolio" data-i18n="nav-realisations" class="hover:text-blue-600 transition-colors">Réalisations</a>
+                <a href="#contact" class="text-blue-600 hover:opacity-80" data-i18n="nav-contact">Contact</a>
             </div>
             <div class="flex items-center gap-2">
                 <div id="mobile-lang-switcher" class="lg:hidden flex lang-switcher">
@@ -192,12 +190,12 @@
         <div id="mobile-menu" class="fixed inset-x-4 top-24 bg-white/98 backdrop-blur-3xl p-10 rounded-[40px] shadow-2xl flex flex-col gap-8 text-center scale-90 opacity-0 pointer-events-none transition-all duration-300 origin-top">
             <a href="#services" class="mobile-link text-xl font-bold text-slate-700" data-i18n="nav-expertise">Expertise</a>
             <a href="#portfolio" class="mobile-link text-xl font-bold text-slate-700" data-i18n="nav-realisations">Réalisations</a>
-            <a href="#contact" class="mobile-link text-xl font-bold text-blue-600" data-i18n="nav-contact">Contact</a>
+            <a href="#contact" class="mobile-link text-xl font-bold text-blue-600 font-black" data-i18n="nav-contact">Contact</a>
         </div>
     </nav>
 
-    <!-- HEADER (ROBOT PASSE DEVANT) -->
-    <header class="relative h-[100dvh] w-full flex flex-col items-center justify-end pb-12 overflow-hidden">
+    <!-- HEADER (ROBOT DEVANT NAV) -->
+    <header class="relative h-[100dvh] w-full flex flex-col items-center justify-end pb-16 overflow-hidden">
         <div class="hero-sync-container">
             <h1 id="parallax-title" class="giant-title">JAAD</h1>
             <div id="spline-hero-container">
@@ -236,6 +234,7 @@
                     <h3 class="text-xl font-bold mb-4" data-i18n="srv3-title">Studio 3D</h3>
                     <p class="text-slate-500 text-sm leading-relaxed" data-i18n="srv3-desc">Production visuelle immersive haute fidélité.</p>
                 </div>
+                <!-- E-Learning : Hover bleu garanti -->
                 <div class="modern-card colored-card p-10 reveal-hidden group cursor-pointer" style="transition-delay: 300ms">
                     <div class="w-16 h-16 rounded-3xl bg-white/20 text-white flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 transition-transform"><i data-lucide="graduation-cap" class="w-8 h-8"></i></div>
                     <h3 class="text-xl font-bold text-white mb-4" data-i18n="srv4-title">E-Learning</h3>
@@ -248,7 +247,7 @@
     <!-- PORTFOLIO -->
     <section id="portfolio" class="py-32 bg-white relative z-10 border-t border-slate-50">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-5xl font-black mb-16 reveal-hidden" data-i18n="port-title">Réalisations.</h2>
+            <h2 class="text-5xl md:text-8xl font-black mb-16 reveal-hidden" data-i18n="port-title">Réalisations.</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                 <div class="spline-card reveal-hidden shadow-md">
                     <iframe src="https://my.spline.design/r4xbot-TowiBcjXeP3tiZRqqB7OwFiy/" frameborder='0' onload="this.classList.add('loaded')"></iframe>
@@ -273,17 +272,17 @@
         <div class="max-w-6xl mx-auto px-6">
             <div class="modern-card bg-white p-8 md:p-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center reveal-hidden">
                 <div>
-                    <h2 class="text-4xl md:text-6xl font-black mb-10" data-i18n="cont-title">Parlons Futur.</h2>
-                    <form class="space-y-6" onsubmit="event.preventDefault();">
+                    <h2 class="text-4xl md:text-6xl font-black mb-10 text-slate-900" data-i18n="cont-title">Parlons Futur.</h2>
+                    <form class="space-y-6 max-w-md" onsubmit="event.preventDefault();">
                         <input type="text" placeholder="Nom" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-600 focus:bg-white outline-none transition-all font-medium" data-i18n-ph="ph-name">
                         <input type="email" placeholder="Email" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-600 focus:bg-white outline-none transition-all font-medium" data-i18n-ph="ph-email">
                         <textarea rows="4" placeholder="Votre projet..." class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-600 focus:bg-white outline-none transition-all resize-none font-medium" data-i18n-ph="ph-msg"></textarea>
-                        <button type="submit" class="cloud-btn w-full py-5 rounded-2xl text-white font-black text-xl shadow-2xl flex justify-center items-center gap-4">
+                        <button type="submit" class="cloud-btn w-full py-5 rounded-2xl text-white font-black text-xl shadow-2xl flex justify-center items-center gap-4 group">
                             <span data-i18n="cont-btn">Envoyer</span> <i data-lucide="send"></i>
                         </button>
                     </form>
                 </div>
-                <div class="h-[400px] w-full relative spline-placeholder">
+                <div class="h-[400px] md:h-[500px] w-full relative spline-placeholder">
                      <iframe src="https://my.spline.design/droid-lc7AFsZxKlPOLuGV8OVfEC8y/" frameborder='0' width='100%' height='100%' onload="this.classList.add('loaded')"></iframe>
                 </div>
             </div>
@@ -298,7 +297,7 @@
     <script>
         lucide.createIcons();
 
-        // --- DICTIONNAIRE DE TRADUCTION COMPLET ---
+        // --- DICTIONNAIRE DE TRADUCTION ---
         const translations = {
             fr: {
                 "nav-expertise": "Expertise", "nav-realisations": "Réalisations", "nav-contact": "Contact",
@@ -326,7 +325,7 @@
                 "exp-subtitle": "El arte de la inmersión tecnológica", "srv1-title": "Diseño Web", "srv1-desc": "Interfaces de alta costura y arquitecturas modernas.",
                 "srv2-title": "Apps Móviles", "srv2-desc": "Experiencias táctiles fluidas para el mañana.",
                 "srv3-title": "Estudio 3D", "srv3-desc": "Producción visual interactiva de alta fidelidad.",
-                "srv4-title": "E-Learning", "srv4-desc": "Gamificación y plataformas de formación interactivas.",
+                "srv4-title": "E-Learning", "srv4-desc": "Gamificación y plataformas de formation interactives.",
                 "port-title": "Proyectos.", "port1-label": "Bot de Mantenimiento", "port2-label": "Humanoide",
                 "cont-title": "Hablemos de Futuro.", "cont-btn": "Enviar", "ph-name": "Nombre", "ph-email": "Email", "ph-msg": "Tu proyecto..."
             },
@@ -344,9 +343,7 @@
 
         function switchLanguage(lang) {
             document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-            document.querySelectorAll('.lang-item').forEach(btn => {
-                btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
-            });
+            document.querySelectorAll('.lang-item').forEach(btn => btn.classList.toggle('active', btn.innerText.toLowerCase() === lang));
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang][key]) el.innerHTML = translations[lang][key];
@@ -374,7 +371,7 @@
             document.getElementById("scroll-progress").style.width = scrolled + "%";
         });
 
-        // --- REVEAL ANIMATION ---
+        // --- REVEAL ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal-visible'); });
         }, { threshold: 0.1 });
@@ -401,7 +398,7 @@
         menuBtn.addEventListener('click', toggleMenu);
         document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', toggleMenu));
 
-        // --- SMOOTH SCROLL OFFSET FIX ---
+        // --- SMOOTH SCROLL OFFSET ---
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const targetId = this.getAttribute('href');
