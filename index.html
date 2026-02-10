@@ -97,41 +97,54 @@
         .glass-nav {
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            z-index: 100;
         }
         .modern-card {
             border-radius: 32px; border: 1px solid rgba(255, 255, 255, 1);
             box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.05); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             background: rgba(255, 255, 255, 0.85); overflow: hidden;
+            will-change: transform, box-shadow;
         }
         .modern-card:hover { transform: translate3d(0, -8px, 0); background: #ffffff; border-color: var(--card-border); box-shadow: 0 30px 60px -20px rgba(37, 99, 235, 0.1); }
         .colored-card { background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%); color: white; border: none; }
 
+        /* TITRE PARALLAXE - CORRIGÉ POUR MOBILE */
         .giant-title {
             font-size: 28vw; font-weight: 900; line-height: 0.8; text-align: center;
             background: linear-gradient(180deg, #3b82f6 0%, #93c5fd 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            opacity: 0.12; position: absolute; top: 45%; left: 50%;
+            opacity: 0.12; position: absolute; 
+            top: 55%; left: 50%; /* Descendu sur mobile */
             transform: translate(-50%, -50%); z-index: 1; pointer-events: none;
+            will-change: transform;
         }
         @media (min-width: 768px) { .giant-title { font-size: 24vw; top: 50%; } }
 
+        /* SPLINE HERO - CORRIGÉ POSITION ET TAILLE MOBILE */
         #spline-hero-container {
-            position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%) scale(2.2);
-            width: 100%; height: 100%; z-index: 60; pointer-events: none; display: flex;
-            align-items: center; justify-content: center; transition: z-index 0.3s step-end;
+            position: absolute; 
+            top: 55%; left: 50%; /* Descendu pour ne pas cacher le menu */
+            transform: translate(-50%, -50%) scale(1.6); /* Taille réajustée pour mobile */
+            width: 100%; height: 100%; z-index: 60; 
+            pointer-events: none; display: flex; align-items: center; justify-content: center;
+            transition: z-index 0.3s step-end, top 0.3s ease;
         }
+        
         #spline-hero-container.behind-menu { z-index: 40 !important; }
-        @media (min-width: 768px) { #spline-hero-container { top: 50%; transform: translate(-50%, -50%) scale(1.4); } }
+
+        @media (min-width: 768px) {
+            #spline-hero-container { top: 50%; transform: translate(-50%, -50%) scale(1.4); }
+        }
         #spline-hero-container iframe { width: 100%; height: 100%; pointer-events: none; }
 
         /* --- SPLINE CARDS --- */
         .spline-card, .spline-placeholder {
-            height: 450px; border-radius: 40px; background: #f8fafc;
+            height: 400px; border-radius: 32px; background: #f8fafc;
             position: relative; overflow: hidden; border: 1px solid white;
         }
+        @media (min-width: 768px) { .spline-card { height: 450px; } }
         .spline-card iframe, .spline-placeholder iframe { 
-            width: 100%; height: 100%; border: none; 
-            opacity: 0; transition: opacity 1.5s ease;
+            width: 100%; height: 100%; border: none; opacity: 0; transition: opacity 1.5s ease;
         }
         .spline-card iframe.loaded, .spline-placeholder iframe.loaded { opacity: 1 !important; }
 
@@ -142,7 +155,7 @@
 
         /* --- SÉLECTEUR LANGUE ÉLITE --- */
         .lang-switcher-elite {
-            display: flex; align-items: center; background: rgba(255, 255, 255, 0.6);
+            display: flex; align-items: center; background: rgba(0, 0, 0, 0.03);
             border: 1px solid rgba(0, 0, 0, 0.05); padding: 3px; border-radius: 100px; gap: 2px;
         }
         .lang-elite-item {
@@ -150,6 +163,7 @@
             color: #64748b; transition: all 0.3s ease; cursor: pointer; user-select: none; text-transform: uppercase;
         }
         .lang-elite-item.active { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2); }
+        @media (max-width: 640px) { .lang-elite-item { padding: 4px 10px; font-size: 9px; } }
     </style>
 </head>
 <body dir="ltr">
@@ -167,9 +181,8 @@
 
     <!-- NUAGES -->
     <div class="cloud-layer">
-        <div class="cloud" style="top: 15%; left: -10%; width: 220px; height: 70px; animation-duration: 55s;"></div>
-        <div class="cloud" style="top: 45%; right: -5%; width: 350px; height: 110px; animation-duration: 70s;"></div>
-        <div class="cloud" style="bottom: 25%; left: 5%; width: 160px; height: 55px; animation-duration: 40s;"></div>
+        <div class="cloud" style="top: 15%; left: -10%; width: 180px; height: 60px; animation-duration: 55s;"></div>
+        <div class="cloud" style="top: 45%; right: -5%; width: 250px; height: 90px; animation-duration: 70s;"></div>
     </div>
 
     <div class="noise-overlay"></div>
@@ -177,9 +190,10 @@
     <!-- NAVIGATION -->
     <nav class="fixed top-0 w-full z-50 flex justify-center pt-4 md:pt-6 px-4">
         <div class="glass-nav px-4 md:px-6 py-2 md:py-3 rounded-full flex items-center max-w-6xl w-full justify-between">
-            <div class="flex items-center gap-6">
+            <div class="flex items-center gap-4">
                 <a href="#" class="text-xl md:text-2xl font-black text-blue-600 tracking-tighter" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">JAAD.</a>
                 
+                <!-- Desktop Switcher -->
                 <div class="hidden lg:flex lang-switcher-elite">
                     <button class="lang-elite-item active" onclick="switchLanguage('fr')">FR</button>
                     <button class="lang-elite-item" onclick="switchLanguage('en')">EN</button>
@@ -194,8 +208,9 @@
                 <a href="#contact" class="hover:text-blue-600 transition-colors text-blue-600" data-i18n="nav-contact">Contact</a>
             </div>
 
-            <div class="flex items-center gap-3">
-                <div class="lg:hidden flex lang-switcher-elite">
+            <div class="flex items-center gap-2">
+                <!-- Mobile Switcher (Visible quand le menu est fermé) -->
+                <div id="mobile-lang-switcher" class="lg:hidden flex lang-switcher-elite">
                     <button class="lang-elite-item active" onclick="switchLanguage('fr')">FR</button>
                     <button class="lang-elite-item" onclick="switchLanguage('en')">EN</button>
                     <button class="lang-elite-item" onclick="switchLanguage('ar')">AR</button>
@@ -215,11 +230,12 @@
     <header class="relative h-screen w-full flex flex-col items-center justify-end pb-24 md:pb-32 overflow-hidden">
         <h1 id="parallax-title" class="giant-title">JAAD</h1>
         <div id="spline-hero-container">
+            <!-- Pas d'autoplay pour économiser les ressources -->
             <iframe src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' frameborder='0' onload="this.classList.add('loaded')"></iframe>
         </div>
         <div class="relative z-20 text-center px-6 mb-10">
             <div class="magnetic-wrap">
-                <a href="#contact" class="cloud-btn px-12 py-6 rounded-full text-base md:text-lg font-bold inline-flex items-center justify-center gap-4 text-white">
+                <a href="#contact" class="cloud-btn px-10 py-5 md:px-12 md:py-6 rounded-full text-base md:text-lg font-bold inline-flex items-center justify-center gap-4 text-white">
                     <span data-i18n="hero-btn">Lancer mon projet</span> <i data-lucide="chevron-right" class="w-5 h-5"></i>
                 </a>
             </div>
@@ -230,7 +246,7 @@
     <section id="services" class="relative z-10 bg-white pt-24 md:pt-32 pb-24 rounded-t-[50px] md:rounded-t-[80px] shadow-[0_-50px_100px_rgba(0,0,0,0.01)] border-t border-slate-50">
         <div class="px-6 md:px-20 max-w-7xl mx-auto">
             <div class="text-center mb-20 reveal-hidden">
-                <h2 class="text-5xl md:text-8xl font-black text-slate-900 tracking-tighter mb-8 leading-none" data-i18n="exp-title">Expertise<br><span class="text-blue-600">Digitale.</span></h2>
+                <h2 class="text-4xl md:text-8xl font-black text-slate-900 tracking-tighter mb-8 leading-none" data-i18n="exp-title">Expertise<br><span class="text-blue-600">Digitale.</span></h2>
                 <p class="text-slate-400 font-medium tracking-widest text-[10px] uppercase" data-i18n="exp-subtitle">L'art de l'immersion technologique</p>
             </div>
 
@@ -278,14 +294,14 @@
                 <div class="h-1 w-24 bg-blue-600 rounded-full"></div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-                <div class="spline-card is-3d-scene reveal-hidden">
+                <div class="spline-card is-3d-scene reveal-hidden shadow-sm">
                     <iframe src="https://my.spline.design/r4xbot-TowiBcjXeP3tiZRqqB7OwFiy/" frameborder='0' onload="this.classList.add('loaded')"></iframe>
                     <div class="absolute bottom-0 left-0 w-full p-12 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none">
                         <span class="text-blue-600 text-[10px] font-black uppercase tracking-widest block mb-4" data-i18n="port1-label">Bot Maintenance</span>
                         <h3 class="text-3xl font-bold text-slate-800">R4X Concept</h3>
                     </div>
                 </div>
-                <div class="spline-card is-3d-scene reveal-hidden" style="transition-delay: 100ms">
+                <div class="spline-card is-3d-scene reveal-hidden shadow-sm" style="transition-delay: 100ms">
                     <iframe src="https://my.spline.design/nexbotrobotcharacterconcept-ISR0inmI81qHYRxU9zwpmWsJ/" frameborder='0' onload="this.classList.add('loaded')"></iframe>
                     <div class="absolute bottom-0 left-0 w-full p-12 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none">
                         <span class="text-purple-600 text-[10px] font-black uppercase tracking-widest block mb-4" data-i18n="port2-label">Humanoïde</span>
@@ -299,19 +315,19 @@
     <!-- CONTACT -->
     <section id="contact" class="py-32 bg-slate-50 relative z-10 px-6">
         <div class="max-w-6xl mx-auto modern-card bg-white p-10 md:p-24 border-blue-100 bg-white reveal-hidden">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div>
                     <h2 class="text-4xl md:text-7xl font-black tracking-tighter mb-12 leading-none text-slate-900" data-i18n="cont-title">Parlons<br>Futur.</h2>
-                    <form class="space-y-8 max-w-md" onsubmit="event.preventDefault();">
-                        <input type="text" placeholder="Nom" class="w-full px-8 py-5 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-600 focus:bg-white outline-none transition-all font-medium" data-i18n-ph="ph-name">
-                        <input type="email" placeholder="Email" class="w-full px-8 py-5 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-600 focus:bg-white outline-none transition-all font-medium" data-i18n-ph="ph-email">
-                        <textarea rows="4" placeholder="Votre projet..." class="w-full px-8 py-5 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-600 focus:bg-white outline-none transition-all resize-none font-medium" data-i18n-ph="ph-msg"></textarea>
-                        <button type="submit" class="cloud-btn w-full py-6 rounded-2xl text-white font-black text-xl shadow-2xl flex justify-center items-center gap-4 group">
-                            <span data-i18n="cont-btn">Envoyer</span> <i data-lucide="send" class="group-hover:translate-x-2 group-hover:-translate-y-1 transition-transform"></i>
+                    <form class="space-y-6 max-w-md" onsubmit="event.preventDefault();">
+                        <input type="text" placeholder="Nom" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-600 focus:bg-white outline-none transition-all font-medium" data-i18n-ph="ph-name">
+                        <input type="email" placeholder="Email" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-600 focus:bg-white outline-none transition-all font-medium" data-i18n-ph="ph-email">
+                        <textarea rows="4" placeholder="Votre projet..." class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-600 focus:bg-white outline-none transition-all resize-none font-medium" data-i18n-ph="ph-msg"></textarea>
+                        <button type="submit" class="cloud-btn w-full py-5 rounded-2xl text-white font-black text-xl shadow-2xl flex justify-center items-center gap-4 group">
+                            <span data-i18n="cont-btn">Envoyer</span> <i data-lucide="send" class="w-6 h-6 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
                         </button>
                     </form>
                 </div>
-                <div class="h-[500px] w-full relative is-3d-scene spline-placeholder">
+                <div class="h-[400px] md:h-[500px] w-full relative is-3d-scene spline-placeholder">
                      <iframe src="https://my.spline.design/droid-lc7AFsZxKlPOLuGV8OVfEC8y/" frameborder='0' width='100%' height='100%' onload="this.classList.add('loaded')"></iframe>
                 </div>
             </div>
@@ -332,10 +348,8 @@
     </footer>
 
     <script>
-        // --- CHARGEMENT DES ICONES ---
-        document.addEventListener('DOMContentLoaded', () => {
-            if(window.lucide) lucide.createIcons();
-        });
+        // --- CHARGEMENT ICONES ---
+        document.addEventListener('DOMContentLoaded', () => { if(window.lucide) lucide.createIcons(); });
 
         // --- TRADUCTIONS ---
         const translations = {
@@ -396,7 +410,7 @@
             });
         }
 
-        // --- GESTION DU PRELOADER ---
+        // --- PRELOADER ---
         const preloader = document.getElementById('preloader');
         window.addEventListener('load', () => {
             setTimeout(() => {
@@ -412,30 +426,16 @@
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById("scroll-progress").style.width = scrolled + "%";
+            document.getElementById("scroll-progress").style.width = (winScroll / height) * 100 + "%";
         });
 
-        // --- PARALLAXE ---
-        const parallaxTitle = document.getElementById('parallax-title');
-        window.addEventListener('scroll', () => {
-            const scroll = window.pageYOffset;
-            if(window.innerWidth > 768) parallaxTitle.style.transform = `translate3d(-50%, calc(-50% + ${scroll * 0.12}px), 0)`;
-        });
-
-        // --- REVEAL ANIMATION (SCROLL OBSERVER) ---
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        // --- REVEAL ANIMATION ---
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal-visible');
-                }
-            });
-        }, observerOptions);
-
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal-visible'); });
+        }, { threshold: 0.1 });
         document.querySelectorAll('.reveal-hidden').forEach(section => observer.observe(section));
 
-        // --- MENU MOBILE & FIX SUPERPOSITION ---
+        // --- MENU MOBILE & FIX NAVIGATION ---
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const splineHeroContainer = document.getElementById('spline-hero-container');
@@ -461,7 +461,7 @@
             link.addEventListener('click', () => { if(isMenuOpen) toggleMenu(); });
         });
 
-        // Smooth Scroll Offset
+        // Smooth Scroll Offset Fix
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const targetId = this.getAttribute('href');
