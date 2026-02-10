@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JAAD | Agence Digitale Créative</title>
+    <!-- Scripts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -13,16 +14,11 @@
             --primary: #2563eb;
             --primary-glow: rgba(37, 99, 235, 0.4);
             --ivory: #fdfcfb;
+            --card-border: rgba(37, 99, 235, 0.1);
         }
 
-        html {
-            scroll-padding-top: 80px;
-            cursor: none;
-        }
-
-        @media (max-width: 768px) {
-            html { cursor: auto; scroll-padding-top: 70px; }
-        }
+        html { scroll-padding-top: 90px; }
+        @media (max-width: 768px) { html { scroll-padding-top: 80px; } }
 
         body {
             font-family: 'Outfit', sans-serif;
@@ -30,240 +26,137 @@
             color: #1e293b;
             overflow-x: hidden;
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- PRELOADER JAAD ANIMÉ --- */
+        /* --- BARRE DE PROGRESSION --- */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+            background: var(--primary); z-index: 110; transition: width 0.1s ease-out;
+        }
+
+        /* --- PRELOADER JAAD --- */
         #preloader {
-            position: fixed;
-            inset: 0;
-            z-index: 1000;
-            display: flex;
-            pointer-events: all;
-            background: transparent;
+            position: fixed; inset: 0; z-index: 1000;
+            display: flex; pointer-events: all; background: var(--ivory);
         }
-
         .loader-panel {
-            flex: 1;
-            height: 100%;
-            background: var(--ivory);
-            transition: transform 1.2s cubic-bezier(0.8, 0, 0.1, 1);
+            flex: 1; height: 100%; background: var(--ivory);
+            transition: transform 0.8s cubic-bezier(0.8, 0, 0.2, 1);
+            will-change: transform;
         }
-
-        .preloader-active .loader-panel {
-            transform: scaleY(0);
-        }
+        .preloader-active .loader-panel { transform: scaleY(0); }
         .preloader-active .loader-panel:nth-child(even) { transform-origin: top; }
         .preloader-active .loader-panel:nth-child(odd) { transform-origin: bottom; }
-
         .loader-content {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1010;
-            text-align: center;
-            transition: opacity 0.5s ease;
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            z-index: 1010; text-align: center; transition: opacity 0.4s ease;
         }
-
         .jaad-reveal {
-            font-size: 5rem;
-            font-weight: 900;
-            color: var(--primary);
-            letter-spacing: -5px;
-            position: relative;
-            overflow: hidden;
-            line-height: 1;
+            font-size: clamp(3rem, 10vw, 5rem); font-weight: 900; color: var(--primary);
+            letter-spacing: -5px; position: relative; overflow: hidden; line-height: 1;
         }
-
         .jaad-reveal::after {
-            content: 'JAAD.';
-            position: absolute;
-            left: 0; top: 0;
-            width: 100%;
-            color: #1e293b;
-            clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-            animation: reveal-text 1.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+            content: 'JAAD.'; position: absolute; left: 0; top: 0; width: 100%;
+            color: #1e293b; clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+            animation: reveal-text 1s cubic-bezier(0.7, 0, 0.3, 1) forwards;
         }
-
-        @keyframes reveal-text {
-            to { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
-        }
+        @keyframes reveal-text { to { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); } }
 
         /* --- NUAGES --- */
-        .cloud-layer {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -5;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
+        .cloud-layer { position: fixed; inset: 0; z-index: -5; pointer-events: none; overflow: hidden; }
         .cloud {
-            position: absolute;
-            background: #ffffff;
-            border-radius: 100px;
-            box-shadow: 0 8px 25px rgba(147, 197, 253, 0.2);
-            opacity: 0.6;
-            animation: floatCloud linear infinite;
+            position: absolute; background: #ffffff; border-radius: 100px;
+            box-shadow: 0 8px 25px rgba(147, 197, 253, 0.15); opacity: 0.5;
+            animation: floatCloud linear infinite; will-change: transform;
         }
-        
-        .cloud::after, .cloud::before {
-            content: ''; position: absolute; background: inherit; border-radius: 50%;
-        }
+        .cloud::after, .cloud::before { content: ''; position: absolute; background: inherit; border-radius: 50%; }
         .cloud::after { width: 40%; height: 100%; top: -40%; left: 15%; }
         .cloud::before { width: 30%; height: 80%; top: -30%; left: 50%; }
+        @keyframes floatCloud { from { transform: translate3d(-100%, 0, 0); } to { transform: translate3d(100vw, 0, 0); } }
 
-        @keyframes floatCloud {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(100vw); }
+        /* --- BOUTON NUAGE --- */
+        .cloud-btn {
+            position: relative; animation: floatButton 4s ease-in-out infinite;
+            background: var(--primary); box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.4), 0 0 15px 0px rgba(255, 255, 255, 0.3);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform;
         }
-
-        /* --- BOUTON GLITCH --- */
-        .glitch-btn {
-            position: relative;
-            transition: all 0.2s;
+        .cloud-btn:hover {
+            box-shadow: 0 20px 40px -12px rgba(37, 99, 235, 0.5), 0 0 25px 5px rgba(255, 255, 255, 0.6);
+            transform: scale(1.05) translateY(-5px); background: #1d4ed8;
         }
-
-        .glitch-btn:hover {
-            animation: glitch-shake 0.3s infinite linear;
-            background: #1e293b;
+        .cloud-btn::before {
+            content: ''; position: absolute; bottom: -20px; left: 15%; width: 70%; height: 12px;
+            background: rgba(37, 99, 235, 0.1); filter: blur(10px); border-radius: 50%;
+            animation: shadowPulse 4s ease-in-out infinite; pointer-events: none;
         }
-
-        @keyframes glitch-shake {
-            0% { transform: translate(0); text-shadow: 2px 0 #ff00c1, -2px 0 #00fff9; }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
-        }
-
-        /* --- CURSEUR NET --- */
-        .custom-cursor {
-            position: fixed;
-            top: 0; left: 0;
-            width: 12px; height: 12px;
-            background: var(--primary);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            will-change: transform;
-            transform: translate3d(-50%, -50%, 0);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-size: 0;
-            font-weight: 800;
-            transition: background 0.3s, border 0.3s;
-        }
-
-        .custom-cursor.is-3d {
-            width: auto;
-            height: auto;
-            background: transparent;
-            font-size: 0; /* Suppression du texte manipuler comme souhaité */
-            padding: 10px;
-        }
-
-        @media (max-width: 768px) { .custom-cursor { display: none; } }
+        @keyframes floatButton { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -15px, 0); } }
+        @keyframes shadowPulse { 0%, 100% { transform: scale(1); opacity: 0.2; } 50% { transform: scale(0.6); opacity: 0.05; } }
 
         /* --- UI ELEMENTS --- */
         .glass-nav {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.02);
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
         }
-
         .modern-card {
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 32px; border: 1px solid rgba(255, 255, 255, 1);
+            box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.05); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            background: rgba(255, 255, 255, 0.85); overflow: hidden;
         }
+        .modern-card:hover { transform: translate3d(0, -8px, 0); background: #ffffff; border-color: var(--card-border); box-shadow: 0 30px 60px -20px rgba(37, 99, 235, 0.1); }
+        .colored-card { background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%); color: white; border: none; }
 
-        .card-white { background: rgba(255, 255, 255, 0.8); }
-        .card-white:hover { 
-            background: #ffffff; transform: translateY(-12px); 
-            box-shadow: 0 40px 80px -20px rgba(37, 99, 235, 0.15); 
-        }
-
-        .colored-card { 
-            background: linear-gradient(135deg, #2563eb, #4f46e5); 
-            color: white; 
-        }
-        .colored-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 40px 80px -20px rgba(37, 99, 235, 0.3);
-        }
-
-        /* --- TITRE PARALLAXE --- */
         .giant-title {
-            font-size: 28vw;
-            font-weight: 900;
-            line-height: 0.8;
-            text-align: center;
+            font-size: 28vw; font-weight: 900; line-height: 0.8; text-align: center;
             background: linear-gradient(180deg, #3b82f6 0%, #93c5fd 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0.12;
-            position: absolute;
-            top: 45%; left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
-            pointer-events: none;
-            user-select: none;
-            letter-spacing: -0.05em;
-            will-change: transform;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            opacity: 0.12; position: absolute; top: 45%; left: 50%;
+            transform: translate(-50%, -50%); z-index: 1; pointer-events: none;
         }
         @media (min-width: 768px) { .giant-title { font-size: 24vw; top: 50%; } }
 
-        /* --- SPLINE HERO (AGRANDI & SURVOLE LE MENU) --- */
-        .spline-container {
-            position: absolute;
-            top: 45%; left: 50%;
-            transform: translate(-50%, -50%) scale(1.1); /* Agrandissement Mobile */
-            width: 100%; height: 100%;
-            z-index: 60; 
-            pointer-events: none;
+        #spline-hero-container {
+            position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%) scale(2.2);
+            width: 100%; height: 100%; z-index: 60; pointer-events: none; display: flex;
+            align-items: center; justify-content: center; transition: z-index 0.3s step-end;
         }
-        @media (min-width: 768px) {
-            .spline-container { 
-                top: 50%; 
-                transform: translate(-50%, -50%) scale(1.4); /* Agrandissement Desktop */
-            }
+        #spline-hero-container.behind-menu { z-index: 40 !important; }
+        @media (min-width: 768px) { #spline-hero-container { top: 50%; transform: translate(-50%, -50%) scale(1.4); } }
+        #spline-hero-container iframe { width: 100%; height: 100%; pointer-events: none; }
+
+        /* --- SPLINE CARDS --- */
+        .spline-card, .spline-placeholder {
+            height: 450px; border-radius: 40px; background: #f8fafc;
+            position: relative; overflow: hidden; border: 1px solid white;
         }
-        .spline-container iframe { pointer-events: none; }
-
-        .spline-card {
-            height: 450px;
-            border-radius: 40px;
-            background: #f8fafc;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid white;
+        .spline-card iframe, .spline-placeholder iframe { 
+            width: 100%; height: 100%; border: none; 
+            opacity: 0; transition: opacity 1.5s ease;
         }
-        .spline-card iframe { width: 100%; height: 100%; border: none; opacity: 0; transition: opacity 1.5s ease; }
-        .spline-card iframe.loaded { opacity: 1; }
+        .spline-card iframe.loaded, .spline-placeholder iframe.loaded { opacity: 1 !important; }
 
-        .reveal-hidden { opacity: 0; transform: translateY(30px); }
-        .reveal-visible { opacity: 1; transform: translateY(0); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-hidden { opacity: 0; transform: translate3d(0, 20px, 0); filter: blur(3px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-visible { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
 
-        .magnetic-wrap { display: inline-block; transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .noise-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 9998; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
 
-        .noise-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 9998;
-            opacity: 0.05;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        /* --- SÉLECTEUR LANGUE ÉLITE --- */
+        .lang-switcher-elite {
+            display: flex; align-items: center; background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0, 0, 0, 0.05); padding: 3px; border-radius: 100px; gap: 2px;
         }
+        .lang-elite-item {
+            padding: 6px 12px; border-radius: 100px; font-size: 10px; font-weight: 800;
+            color: #64748b; transition: all 0.3s ease; cursor: pointer; user-select: none; text-transform: uppercase;
+        }
+        .lang-elite-item.active { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2); }
     </style>
 </head>
-<body>
+<body dir="ltr">
 
-    <!-- PRELOADER JAAD REVEAL (TEXTE ÉPURÉ) -->
+    <div id="scroll-progress"></div>
+
+    <!-- PRELOADER -->
     <div id="preloader">
         <div class="loader-content" id="loader-content">
             <div class="jaad-reveal">JAAD.</div>
@@ -275,114 +168,127 @@
     <!-- NUAGES -->
     <div class="cloud-layer">
         <div class="cloud" style="top: 15%; left: -10%; width: 220px; height: 70px; animation-duration: 55s;"></div>
-        <div class="cloud" style="top: 45%; right: -5%; width: 350px; height: 110px; animation-duration: 70s; animation-delay: -5s;"></div>
-        <div class="cloud" style="bottom: 25%; left: 5%; width: 160px; height: 55px; animation-duration: 40s; animation-delay: -20s;"></div>
+        <div class="cloud" style="top: 45%; right: -5%; width: 350px; height: 110px; animation-duration: 70s;"></div>
+        <div class="cloud" style="bottom: 25%; left: 5%; width: 160px; height: 55px; animation-duration: 40s;"></div>
     </div>
 
     <div class="noise-overlay"></div>
-    <div id="custom-cursor" class="custom-cursor"></div>
 
-    <!-- BACKGROUND -->
-    <div class="fixed inset-0 overflow-hidden -z-10 bg-slate-50">
-        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-blue-50/50 to-white"></div>
-    </div>
-
-    <!-- NAVIGATION (Z-INDEX 50) -->
-    <nav class="fixed top-0 w-full z-50 flex justify-center pt-4 md:pt-8 px-4">
-        <div class="glass-nav px-8 md:px-12 py-3 md:py-5 rounded-full flex items-center max-w-4xl w-full justify-between">
-            <a href="#" class="text-xl md:text-3xl font-black text-blue-600 tracking-tighter hoverable" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">JAAD.</a>
-            <div class="hidden md:flex gap-12 text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em]">
-                <a href="#services" class="hover:text-blue-600 transition-colors hoverable">Expertise</a>
-                <a href="#portfolio" class="hover:text-blue-600 transition-colors hoverable">Réalisations</a>
-                <a href="#contact" class="hover:text-blue-600 transition-colors hoverable text-blue-600">Contact</a>
+    <!-- NAVIGATION -->
+    <nav class="fixed top-0 w-full z-50 flex justify-center pt-4 md:pt-6 px-4">
+        <div class="glass-nav px-4 md:px-6 py-2 md:py-3 rounded-full flex items-center max-w-6xl w-full justify-between">
+            <div class="flex items-center gap-6">
+                <a href="#" class="text-xl md:text-2xl font-black text-blue-600 tracking-tighter" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">JAAD.</a>
+                
+                <div class="hidden lg:flex lang-switcher-elite">
+                    <button class="lang-elite-item active" onclick="switchLanguage('fr')">FR</button>
+                    <button class="lang-elite-item" onclick="switchLanguage('en')">EN</button>
+                    <button class="lang-elite-item" onclick="switchLanguage('es')">ES</button>
+                    <button class="lang-elite-item" onclick="switchLanguage('ar')">AR</button>
+                </div>
             </div>
-            <button id="menu-btn" class="md:hidden text-blue-600 p-2 hoverable"><i data-lucide="menu"></i></button>
+
+            <div class="hidden md:flex gap-8 text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] items-center">
+                <a href="#services" class="hover:text-blue-600 transition-colors" data-i18n="nav-expertise">Expertise</a>
+                <a href="#portfolio" class="hover:text-blue-600 transition-colors" data-i18n="nav-realisations">Réalisations</a>
+                <a href="#contact" class="hover:text-blue-600 transition-colors text-blue-600" data-i18n="nav-contact">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <div class="lg:hidden flex lang-switcher-elite">
+                    <button class="lang-elite-item active" onclick="switchLanguage('fr')">FR</button>
+                    <button class="lang-elite-item" onclick="switchLanguage('en')">EN</button>
+                    <button class="lang-elite-item" onclick="switchLanguage('ar')">AR</button>
+                </div>
+                <button id="menu-btn" class="md:hidden text-blue-600 p-2"><i data-lucide="menu" id="menu-icon"></i></button>
+            </div>
         </div>
         
         <div id="mobile-menu" class="fixed inset-x-4 top-24 bg-white/95 backdrop-blur-2xl p-10 rounded-[40px] shadow-2xl flex flex-col gap-8 text-center scale-90 opacity-0 pointer-events-none transition-all duration-300 origin-top">
-            <a href="#services" class="mobile-link text-xl font-bold">Expertise</a>
-            <a href="#portfolio" class="mobile-link text-xl font-bold">Réalisations</a>
-            <a href="#contact" class="mobile-link text-xl font-bold text-blue-600 font-black">Projet</a>
+            <a href="#services" class="mobile-link text-xl font-bold text-slate-700" data-i18n="nav-expertise">Expertise</a>
+            <a href="#portfolio" class="mobile-link text-xl font-bold text-slate-700" data-i18n="nav-realisations">Réalisations</a>
+            <a href="#contact" class="mobile-link text-xl font-bold text-blue-600 font-black" data-i18n="nav-contact">Contact</a>
         </div>
     </nav>
 
     <!-- HERO -->
     <header class="relative h-screen w-full flex flex-col items-center justify-end pb-24 md:pb-32 overflow-hidden">
         <h1 id="parallax-title" class="giant-title">JAAD</h1>
-        <!-- Robot Hero vole DEVANT le menu - Taille agrandie -->
-        <div class="spline-container">
-            <iframe src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' frameborder='0' width="100%" height="100%"></iframe>
+        <div id="spline-hero-container">
+            <iframe src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' frameborder='0' onload="this.classList.add('loaded')"></iframe>
         </div>
-        <div class="relative z-20 text-center px-6">
+        <div class="relative z-20 text-center px-6 mb-10">
             <div class="magnetic-wrap">
-                <a href="#contact" class="glitch-btn px-12 py-6 rounded-full text-base md:text-lg font-bold inline-flex items-center justify-center gap-4 bg-blue-600 text-white shadow-[0_20px_40px_rgba(37, 99, 235, 0.3)] hoverable">
-                    Lancer mon projet <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                <a href="#contact" class="cloud-btn px-12 py-6 rounded-full text-base md:text-lg font-bold inline-flex items-center justify-center gap-4 text-white">
+                    <span data-i18n="hero-btn">Lancer mon projet</span> <i data-lucide="chevron-right" class="w-5 h-5"></i>
                 </a>
             </div>
         </div>
     </header>
 
     <!-- EXPERTISE -->
-    <section id="services" class="relative z-10 bg-white pt-24 md:pt-32 pb-24 rounded-t-[50px] md:rounded-t-[100px] shadow-[0_-50px_100px_rgba(0,0,0,0.02)]">
+    <section id="services" class="relative z-10 bg-white pt-24 md:pt-32 pb-24 rounded-t-[50px] md:rounded-t-[80px] shadow-[0_-50px_100px_rgba(0,0,0,0.01)] border-t border-slate-50">
         <div class="px-6 md:px-20 max-w-7xl mx-auto">
-            <div class="text-center mb-24 reveal-hidden">
-                <h2 class="text-5xl md:text-8xl font-black text-slate-900 tracking-tighter mb-8 leading-none">Expertise<br><span class="text-blue-600">Digitale.</span></h2>
+            <div class="text-center mb-20 reveal-hidden">
+                <h2 class="text-5xl md:text-8xl font-black text-slate-900 tracking-tighter mb-8 leading-none" data-i18n="exp-title">Expertise<br><span class="text-blue-600">Digitale.</span></h2>
+                <p class="text-slate-400 font-medium tracking-widest text-[10px] uppercase" data-i18n="exp-subtitle">L'art de l'immersion technologique</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="modern-card card-white p-10 reveal-hidden group cursor-pointer hoverable">
-                    <div class="w-16 h-16 rounded-3xl bg-blue-50 text-blue-600 flex items-center justify-center mb-8 group-hover:rotate-6 transition-transform">
+                <div class="modern-card p-10 reveal-hidden group cursor-pointer">
+                    <div class="w-16 h-16 rounded-3xl bg-blue-50 text-blue-600 flex items-center justify-center mb-8 group-hover:rotate-6 transition-all duration-500">
                         <i data-lucide="monitor" class="w-8 h-8"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-4">Web Design</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">Interfaces immersives et architectures modernes.</p>
+                    <h3 class="text-xl font-bold text-slate-800 mb-4" data-i18n="srv1-title">Web Design</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed" data-i18n="srv1-desc">Interfaces haute couture et architectures modernes.</p>
                 </div>
 
-                <div class="modern-card card-white p-10 reveal-hidden group cursor-pointer hoverable" style="transition-delay: 100ms">
-                    <div class="w-16 h-16 rounded-3xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-8 group-hover:-rotate-6 transition-transform">
+                <div class="modern-card p-10 reveal-hidden group cursor-pointer" style="transition-delay: 100ms">
+                    <div class="w-16 h-16 rounded-3xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-8 group-hover:-rotate-6 transition-all duration-500">
                         <i data-lucide="smartphone" class="w-8 h-8"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-4">Apps Mobile</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">Expériences tactiles fluides et performantes.</p>
+                    <h3 class="text-xl font-bold text-slate-800 mb-4" data-i18n="srv2-title">Apps Mobile</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed" data-i18n="srv2-desc">Expériences tactiles fluides conçues pour demain.</p>
                 </div>
 
-                <div class="modern-card card-white p-10 reveal-hidden group cursor-pointer hoverable" style="transition-delay: 200ms">
-                    <div class="w-16 h-16 rounded-3xl bg-sky-50 text-sky-600 flex items-center justify-center mb-8 group-hover:rotate-12 transition-transform">
+                <div class="modern-card p-10 reveal-hidden group cursor-pointer" style="transition-delay: 200ms">
+                    <div class="w-16 h-16 rounded-3xl bg-sky-50 text-sky-600 flex items-center justify-center mb-8 group-hover:rotate-12 transition-all duration-500">
                         <i data-lucide="box" class="w-8 h-8"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-4">Studio 3D</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">Production visuelle interactive pour immersion totale.</p>
+                    <h3 class="text-xl font-bold text-slate-800 mb-4" data-i18n="srv3-title">Studio 3D</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed" data-i18n="srv3-desc">Production visuelle interactive haute fidélité.</p>
                 </div>
 
-                <div class="modern-card colored-card p-10 reveal-hidden group cursor-pointer hoverable" style="transition-delay: 300ms">
-                    <div class="w-16 h-16 rounded-3xl bg-white/20 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                <div class="modern-card colored-card p-10 reveal-hidden group cursor-pointer" style="transition-delay: 300ms">
+                    <div class="w-16 h-16 rounded-3xl bg-white/20 flex items-center justify-center mb-8 group-hover:scale-110 transition-all duration-500">
                         <i data-lucide="graduation-cap" class="w-8 h-8 text-white"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-4">E-Learning</h3>
-                    <p class="text-blue-50 text-sm leading-relaxed">Gamification et plateformes interactives de formation.</p>
+                    <h3 class="text-xl font-bold text-white mb-4" data-i18n="srv4-title">E-Learning</h3>
+                    <p class="text-blue-50 text-sm leading-relaxed" data-i18n="srv4-desc">Gamification et plateformes de formation.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- PORTFOLIO -->
-    <section id="portfolio" class="py-32 bg-white relative z-10 border-t border-slate-50">
+    <section id="portfolio" class="py-32 bg-white relative z-10">
         <div class="max-w-7xl mx-auto px-6">
             <div class="mb-24 reveal-hidden">
-                <h2 class="text-5xl md:text-8xl font-black text-slate-900 tracking-tighter mb-6">Réalisations.</h2>
+                <h2 class="text-5xl md:text-8xl font-black text-slate-900 tracking-tighter mb-6" data-i18n="port-title">Réalisations.</h2>
+                <div class="h-1 w-24 bg-blue-600 rounded-full"></div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-                <div class="spline-card is-3d-scene reveal-hidden" data-spline="https://my.spline.design/r4xbot-TowiBcjXeP3tiZRqqB7OwFiy/">
-                    <iframe frameborder='0'></iframe>
+                <div class="spline-card is-3d-scene reveal-hidden">
+                    <iframe src="https://my.spline.design/r4xbot-TowiBcjXeP3tiZRqqB7OwFiy/" frameborder='0' onload="this.classList.add('loaded')"></iframe>
                     <div class="absolute bottom-0 left-0 w-full p-12 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none">
-                        <span class="text-blue-600 text-[10px] font-black uppercase tracking-widest block mb-4">Bot Maintenance</span>
+                        <span class="text-blue-600 text-[10px] font-black uppercase tracking-widest block mb-4" data-i18n="port1-label">Bot Maintenance</span>
                         <h3 class="text-3xl font-bold text-slate-800">R4X Concept</h3>
                     </div>
                 </div>
-                <div class="spline-card is-3d-scene reveal-hidden" data-spline="https://my.spline.design/nexbotrobotcharacterconcept-ISR0inmI81qHYRxU9zwpmWsJ/" style="transition-delay: 0.1s">
-                    <iframe frameborder='0'></iframe>
+                <div class="spline-card is-3d-scene reveal-hidden" style="transition-delay: 100ms">
+                    <iframe src="https://my.spline.design/nexbotrobotcharacterconcept-ISR0inmI81qHYRxU9zwpmWsJ/" frameborder='0' onload="this.classList.add('loaded')"></iframe>
                     <div class="absolute bottom-0 left-0 w-full p-12 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none">
-                        <span class="text-purple-600 text-[10px] font-black uppercase tracking-widest block mb-4">Humanoid</span>
+                        <span class="text-purple-600 text-[10px] font-black uppercase tracking-widest block mb-4" data-i18n="port2-label">Humanoïde</span>
                         <h3 class="text-3xl font-bold text-slate-800">NexBot Evo</h3>
                     </div>
                 </div>
@@ -395,37 +301,100 @@
         <div class="max-w-6xl mx-auto modern-card bg-white p-10 md:p-24 border-blue-100 bg-white reveal-hidden">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
                 <div>
-                    <h2 class="text-4xl md:text-7xl font-black tracking-tighter mb-12 leading-none text-slate-900">Parlons<br>Futur.</h2>
-                    <form class="space-y-8 max-w-md">
-                        <input type="text" placeholder="Nom" class="w-full px-8 py-5 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-600 focus:bg-white outline-none transition-all hoverable font-medium">
-                        <input type="email" placeholder="Email" class="w-full px-8 py-5 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-600 focus:bg-white outline-none transition-all hoverable font-medium">
-                        <textarea rows="4" placeholder="Votre projet..." class="w-full px-8 py-5 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-600 focus:bg-white outline-none transition-all hoverable resize-none font-medium"></textarea>
-                        <div class="magnetic-wrap w-full">
-                            <button type="submit" class="glitch-btn w-full py-6 rounded-2xl bg-blue-600 text-white font-black text-xl hover:bg-blue-700 shadow-2xl transition-all hoverable flex justify-center items-center gap-4">
-                                Envoyer <i data-lucide="send" class="w-5 h-5"></i>
-                            </button>
-                        </div>
+                    <h2 class="text-4xl md:text-7xl font-black tracking-tighter mb-12 leading-none text-slate-900" data-i18n="cont-title">Parlons<br>Futur.</h2>
+                    <form class="space-y-8 max-w-md" onsubmit="event.preventDefault();">
+                        <input type="text" placeholder="Nom" class="w-full px-8 py-5 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-600 focus:bg-white outline-none transition-all font-medium" data-i18n-ph="ph-name">
+                        <input type="email" placeholder="Email" class="w-full px-8 py-5 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-600 focus:bg-white outline-none transition-all font-medium" data-i18n-ph="ph-email">
+                        <textarea rows="4" placeholder="Votre projet..." class="w-full px-8 py-5 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-blue-600 focus:bg-white outline-none transition-all resize-none font-medium" data-i18n-ph="ph-msg"></textarea>
+                        <button type="submit" class="cloud-btn w-full py-6 rounded-2xl text-white font-black text-xl shadow-2xl flex justify-center items-center gap-4 group">
+                            <span data-i18n="cont-btn">Envoyer</span> <i data-lucide="send" class="group-hover:translate-x-2 group-hover:-translate-y-1 transition-transform"></i>
+                        </button>
                     </form>
                 </div>
-                <div class="h-[500px] w-full relative is-3d-scene spline-placeholder" data-spline="https://my.spline.design/droid-lc7AFsZxKlPOLuGV8OVfEC8y/">
-                     <iframe frameborder='0' width='100%' height='100%' style="pointer-events: auto;"></iframe>
+                <div class="h-[500px] w-full relative is-3d-scene spline-placeholder">
+                     <iframe src="https://my.spline.design/droid-lc7AFsZxKlPOLuGV8OVfEC8y/" frameborder='0' width='100%' height='100%' onload="this.classList.add('loaded')"></iframe>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="bg-white py-24 border-t border-slate-100 relative z-10">
+    <footer class="bg-white py-20 border-t border-slate-100 relative z-10">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-16">
             <div class="text-4xl font-black text-slate-900 tracking-tighter">JAAD.</div>
-            <div class="flex gap-12 text-slate-400">
-                <a href="#" class="hover:text-blue-600 hoverable transition-colors"><i data-lucide="linkedin" class="w-8 h-8"></i></a>
-                <a href="#" class="hover:text-blue-600 hoverable transition-colors"><i data-lucide="instagram" class="w-8 h-8"></i></a>
+            <div class="flex flex-col md:flex-row items-center gap-12 text-slate-400">
+                <div class="flex gap-12">
+                    <a href="#" class="hover:text-blue-600 transition-colors"><i data-lucide="linkedin"></i></a>
+                    <a href="#" class="hover:text-blue-600 transition-colors"><i data-lucide="instagram"></i></a>
+                </div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.4em]">© 2026 Agence JAAD.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        lucide.createIcons();
+        // --- CHARGEMENT DES ICONES ---
+        document.addEventListener('DOMContentLoaded', () => {
+            if(window.lucide) lucide.createIcons();
+        });
+
+        // --- TRADUCTIONS ---
+        const translations = {
+            fr: {
+                "nav-expertise": "Expertise", "nav-realisations": "Réalisations", "nav-contact": "Contact",
+                "hero-btn": "Lancer mon projet", "exp-title": "Expertise<br><span class='text-blue-600'>Digitale.</span>",
+                "exp-subtitle": "L'art de l'immersion technologique", "srv1-title": "Web Design", "srv1-desc": "Interfaces haute couture et architectures modernes.",
+                "srv2-title": "Apps Mobile", "srv2-desc": "Expériences tactiles fluides conçues pour demain.",
+                "srv3-title": "Studio 3D", "srv3-desc": "Production visuelle interactive haute fidélité.",
+                "srv4-title": "E-Learning", "srv4-desc": "Gamification et plateformes de formation.",
+                "port-title": "Réalisations.", "port1-label": "Bot Maintenance", "port2-label": "Humanoïde",
+                "cont-title": "Parlons<br>Futur.", "cont-btn": "Envoyer", "ph-name": "Nom", "ph-email": "Email", "ph-msg": "Votre projet..."
+            },
+            en: {
+                "nav-expertise": "Expertise", "nav-realisations": "Works", "nav-contact": "Contact",
+                "hero-btn": "Start my project", "exp-title": "Digital<br><span class='text-blue-600'>Expertise.</span>",
+                "exp-subtitle": "The art of technological immersion", "srv1-title": "Web Design", "srv1-desc": "High-end interfaces and modern architectures.",
+                "srv2-title": "Mobile Apps", "srv2-desc": "Fluid touch experiences designed for tomorrow.",
+                "srv3-title": "3D Studio", "srv3-desc": "High-fidelity interactive visual production.",
+                "srv4-title": "E-Learning", "srv4-desc": "Gamification and interactive platforms.",
+                "port-title": "Projects.", "port1-label": "Maintenance Bot", "port2-label": "Humanoid",
+                "cont-title": "Let's Talk<br>Future.", "cont-btn": "Send", "ph-name": "Name", "ph-email": "Email", "ph-msg": "Your project..."
+            },
+            es: {
+                "nav-expertise": "Experiencia", "nav-realisations": "Proyectos", "nav-contact": "Contacto",
+                "hero-btn": "Iniciar mi proyecto", "exp-title": "Experiencia<br><span class='text-blue-600'>Digital.</span>",
+                "exp-subtitle": "El arte de la inmersión tecnológica", "srv1-title": "Diseño Web", "srv1-desc": "Interfaces de alta costura y arquitecturas modernas.",
+                "srv2-title": "Apps Móviles", "srv2-desc": "Experiencias táctiles fluidas para el mañana.",
+                "srv3-title": "Estudio 3D", "srv3-desc": "Producción visual interactiva de alta fidelidad.",
+                "srv4-title": "E-Learning", "srv4-desc": "Gamificación y plataformas interactivas.",
+                "port-title": "Proyectos.", "port1-label": "Bot de Mantenimiento", "port2-label": "Humanoide",
+                "cont-title": "Hablemos<br>Futuro.", "cont-btn": "Enviar", "ph-name": "Nombre", "ph-email": "Email", "ph-msg": "Tu proyecto..."
+            },
+            ar: {
+                "nav-expertise": "الخبرة", "nav-realisations": "الأعمال", "nav-contact": "اتصل بنا",
+                "hero-btn": "ابدأ مشروعي", "exp-title": "الخبرة<br><span class='text-blue-600'>الرقمية.</span>",
+                "exp-subtitle": "فن الانغماس التكنولوجي", "srv1-title": "تصميم المواقع", "srv1-desc": "واجهات راقية وهياكل حديثة للعلامات التجارية.",
+                "srv2-title": "تطبيقات الجوال", "srv2-desc": "تجارب لمس سلسة مصممة للمستقبل.",
+                "srv3-title": "استوديو ثلاثي الأبعاد", "srv3-desc": "إنتاج بصري تفاعلي عالي الدقة.",
+                "srv4-title": "التعلم الإلكتروني", "srv4-desc": "اللعب والمنصات التفاعلية للجيل الجديد.",
+                "port-title": "إنجازاتنا.", "port1-label": "روبوت الصيانة", "port2-label": "بشري آلي",
+                "cont-title": "لنتحدث عن<br>المستقبل.", "cont-btn": "إرسال", "ph-name": "الاسم", "ph-email": "البريد الإلكتروني", "ph-msg": "مشروعك..."
+            }
+        };
+
+        function switchLanguage(lang) {
+            document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+            document.querySelectorAll('.lang-elite-item').forEach(btn => {
+                btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
+            });
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.innerHTML = translations[lang][key];
+            });
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+                const key = el.getAttribute('data-i18n-ph');
+                if (translations[lang][key]) el.placeholder = translations[lang][key];
+            });
+        }
 
         // --- GESTION DU PRELOADER ---
         const preloader = document.getElementById('preloader');
@@ -434,114 +403,76 @@
                 document.getElementById('loader-content').style.opacity = "0";
                 setTimeout(() => {
                     preloader.classList.add('preloader-active');
-                    setTimeout(() => preloader.style.display = 'none', 1400);
-                }, 300);
-            }, 2000);
+                    setTimeout(() => preloader.style.display = 'none', 1000);
+                }, 200);
+            }, 1200);
         });
 
-        // --- CURSEUR SIGNATURE (NET & FIXE) ---
-        const cursor = document.getElementById('custom-cursor');
-        let mX = 0, mY = 0, cX = 0, cY = 0;
-        document.addEventListener('mousemove', e => { mX = e.clientX; mY = e.clientY; });
-        function updateCursor() {
-            cX += (mX - cX) * 0.15;
-            cY += (mY - cY) * 0.15;
-            cursor.style.transform = `translate3d(${cX}px, ${cY}px, 0) translate3d(-50%, -50%, 0)`;
-            requestAnimationFrame(updateCursor);
-        }
-        updateCursor();
-
-        const hoverables = document.querySelectorAll('.hoverable, a, button, input, textarea');
-        hoverables.forEach(el => {
-            el.addEventListener('mouseenter', () => { 
-                cursor.style.background = "transparent"; 
-                cursor.style.border = "2px solid var(--primary)";
-            });
-            el.addEventListener('mouseleave', () => { 
-                cursor.style.background = "var(--primary)"; 
-                cursor.style.border = "none";
-            });
-        });
-
-        // Gestion discrète pour les scènes Spline (le curseur reste un point net)
-        const scenes = document.querySelectorAll('.is-3d-scene, .spline-card');
-        scenes.forEach(s => {
-            s.addEventListener('mouseenter', () => { 
-                cursor.classList.add('is-3d');
-            });
-            s.addEventListener('mouseleave', () => { 
-                cursor.classList.remove('is-3d');
-            });
-        });
-
-        // --- MAGNÉTIQUE ---
-        const magnets = document.querySelectorAll('.magnetic-wrap');
-        magnets.forEach(m => {
-            m.addEventListener('mousemove', (e) => {
-                const rect = m.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                m.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-            });
-            m.addEventListener('mouseleave', () => m.style.transform = `translate(0, 0)`);
+        // --- BARRE DE PROGRESSION ---
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
         });
 
         // --- PARALLAXE ---
         const parallaxTitle = document.getElementById('parallax-title');
         window.addEventListener('scroll', () => {
             const scroll = window.pageYOffset;
-            if(window.innerWidth > 768) parallaxTitle.style.transform = `translate(-50%, calc(-50% + ${scroll * 0.12}px))`;
+            if(window.innerWidth > 768) parallaxTitle.style.transform = `translate3d(-50%, calc(-50% + ${scroll * 0.12}px), 0)`;
         });
 
-        // --- LAZY LOAD SPLINE ---
-        const loadSpline = (container) => {
-            const iframe = container.querySelector('iframe');
-            const splineUrl = container.getAttribute('data-spline');
-            if (iframe && !iframe.src) {
-                iframe.src = splineUrl;
-                iframe.onload = () => iframe.classList.add('loaded');
-            }
-        };
-
-        const splineObserver = new IntersectionObserver((entries) => {
+        // --- REVEAL ANIMATION (SCROLL OBSERVER) ---
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => { if(entry.isIntersecting) loadSpline(entry.target); }, 400);
+                    entry.target.classList.add('reveal-visible');
                 }
             });
-        }, { threshold: 0.15 });
+        }, observerOptions);
 
-        document.querySelectorAll('.spline-card, .spline-placeholder').forEach(card => {
-            splineObserver.observe(card);
-            card.addEventListener('mouseenter', () => loadSpline(card));
-        });
+        document.querySelectorAll('.reveal-hidden').forEach(section => observer.observe(section));
 
-        // --- REVEAL ANIMATION ---
-        document.addEventListener("DOMContentLoaded", function() {
-            const sections = document.querySelectorAll('.reveal-hidden');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('reveal-visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            sections.forEach(section => observer.observe(section));
-        });
-
-        // MENU MOBILE
+        // --- MENU MOBILE & FIX SUPERPOSITION ---
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
+        const splineHeroContainer = document.getElementById('spline-hero-container');
+        const menuIcon = document.getElementById('menu-icon');
         let isMenuOpen = false;
-        menuBtn.addEventListener('click', () => {
+
+        function toggleMenu() {
             isMenuOpen = !isMenuOpen;
             if(isMenuOpen) {
                 mobileMenu.style.opacity = "1"; mobileMenu.style.pointerEvents = "all"; mobileMenu.style.transform = "scale(1) translateY(0)";
+                splineHeroContainer.classList.add('behind-menu');
+                menuIcon.setAttribute('data-lucide', 'x');
             } else {
                 mobileMenu.style.opacity = "0"; mobileMenu.style.pointerEvents = "none"; mobileMenu.style.transform = "scale(0.9) translateY(-10px)";
+                setTimeout(() => { if(!isMenuOpen) splineHeroContainer.classList.remove('behind-menu'); }, 300);
+                menuIcon.setAttribute('data-lucide', 'menu');
             }
-            menuBtn.innerHTML = isMenuOpen ? '<i data-lucide="x"></i>' : '<i data-lucide="menu"></i>';
-            lucide.createIcons();
+            if(window.lucide) lucide.createIcons();
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => { if(isMenuOpen) toggleMenu(); });
+        });
+
+        // Smooth Scroll Offset
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const offset = window.innerWidth < 768 ? 80 : 90;
+                    window.scrollTo({ top: targetElement.getBoundingClientRect().top + window.pageYOffset - offset, behavior: "smooth" });
+                }
+            });
         });
     </script>
 </body>
