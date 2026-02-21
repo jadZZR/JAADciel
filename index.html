@@ -30,7 +30,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* PROTECTION DU SCROLL : On force l'iframe à être ignorée par la souris et le toucher */
+        /* PROTECTION DU SCROLL */
         #hero-spline {
             pointer-events: none !important;
             user-select: none !important;
@@ -73,8 +73,7 @@
 
         .loader-logo-base {
             font-family: 'Outfit', sans-serif; 
-            /* Taille réduite pour éviter tout débordement sur mobile */
-            font-size: clamp(2.2rem, 10vw, 5rem); 
+            font-size: clamp(2rem, 10vw, 5rem); 
             font-weight: 900;
             color: rgba(255, 255, 255, 0.2); font-style: italic; letter-spacing: -0.02em;
             position: relative; text-transform: uppercase;
@@ -84,12 +83,6 @@
             position: absolute; top: 0; left: 0;
             color: #ffffff; width: 0%; overflow: hidden;
             white-space: nowrap; transition: width 0.5s ease-in-out;
-        }
-
-        /* Fix Chrome Autofill */
-        input:-webkit-autofill {
-            -webkit-text-fill-color: white !important;
-            -webkit-box-shadow: 0 0 0px 1000px #0f172a inset !important;
         }
 
         /* --- NAV --- */
@@ -202,11 +195,11 @@
         <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(180deg, var(--primary) 0%, var(--sky-blue) 60%, var(--bg-main) 100%);">
             <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.85),transparent_75%)] z-10 pointer-events-none"></div>
             
-            <!-- SPLINE IFRAME - DÉZOOMÉ (125vw) ET DÉCALÉ (-47%) POUR LIRE LE J -->
+            <!-- SPLINE IFRAME - CORRECTION CENTRAGE + LECTURE DU J -->
             <iframe id="hero-spline" 
                     src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' 
                     frameborder='0' 
-                    class="absolute top-1/2 left-1/2 -translate-x-[47%] md:-translate-x-1/2 -translate-y-[45%] w-[125vw] md:w-full h-full max-w-none opacity-0 transition-opacity duration-1000 z-5" 
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] w-[160vw] md:w-full h-full max-w-none opacity-0 transition-opacity duration-1000 z-5" 
                     onload="this.style.opacity='1'"></iframe>
         </div>
 
