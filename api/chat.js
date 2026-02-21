@@ -1,5 +1,6 @@
 /**
- * Version de production stabilisée pour Google Gemini 1.5 Flash
+ * Version de production stabilisée pour JAAD Studio
+ * Utilise v1beta car gemini-1.5-flash y est mieux reconnu
  */
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -10,11 +11,11 @@ export default async function handler(req, res) {
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
-    return res.status(500).json({ error: "La clé GEMINI_API_KEY n'est pas configurée sur Vercel." });
+    return res.status(500).json({ error: "Clé API non trouvée sur Vercel." });
   }
 
-  // Utilisation de l'URL stable v1 avec le modèle gemini-1.5-flash
-  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  // On utilise l'URL v1beta (testée et fonctionnelle pour gemini-1.5-flash)
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
   try {
     const response = await fetch(url, {
@@ -22,7 +23,7 @@ export default async function handler(req, res) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: [{ 
-          parts: [{ text: `Tu es JAAD AI, l'assistant expert de l'agence JAAD Studio. Réponds de façon pro et courte. Client : ${message}` }] 
+          parts: [{ text: `Tu es JAAD AI, l'assistant expert de l'agence JAAD Studio. Réponds de façon pro et concise. Client : ${message}` }] 
         }]
       })
     });
@@ -30,7 +31,6 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok) {
-      // Si Google renvoie une erreur, on l'affiche pour déboguer
       return res.status(response.status).json({ 
         error: data.error?.message || "Erreur de communication avec Google" 
       });
