@@ -218,8 +218,8 @@
         <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(180deg, var(--primary) 0%, var(--sky-blue) 60%, var(--bg-main) 100%);">
             <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.85),transparent_75%)] z-10"></div>
             
-            <!-- SPLINE : CENTRAGE RÉTABLI (md:-1/2) ET DÉCALAGE LÉGER MOBILE (-47%) -->
-            <div class="absolute top-1/2 left-1/2 -translate-x-[47%] md:-translate-x-1/2 -translate-y-[45%] w-[155vw] md:w-full h-full flex items-center justify-center">
+            <!-- SPLINE : DÉCALAGE MOBILE OPTIMISÉ (-38%) ET PARFAITEMENT CENTRÉ BUREAU (-1/2) -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-[38%] md:-translate-x-1/2 -translate-y-[45%] w-[155vw] md:w-full h-full flex items-center justify-center">
                 <iframe id="hero-spline" 
                         src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' 
                         frameborder='0' width="100%" height="100%"
@@ -579,18 +579,22 @@
         let currentStep = 1;
         function changeStep(n) {
             const steps = document.querySelectorAll('.form-step'); const lang = document.documentElement.lang || 'fr';
+            if (n < 0 && currentStep <= 1) return;
             if (n > 0) {
-                const cur = steps[currentStep-1]; const inputs = cur.querySelectorAll('input[required], textarea[required]');
-                for (let i of inputs) { if (!i.checkValidity()) { i.reportValidity(); return; } }
+                const currentStepEl = steps[currentStep - 1]; const inputs = currentStepEl.querySelectorAll('input[required], textarea[required]');
+                for (let input of inputs) { if (!input.checkValidity()) { input.reportValidity(); return; } }
                 if (currentStep === 4 && !document.getElementById('q-service').value) { alert(translations[lang]["form-err-service"]); return; }
                 if (currentStep === 6 && !document.getElementById('q-pref').value) { alert(translations[lang]["form-err-pref"]); return; }
             }
             if (n > 0 && currentStep >= steps.length) { handleFormSubmit(); return; }
-            steps[currentStep-1].classList.remove('active'); currentStep += n; steps[currentStep-1].classList.add('active');
+            if (steps[currentStep - 1]) steps[currentStep - 1].classList.remove('active');
+            currentStep += n;
+            if (steps[currentStep - 1]) steps[currentStep - 1].classList.add('active');
             document.getElementById('form-progress-fill').style.width = (currentStep / steps.length) * 100 + "%";
-            document.getElementById('prev-btn').style.opacity = (currentStep === 1) ? "0" : "1";
-            document.getElementById('prev-btn').style.pointerEvents = (currentStep === 1) ? "none" : "auto";
-            document.getElementById('next-btn').innerText = (currentStep === steps.length) ? translations[lang]["form-btn-send"] : translations[lang]["form-btn-next"];
+            const prevBtn = document.getElementById('prev-btn');
+            if (prevBtn) { prevBtn.style.opacity = (currentStep === 1) ? "0" : "1"; prevBtn.style.pointerEvents = (currentStep === 1) ? "none" : "auto"; }
+            const nextBtn = document.getElementById('next-btn');
+            if (nextBtn) nextBtn.innerText = (currentStep === steps.length) ? translations[lang]["form-btn-send"] : translations[lang]["form-btn-next"];
         }
         function selectFormService(el, val) { 
             document.querySelectorAll('#step-4 button').forEach(b => b.classList.remove('selected')); 
