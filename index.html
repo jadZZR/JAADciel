@@ -142,7 +142,7 @@
         #ai-chat-modal { 
             position: fixed; bottom: 8rem; right: 2rem; width: 360px; max-width: calc(100vw - 4rem); 
             background: white; border-radius: 28px; box-shadow: 0 30px 70px rgba(0,0,0,0.1); 
-            z-index: 6000; display: none; flex-direction: column; overflow: hidden; 
+            z-index: 7000; display: none; flex-direction: column; overflow: hidden; 
             border: 1px solid rgba(0,0,0,0.05); 
         }
         #ai-chat-modal.active { display: flex; }
@@ -218,8 +218,8 @@
         <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(180deg, var(--primary) 0%, var(--sky-blue) 60%, var(--bg-main) 100%);">
             <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.85),transparent_75%)] z-10"></div>
             
-            <!-- SPLINE : DÉCALAGE MOBILE OPTIMISÉ (-38%) ET PARFAITEMENT CENTRÉ BUREAU (-1/2) -->
-            <div class="absolute top-1/2 left-1/2 -translate-x-[38%] md:-translate-x-1/2 -translate-y-[45%] w-[155vw] md:w-full h-full flex items-center justify-center">
+            <!-- SPLINE : CENTRAGE MATHEMATIQUE PARFAIT (-1/2) SUR MOBILE ET BUREAU -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] w-[140vw] md:w-full h-full flex items-center justify-center">
                 <iframe id="hero-spline" 
                         src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' 
                         frameborder='0' width="100%" height="100%"
@@ -422,7 +422,7 @@
     <script>
         const serviceDetails = {
             web: {
-                title: "Digital Expérience", tag: "Design & Performance",
+                title: "Digital Experience", tag: "Design & Performance",
                 desc: "Nous concevons des voyages digitaux immersifs. JAAD Studio allie esthétique haut de gamme et performance SEO pour propulser votre marque.",
                 points: ["Architecture SEO optimisée", "Interfaces 3D interactives", "Vitesse ultra-rapide", "Design Mobile-First Premium"], cta: "Web"
             },
@@ -459,7 +459,7 @@
                         ${data.points.map(p => `<div class="group flex items-center gap-4 p-5 bg-slate-50 rounded-3xl border border-slate-100 transition-all hover:bg-white hover:border-blue-200 hover:shadow-xl hover:shadow-blue-500/10"><div class="w-10 h-10 bg-blue-600 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform"><i data-lucide="check" class="w-5 h-5"></i></div><span class="font-bold text-slate-700 text-sm tracking-tight">${p}</span></div>`).join('')}
                     </div>
                     <div class="flex flex-col sm:flex-row gap-5">
-                        <button onclick="contactForService('${data.cta}')" class="btn-premium btn-primary group px-10 py-5 justify-center">Démarrer mon projet <i data-lucide="zap" class="w-5 h-5 fill-current group-hover:animate-pulse"></i></button>
+                        <button onclick="contactForService('${data.cta}')" class="btn-premium btn-primary group px-10 py-5 justify-center">Démarrer mon projet <i data-lucide="zap" class="w-4 h-4 fill-current group-hover:animate-pulse"></i></button>
                         <button onclick="toggleServiceModal()" class="btn-premium btn-secondary px-10 py-5 justify-center hover:bg-slate-50">Fermer</button>
                     </div>
                 </div>`;
@@ -496,73 +496,6 @@
             }, 300);
         }
 
-        const translations = {
-            fr: { 
-                "nav-expertise": "Expertise", "nav-methode": "Méthode", "nav-realisations": "Réalisations", "nav-contact-btn": "Contact", "nav-close": "Fermer",
-                "hero-btn": "Parlons-en.", "hero-btn-secondary": "Nos créations.",
-                "exp-title-marquee": "On crée pour vous. E-learning. IA.",
-                "serv-web-title": "Web Design Immersif", "serv-web-desc": "Sites immersifs et SEO performant.",
-                "serv-3d-title": "Studio 3D.", "serv-3d-desc": "Graphisme 3D haute qualité pour vos produits.",
-                "serv-app-title": "Apps Mobile", "serv-app-desc": "Développement natif et publication stores.",
-                "serv-ia-title": "IA & Robot.", "serv-ia-desc": "Chatbots intelligents et automatisation.",
-                "serv-learn-title": "E-learning", "serv-learn-desc": "Plateformes de formation interactives.",
-                "method-title-marquee": "Notre méthode. Stratégie. Design. Publication.",
-                "method-1-title": "Stratégie", "method-1-desc": "Analyse de vos besoins et objectifs.",
-                "method-2-title": "Design", "method-2-desc": "Conception visuelle et IA.",
-                "method-3-title": "Publication", "method-3-desc": "Mise en ligne et SEO technique.",
-                "method-4-title": "Maintenance", "method-4-desc": "Support continu et évolutions.",
-                "port-title-marquee": "Nos réalisations. Web. 3D. IA. Robots.",
-                "form-name": "Votre nom ?", "form-email": "Votre email ?", "form-phone": "Votre numéro ?", "form-service": "Quel service ?", "form-desc": "Description", "form-pref": "Contact par ?",
-                "form-btn-next": "Suivant", "form-btn-prev": "Retour", "form-btn-send": "Envoyer", "form-btn-back": "Retour au site",
-                "form-err-service": "Sélectionnez un service.", "form-err-pref": "Sélectionnez un contact."
-            },
-            en: { 
-                "nav-expertise": "Expertise", "nav-methode": "Method", "nav-realisations": "Works", "nav-contact-btn": "Contact", "nav-close": "Close",
-                "hero-btn": "Let's talk.", "hero-btn-secondary": "Our works.",
-                "exp-title-marquee": "We create for you. E-learning. AI.",
-                "serv-web-title": "Immersive Web Design", "serv-web-desc": "Immersive sites and high-performance SEO.",
-                "serv-3d-title": "3D Studio.", "serv-3d-desc": "High quality 3D graphics for your products.",
-                "serv-app-title": "Mobile Apps", "serv-app-desc": "Native development and store publishing.",
-                "serv-ia-title": "AI & Robot.", "serv-ia-desc": "Smart chatbots and automation.",
-                "serv-learn-title": "E-learning", "serv-learn-desc": "Interactive training platforms.",
-                "method-title-marquee": "Our method. Strategy. Design. Publishing.",
-                "method-1-title": "Strategy", "method-1-desc": "Analysis of your needs and goals.",
-                "method-2-title": "Design", "method-2-desc": "Visual conception and AI.",
-                "method-3-title": "Publishing", "method-3-desc": "Going live and technical SEO.",
-                "method-4-title": "Maintenance", "method-4-desc": "Continuous support and updates.",
-                "port-title-marquee": "Our works. Web. 3D. IA. Robots.",
-                "form-name": "Your name?", "form-email": "Your email?", "form-phone": "Your phone?", "form-service": "Which service?", "form-desc": "Description", "form-pref": "Contact via?",
-                "form-btn-next": "Next", "form-btn-prev": "Back", "form-btn-send": "Send", "form-btn-back": "Back to site",
-                "form-err-service": "Select a service.", "form-err-pref": "Select a contact."
-            },
-            ar: { 
-                "nav-expertise": "خبراتنا", "nav-methode": "منهجيتنا", "nav-realisations": "أعمالنا", "nav-contact-btn": "اتصل بنا", "nav-close": "إغلاق",
-                "hero-btn": "لنبدأ العمل.", "hero-btn-secondary": "أعمالنا.",
-                "exp-title-marquee": "نبتكر من أجلك. التعليم الإلكتروني. الذكاء الاصطناعي.",
-                "serv-web-title": "تصميم ويب غامر", "serv-web-desc": "مواقع غامرة وتحسين محركات البحث.",
-                "serv-ia-title": "الذكاء الاصطناعي والروبوت.", "serv-ia-desc": "روبوتات محادثة ذكية وأتمتة.",
-                "serv-learn-title": "التعليم الإلكتروني", "serv-learn-desc": "منصات تدريب تفاعلية.",
-                "method-title-marquee": "منهجيتنا. استراتيجية. تصميم. نشر.",
-                "method-1-title": "الاستراتيجية", "method-1-desc": "تحليل احتياجاتك وأهدافك.",
-                "method-2-title": "التصميم", "method-2-desc": "التصور المرئي والذكاء الاصطناعي.",
-                "method-3-title": "النشر", "method-3-desc": "الإطلاق وتحسين محركات البحث.",
-                "method-4-title": "الصيانة", "method-4-desc": "دعم مستمر وتحديثات.",
-                "port-title-marquee": "أعمالنا. ويب. ثلاثي الأبعاد. ذكاء اصطناعي. روبوتات.",
-                "form-name": "اسمك؟", "form-email": "بريدك الإلكتروني؟", "form-phone": "رقم هاتفك؟", "form-service": "أي خدمة؟", "form-desc": "الوصف", "form-pref": "التواصل عبر؟",
-                "form-btn-next": "التالي", "form-btn-prev": "رجوع", "form-btn-send": "إرسال", "form-btn-back": "العودة للموقع",
-                "form-err-service": "اختر خدمة.", "form-err-pref": "اختر وسيلة."
-            }
-        };
-
-        function switchLanguage(lang) {
-            document.documentElement.lang = lang; document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-            document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.getAttribute('data-i18n'); if (translations[lang][key]) el.innerText = translations[lang][key]; });
-            const nextBtn = document.getElementById('next-btn');
-            if (nextBtn) nextBtn.innerText = (currentStep === 6) ? translations[lang]["form-btn-send"] : translations[lang]["form-btn-next"];
-        }
-
-        function toggleMenu() { document.getElementById('mobile-menu-overlay').classList.toggle('active'); }
-        
         function toggleAiChat() { 
             const chat = document.getElementById('ai-chat-modal');
             chat.classList.toggle('active');
@@ -574,6 +507,21 @@
             setTimeout(() => { document.getElementById('preloader').classList.add('preloader-active'); revealOnScroll(); }, 700);
             lucide.createIcons();
         });
+
+        const translations = {
+            fr: { "nav-expertise": "Expertise", "nav-methode": "Méthode", "nav-realisations": "Réalisations", "nav-contact-btn": "Contact", "nav-close": "Fermer", "hero-btn": "Parlons-en.", "hero-btn-secondary": "Nos créations.", "exp-title-marquee": "On crée pour vous. E-learning. IA.", "serv-web-title": "Web Design Immersif", "serv-web-desc": "Sites immersifs et SEO performant.", "serv-3d-title": "Studio 3D.", "serv-3d-desc": "Graphisme 3D haute qualité pour vos produits.", "serv-app-title": "Apps Mobile", "serv-app-desc": "Développement natif et publication stores.", "serv-ia-title": "IA & Robot.", "serv-ia-desc": "Chatbots intelligents et automatisation.", "serv-learn-title": "E-learning", "serv-learn-desc": "Plateformes de formation interactives.", "method-title-marquee": "Notre méthode. Stratégie. Design. Publication.", "method-1-title": "Stratégie", "method-1-desc": "Analyse de vos besoins et objectifs.", "method-2-title": "Design", "method-2-desc": "Conception visuelle et IA.", "method-3-title": "Publication", "method-3-desc": "Mise en ligne et SEO technique.", "method-4-title": "Maintenance", "method-4-desc": "Support continu et évolutions.", "port-title-marquee": "Nos réalisations. Web. 3D. IA. Robots.", "form-name": "Votre nom ?", "form-email": "Votre email ?", "form-phone": "Votre numéro ?", "form-service": "Quel service ?", "form-desc": "Description", "form-pref": "Contact par ?", "form-btn-next": "Suivant", "form-btn-prev": "Retour", "form-btn-send": "Envoyer", "form-btn-back": "Retour au site", "form-err-service": "Sélectionnez un service.", "form-err-pref": "Sélectionnez un contact." },
+            en: { "nav-expertise": "Expertise", "nav-methode": "Method", "nav-realisations": "Works", "nav-contact-btn": "Contact", "nav-close": "Close", "hero-btn": "Let's talk.", "hero-btn-secondary": "Our works.", "exp-title-marquee": "We create for you. E-learning. AI.", "serv-web-title": "Immersive Web Design", "serv-web-desc": "Immersive sites and high-performance SEO.", "serv-3d-title": "3D Studio.", "serv-3d-desc": "High quality 3D graphics for your products.", "serv-app-title": "Mobile Apps", "serv-app-desc": "Native development and store publishing.", "serv-ia-title": "AI & Robot.", "serv-ia-desc": "Smart chatbots and automation.", "serv-learn-title": "E-learning", "serv-learn-desc": "Interactive training platforms.", "method-title-marquee": "Our method. Strategy. Design. Publishing.", "method-1-title": "Strategy", "method-1-desc": "Analysis of your needs and goals.", "method-2-title": "Design", "method-2-desc": "Visual conception and AI.", "method-3-title": "Publishing", "method-3-desc": "Going live and technical SEO.", "method-4-title": "Maintenance", "method-4-desc": "Continuous support and updates.", "port-title-marquee": "Our works. Web. 3D. IA. Robots.", "form-name": "Your name?", "form-email": "Your email?", "form-phone": "Your phone?", "form-service": "Which service?", "form-desc": "Description", "form-pref": "Contact via?", "form-btn-next": "Next", "form-btn-prev": "Back", "form-btn-send": "Send", "form-btn-back": "Back to site", "form-err-service": "Select a service.", "form-err-pref": "Select a contact." },
+            ar: { "nav-expertise": "خبراتنا", "nav-methode": "منهجيتنا", "nav-realisations": "أعمالنا", "nav-contact-btn": "اتصل بنا", "nav-close": "إغلاق", "hero-btn": "لنبدأ العمل.", "hero-btn-secondary": "أعمالنا.", "exp-title-marquee": "نبتكر من أجلك. التعليم الإلكتروني. الذكاء الاصطناعي.", "serv-web-title": "تصميم ويب غامر", "serv-web-desc": "مواقع غامرة وتحسين محركات البحث.", "serv-ia-title": "الذكاء الاصطناعي والروبوت.", "serv-ia-desc": "روبوتات محادثة ذكية وأتمتة.", "serv-learn-title": "التعليم الإلكتروني", "serv-learn-desc": "منصات تدريب تفاعلية.", "method-title-marquee": "منهجيتنا. استراتيجية. تصميم. نشر.", "method-1-title": "الاستراتيجية", "method-1-desc": "تحليل احتياجاتك وأهدافك.", "method-2-title": "التصميم", "method-2-desc": "التصور المرئي والذكاء الاصطناعي.", "method-3-title": "النشر", "method-3-desc": "الإطلاق وتحسين محركات البحث.", "method-4-title": "الصيانة", "method-4-desc": "دعم مستمر وتحديثات.", "port-title-marquee": "أعمالنا. ويب. ثلاثي الأبعاد. ذكاء اصطناعي. روبوتات.", "form-name": "اسمك؟", "form-email": "بريدك الإلكتروني؟", "form-phone": "رقم هاتفك؟", "form-service": "أي خدمة؟", "form-desc": "الوصف", "form-pref": "التواصل عبر؟", "form-btn-next": "التالي", "form-btn-prev": "رجوع", "form-btn-send": "إرسال", "form-btn-back": "العودة للموقع", "form-err-service": "اختر خدمة.", "form-err-pref": "اختر وسيلة." }
+        };
+
+        function switchLanguage(lang) {
+            document.documentElement.lang = lang; document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+            document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.getAttribute('data-i18n'); if (translations[lang][key]) el.innerText = translations[lang][key]; });
+            const nextBtn = document.getElementById('next-btn');
+            if (nextBtn) nextBtn.innerText = (currentStep === 6) ? translations[lang]["form-btn-send"] : translations[lang]["form-btn-next"];
+        }
+
+        function toggleMenu() { document.getElementById('mobile-menu-overlay').classList.toggle('active'); }
 
         // FORM
         let currentStep = 1;
@@ -587,14 +535,11 @@
                 if (currentStep === 6 && !document.getElementById('q-pref').value) { alert(translations[lang]["form-err-pref"]); return; }
             }
             if (n > 0 && currentStep >= steps.length) { handleFormSubmit(); return; }
-            if (steps[currentStep - 1]) steps[currentStep - 1].classList.remove('active');
-            currentStep += n;
-            if (steps[currentStep - 1]) steps[currentStep - 1].classList.add('active');
+            steps[currentStep - 1].classList.remove('active'); currentStep += n; steps[currentStep - 1].classList.add('active');
             document.getElementById('form-progress-fill').style.width = (currentStep / steps.length) * 100 + "%";
-            const prevBtn = document.getElementById('prev-btn');
-            if (prevBtn) { prevBtn.style.opacity = (currentStep === 1) ? "0" : "1"; prevBtn.style.pointerEvents = (currentStep === 1) ? "none" : "auto"; }
-            const nextBtn = document.getElementById('next-btn');
-            if (nextBtn) nextBtn.innerText = (currentStep === steps.length) ? translations[lang]["form-btn-send"] : translations[lang]["form-btn-next"];
+            document.getElementById('prev-btn').style.opacity = (currentStep === 1) ? "0" : "1";
+            document.getElementById('prev-btn').style.pointerEvents = (currentStep === 1) ? "none" : "auto";
+            document.getElementById('next-btn').innerText = (currentStep === steps.length) ? translations[lang]["form-btn-send"] : translations[lang]["form-btn-next"];
         }
         function selectFormService(el, val) { 
             document.querySelectorAll('#step-4 button').forEach(b => b.classList.remove('selected')); 
