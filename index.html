@@ -58,7 +58,10 @@
         .preloader-active { transform: translateY(-100%); }
 
         .loader-logo-base {
-            font-family: 'Outfit', sans-serif; font-size: 6rem; font-weight: 900;
+            font-family: 'Outfit', sans-serif; 
+            /* MODIFICATION ICI : Taille dynamique qui ne dépasse jamais l'écran */
+            font-size: clamp(3.5rem, 12vw, 6rem); 
+            font-weight: 900;
             color: rgba(255, 255, 255, 0.2); font-style: italic; letter-spacing: -0.02em;
             position: relative; text-transform: uppercase;
         }
@@ -194,7 +197,8 @@
     <header id="top" class="relative h-[100dvh] w-full flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 z-0" style="background: linear-gradient(180deg, var(--primary) 0%, var(--sky-blue) 60%, var(--bg-main) 100%);">
             <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.85),transparent_75%)] z-10 pointer-events-none"></div>
-            <iframe src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' frameborder='0' class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200vw] md:w-full h-full max-w-none opacity-0 transition-opacity duration-1000" onload="this.style.opacity='1'"></iframe>
+            <!-- MODIFICATION ICI : Moins de zoom (125vw) et décalage sur-mesure pour centrer parfaitement sur mobile -->
+            <iframe src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' frameborder='0' class="absolute top-1/2 left-1/2 -translate-x-[55%] md:-translate-x-1/2 -translate-y-1/2 w-[125vw] md:w-full h-full max-w-none opacity-0 transition-opacity duration-1000" onload="this.style.opacity='1'"></iframe>
         </div>
         <div class="relative z-20 text-center px-6 mt-[20vh]">
             <div class="flex flex-col md:flex-row gap-5 justify-center reveal-up active">
