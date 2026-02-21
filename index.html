@@ -309,7 +309,7 @@
                             </div>
                             <div class="form-step" id="step-5">
                                 <label class="block text-2xl font-black mb-6 text-white" data-i18n="form-desc">Description</label>
-                                <textarea name="message" id="q-desc" placeholder="..." class="w-full bg-transparent border-b-2 border-white/10 py-5 text-xl text-white outline-none focus:border-blue-600 h-32 resize-none transition-colors"></textarea>
+                                <textarea name="message" id="q-desc" placeholder="..." required class="w-full bg-transparent border-b-2 border-white/10 py-5 text-xl text-white outline-none focus:border-blue-600 h-32 resize-none transition-colors"></textarea>
                             </div>
                             <div class="form-step" id="step-6">
                                 <label class="block text-2xl font-black mb-6 text-white" data-i18n="form-pref">Contact par ?</label>
@@ -369,7 +369,8 @@
                 "port-title": "Nos Réalisations.",
                 "port-title-marquee": "Nos réalisations. Nos réalisations. Nos réalisations.",
                 "form-name": "Votre nom ?", "form-email": "Votre email ?", "form-phone": "Votre numéro ?", "form-service": "Quel service ?", "form-desc": "Description", "form-pref": "Contact par ?",
-                "form-btn-next": "Suivant", "form-btn-prev": "Retour", "form-btn-send": "Envoyer", "form-btn-back": "Retour au site"
+                "form-btn-next": "Suivant", "form-btn-prev": "Retour", "form-btn-send": "Envoyer", "form-btn-back": "Retour au site",
+                "form-err-service": "Veuillez sélectionner un service.", "form-err-pref": "Veuillez sélectionner une préférence de contact."
             },
             en: { 
                 "nav-expertise": "Expertise", "nav-methode": "Method", "nav-realisations": "Works", "nav-contact-btn": "Contact", "nav-close": "Close",
@@ -388,7 +389,8 @@
                 "port-title": "Our Works.",
                 "port-title-marquee": "Our works. Our works. Our works.",
                 "form-name": "Your name?", "form-email": "Your email?", "form-phone": "Your phone?", "form-service": "Which service?", "form-desc": "Description", "form-pref": "Contact via?",
-                "form-btn-next": "Next", "form-btn-prev": "Back", "form-btn-send": "Send", "form-btn-back": "Back to site"
+                "form-btn-next": "Next", "form-btn-prev": "Back", "form-btn-send": "Send", "form-btn-back": "Back to site",
+                "form-err-service": "Please select a service.", "form-err-pref": "Please select a contact preference."
             },
             ar: { 
                 "nav-expertise": "خبراتنا", "nav-methode": "منهجيتنا", "nav-realisations": "أعمالنا", "nav-contact-btn": "اتصل بنا", "nav-close": "إغلاق",
@@ -407,7 +409,8 @@
                 "port-title": "أعمالنا.",
                 "port-title-marquee": "أعمالنا. أعمالنا. أعمالنا.",
                 "form-name": "اسمك؟", "form-email": "بريدك الإلكتروني؟", "form-phone": "رقم هاتفك؟", "form-service": "أي خدمة؟", "form-desc": "الوصف", "form-pref": "التواصل عبر؟",
-                "form-btn-next": "التالي", "form-btn-prev": "رجوع", "form-btn-send": "إرسال", "form-btn-back": "العودة للموقع"
+                "form-btn-next": "التالي", "form-btn-prev": "رجوع", "form-btn-send": "إرسال", "form-btn-back": "العودة للموقع",
+                "form-err-service": "يرجى تحديد خدمة.", "form-err-pref": "يرجى تحديد تفضيل الاتصال."
             }
         };
 
@@ -436,9 +439,36 @@
         let currentStep = 1;
         function changeStep(n) {
             const steps = document.querySelectorAll('.form-step');
+            const lang = document.documentElement.lang || 'fr';
             
             // Empêche de reculer avant l'étape 1
             if (n < 0 && currentStep <= 1) return;
+            
+            // VALIDATION DES CHAMPS AVANT D'AVANCER
+            if (n > 0) {
+                const currentStepEl = steps[currentStep - 1];
+                
+                // Vérifie les champs texte classiques (Affiche l'alerte native du navigateur)
+                const inputs = currentStepEl.querySelectorAll('input[required], textarea[required]');
+                for (let input of inputs) {
+                    if (!input.checkValidity()) {
+                        input.reportValidity();
+                        return; // Stoppe l'avancement
+                    }
+                }
+                
+                // Vérifie les boutons de sélection (Services)
+                if (currentStep === 4 && !document.getElementById('q-service').value) {
+                    alert(translations[lang]["form-err-service"]);
+                    return;
+                }
+                
+                // Vérifie les boutons de sélection (Contact)
+                if (currentStep === 6 && !document.getElementById('q-pref').value) {
+                    alert(translations[lang]["form-err-pref"]);
+                    return;
+                }
+            }
             
             // Si on est à la dernière étape et qu'on avance, on soumet le formulaire
             if (n > 0 && currentStep >= steps.length) { 
@@ -466,7 +496,6 @@
                 prevBtn.style.pointerEvents = (currentStep === 1) ? "none" : "auto";
             }
             
-            const lang = document.documentElement.lang || 'fr';
             const nextBtn = document.getElementById('next-btn');
             if (nextBtn) {
                 nextBtn.innerText = (currentStep === steps.length) ? translations[lang]["form-btn-send"] : translations[lang]["form-btn-next"];
