@@ -10,8 +10,8 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Clé API non trouvée sur Vercel." });
   }
 
-  // LE SEUL CHANGEMENT EST ICI : On utilise gemini-2.0-flash (le modèle actif de Google)
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+  // LE SEUL CHANGEMENT EST ICI : On utilise gemini-2.5-flash (le tout dernier modèle exigé par Google)
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
   try {
     const response = await fetch(url, {
