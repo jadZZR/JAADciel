@@ -4,43 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO & Indexation -->
     <title>JAAD | Agence Créative Web, 3D, IA & E-learning</title>
     <meta name="description" content="JAAD Studio : Agence créative spécialisée en Web Design immersif, Studio 3D, Intelligence Artificielle et solutions E-learning.">
-    <meta name="keywords" content="Agence Web, Web Design, Studio 3D, Intelligence Artificielle, E-learning, Aix-en-Provence, Création de sites, IA">
-    <meta name="author" content="JAAD Studio">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://jaad.studio/">
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://jaad.studio/">
-    <meta property="og:title" content="JAAD | Votre Agence Créative & IA">
-    <meta property="og:description" content="Design immersif et futur intelligent. Experts en solutions digitales innovantes.">
-    <meta property="og:image" content="https://jaad.studio/og-image.jpg">
-
-    <!-- Données Structurées JSON-LD -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "JAAD Studio",
-      "image": "https://jaad.studio/logo.png",
-      "url": "https://jaad.studio/",
-      "telephone": "+33600000000",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Aix-en-Provence",
-        "addressCountry": "FR"
-      },
-      "email": "hello@jaad.studio"
-    }
-    </script>
-
-    <!-- Scripts -->
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Noto+Sans+Arabic:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -50,9 +19,10 @@
             --bg-main: #f9f9fb; 
             --bg-card: #ffffff;
             --text-main: #1e293b;
-            --text-muted: #64748b;
             --error: #ef4444;
         }
+
+        [lang="ar"] { font-family: 'Noto Sans Arabic', sans-serif; }
 
         body {
             font-family: 'Outfit', sans-serif;
@@ -60,9 +30,9 @@
             color: var(--text-main);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            transition: direction 0.3s ease;
         }
 
-        /* --- ATMOSPHÈRE --- */
         .noise::before {
             content: "";
             position: fixed;
@@ -146,7 +116,7 @@
         .btn-secondary { background: white; color: #0f172a; border: 2px solid rgba(0,0,0,0.1); }
         .btn-secondary:hover { border-color: var(--primary); color: var(--primary); transform: scale(1.05); }
 
-        /* --- BENTO GRID --- */
+        /* --- CARDS BENTO --- */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
@@ -154,8 +124,6 @@
         }
         @media (min-width: 768px) {
             .bento-grid { grid-template-columns: repeat(6, 1fr); }
-            .md\:col-span-3 { grid-column: span 3 / span 3; }
-            .md\:col-span-2 { grid-column: span 2 / span 2; }
         }
 
         .bento-item {
@@ -170,7 +138,7 @@
         .bento-blue { background: linear-gradient(135deg, #0f172a 0%, #2563eb 100%) !important; color: white; border: none; }
 
         .tag {
-            display: inline-block; padding: 0.5rem 1.2rem; background: rgba(37, 99, 235, 0.08);
+            display: inline-block; padding: 0.5rem 1.2rem; background: rgba(37, 99, 235, 0.1);
             border-radius: 100px; font-size: 10px; font-weight: 800; text-transform: uppercase;
             letter-spacing: 0.1em; margin-bottom: 1.5rem;
             color: var(--primary);
@@ -189,73 +157,36 @@
         .reveal-up { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .reveal-up.active { opacity: 1; transform: translateY(0); }
 
-        /* --- DESIGN ACCOMPAGNEMENT ✨ --- */
+        /* --- DESIGN ACCOMPAGNEMENT --- */
         .method-card {
-            background: white;
-            border-radius: 40px;
-            padding: 3rem;
-            position: relative;
-            z-index: 10;
-            border: 1px solid rgba(0,0,0,0.04);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.02);
+            background: white; border-radius: 40px; padding: 3rem; position: relative;
+            z-index: 10; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 20px 40px rgba(0,0,0,0.02);
             transition: all 0.4s ease;
         }
-        .method-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 40px 80px rgba(37, 99, 235, 0.06);
-        }
+        .method-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 40px 80px rgba(37, 99, 235, 0.06); }
         .giant-num {
-            position: absolute;
-            bottom: -2rem;
-            right: -1rem;
-            font-size: 14rem;
-            font-weight: 900;
-            line-height: 1;
-            color: transparent;
-            -webkit-text-stroke: 2px rgba(37, 99, 235, 0.05);
-            z-index: 0;
-            pointer-events: none;
-            transition: all 0.4s ease;
-        }
-        .method-card:hover .giant-num {
-            -webkit-text-stroke: 2px rgba(37, 99, 235, 0.1);
-            transform: scale(1.1);
+            position: absolute; bottom: -2rem; right: -1rem; font-size: 14rem; font-weight: 900;
+            line-height: 1; color: transparent; -webkit-text-stroke: 2px rgba(37, 99, 235, 0.05);
+            z-index: 0; pointer-events: none; transition: all 0.4s ease;
         }
         .phase-badge {
-            background: #0f172a;
-            color: white;
-            font-size: 10px;
-            font-weight: 900;
-            text-transform: uppercase;
-            padding: 0.4rem 1rem;
-            border-radius: 100px;
-            margin-bottom: 2rem;
-            display: inline-block;
+            background: #0f172a; color: white; font-size: 10px; font-weight: 900;
+            text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 100px;
+            margin-bottom: 2rem; display: inline-block;
         }
 
         /* --- FORMULAIRE --- */
         .form-step { display: none; opacity: 0; transform: translateY(15px); transition: all 0.5s ease; }
         .form-step.active { display: block; opacity: 1; transform: translateY(0); }
-        .progress-bar-container { width: 100%; height: 4px; background: rgba(0,0,0,0.05); border-radius: 100px; margin-bottom: 3rem; }
+        .progress-bar-container { width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 100px; margin-bottom: 3rem; }
         #form-progress-fill { width: 0%; height: 100%; background: var(--primary); transition: width 0.5s ease; }
         
         .service-pill {
-            padding: 0.8rem 1.8rem; background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05);
-            border-radius: 100px; cursor: pointer; transition: all 0.3s ease; font-weight: 600;
+            padding: 0.8rem 1.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 100px; cursor: pointer; transition: all 0.3s ease; font-weight: 600; color: white;
+            font-size: 13px;
         }
         .service-pill:hover, .service-pill.selected { background: var(--primary); border-color: var(--primary); color: white; transform: scale(1.05); }
-
-        .input-error { border-color: var(--error) !important; color: var(--error) !important; }
-        .error-hint { color: var(--error); font-size: 10px; font-weight: 800; text-transform: uppercase; margin-top: 0.5rem; display: none; }
-
-        /* --- SELECT PAYS --- */
-        .country-select-wrapper {
-            display: flex; align-items: center; border-bottom: 2px solid rgba(0, 0, 0, 0.1); transition: border-color 0.3s ease;
-        }
-        .country-select-wrapper:focus-within { border-color: var(--primary); }
-        #q-country-code { background: transparent; color: var(--text-main); border: none; outline: none; font-weight: 700; padding: 1rem 0.5rem 1rem 0; cursor: pointer; font-size: 1.1rem; appearance: none; max-width: 120px; }
-        #q-country-code option { background: white; color: black; }
 
         /* --- AI CHAT MODAL --- */
         #ai-chat-modal {
@@ -271,6 +202,10 @@
 
         #mobile-menu-overlay { position: fixed; inset: 0; background: #ffffff; z-index: 2000; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2.5rem; opacity: 0; pointer-events: none; transition: all 0.4s ease; }
         #mobile-menu-overlay.active { opacity: 1; pointer-events: all; }
+
+        /* Fix pour RTL */
+        [dir="rtl"] .giant-num { right: auto; left: -1rem; }
+        [dir="rtl"] .floating-btns { right: auto; left: 2rem; }
     </style>
 </head>
 <body class="noise">
@@ -287,12 +222,11 @@
 
     <!-- MOBILE MENU -->
     <div id="mobile-menu-overlay" aria-hidden="true">
-        <a href="#services" class="nav-link text-4xl font-black text-slate-900 hover:text-blue-600 transition-colors">Expertise</a>
-        <a href="#process" class="nav-link text-4xl font-black text-slate-900 hover:text-blue-600 transition-colors">Méthode</a>
-        <a href="#portfolio" class="nav-link text-4xl font-black text-slate-900 hover:text-blue-600 transition-colors">Réalisations</a>
-        <a href="#testimonials" class="nav-link text-4xl font-black text-slate-900 hover:text-blue-600 transition-colors">Avis</a>
-        <a href="#contact" class="nav-link text-4xl font-black text-blue-600">Contact</a>
-        <button class="mt-12 text-slate-400 font-bold uppercase tracking-widest text-xs" onclick="toggleMenu()">Fermer</button>
+        <a href="#services" class="nav-link text-4xl font-black text-slate-900 hover:text-blue-600 transition-colors" onclick="toggleMenu()" data-i18n="nav-expertise">Expertise</a>
+        <a href="#process" class="nav-link text-4xl font-black text-slate-900 hover:text-blue-600 transition-colors" onclick="toggleMenu()" data-i18n="nav-methode">Méthode</a>
+        <a href="#portfolio" class="nav-link text-4xl font-black text-slate-900 hover:text-blue-600 transition-colors" onclick="toggleMenu()" data-i18n="nav-realisations">Réalisations</a>
+        <a href="#contact" class="nav-link text-4xl font-black text-blue-600" onclick="toggleMenu()" data-i18n="nav-contact-btn">Contact</a>
+        <button class="mt-12 text-slate-400 font-bold uppercase tracking-widest text-xs" onclick="toggleMenu()" data-i18n="nav-close">Fermer</button>
     </div>
 
     <!-- NAVIGATION -->
@@ -300,17 +234,16 @@
         <div id="navbar" class="glass-nav px-8 md:px-10 py-5 rounded-full flex items-center max-w-6xl w-full justify-between">
             <a href="#top" class="nav-link text-2xl font-black text-blue-600 tracking-tighter" aria-label="Accueil JAAD">JAAD<span class="text-slate-900">.</span></a>
             <div class="hidden md:flex items-center gap-10 text-[10px] font-extrabold text-slate-500 uppercase tracking-[0.2em]">
-                <a href="#services" class="nav-link hover:text-blue-600 transition-colors">Expertise</a>
-                <a href="#process" class="nav-link hover:text-blue-600 transition-colors">Méthode</a>
-                <a href="#portfolio" class="nav-link hover:text-blue-600 transition-colors">Réalisations</a>
-                <a href="#testimonials" class="nav-link hover:text-blue-600 transition-colors">Avis</a>
-                <a href="#contact" class="nav-link bg-[#0f172a] text-white px-8 py-3 rounded-full hover:bg-blue-600 hover:scale-105 transition-all">Contact</a>
+                <a href="#services" class="nav-link hover:text-blue-600 transition-colors" data-i18n="nav-expertise">Expertise</a>
+                <a href="#process" class="nav-link hover:text-blue-600 transition-colors" data-i18n="nav-methode">Méthode</a>
+                <a href="#portfolio" class="nav-link hover:text-blue-600 transition-colors" data-i18n="nav-realisations">Réalisations</a>
+                <a href="#contact" class="nav-link bg-[#0f172a] text-white px-8 py-3 rounded-full hover:bg-blue-600 hover:scale-105 transition-all" data-i18n="nav-contact-btn">Contact</a>
             </div>
             <div class="flex items-center gap-3">
                 <div class="flex bg-slate-100/50 p-1 rounded-full items-center">
-                    <button id="lang-fr" class="px-4 py-1.5 rounded-full text-[9px] font-black bg-white text-black shadow-sm" onclick="switchLanguage('fr')" aria-label="Version Française">FR</button>
-                    <button id="lang-en" class="px-4 py-1.5 rounded-full text-[9px] font-black text-slate-400" onclick="switchLanguage('en')" aria-label="English Version">EN</button>
-                    <button id="lang-ar" class="px-4 py-1.5 rounded-full text-[9px] font-black text-slate-400" onclick="switchLanguage('ar')" aria-label="Versional Arabiyya">AR</button>
+                    <button class="px-4 py-1.5 rounded-full text-[9px] font-black hover:bg-white transition-all" onclick="switchLanguage('fr')">FR</button>
+                    <button class="px-4 py-1.5 rounded-full text-[9px] font-black hover:bg-white transition-all" onclick="switchLanguage('en')">EN</button>
+                    <button class="px-4 py-1.5 rounded-full text-[9px] font-black hover:bg-white transition-all" onclick="switchLanguage('ar')">AR</button>
                 </div>
                 <button class="md:hidden p-2 text-slate-900" onclick="toggleMenu()" aria-label="Ouvrir le menu"><i data-lucide="menu"></i></button>
             </div>
@@ -319,131 +252,115 @@
 
     <!-- ACTIONS FLOTTANTES -->
     <div class="floating-btns">
-        <button onclick="toggleAiChat()" class="action-circle bg-blue-600" aria-label="Ouvrir JAAD AI"><i data-lucide="sparkles" class="w-6 h-6 text-white" aria-hidden="true"></i></button>
-        <a href="https://wa.me/33600000000" target="_blank" class="action-circle" style="background:#25d366" aria-label="Contact WhatsApp"><i data-lucide="message-circle" class="w-6 h-6 text-white" aria-hidden="true"></i></a>
+        <button onclick="toggleAiChat()" class="action-circle bg-blue-600" aria-label="Ouvrir JAAD AI"><i data-lucide="sparkles" class="w-6 h-6 text-white"></i></button>
+        <a href="https://wa.me/33600000000" target="_blank" class="action-circle bg-[#25d366]" aria-label="Contact WhatsApp"><i data-lucide="message-circle" class="w-6 h-6 text-white"></i></a>
     </div>
 
-    <!-- HERO (RÉTABLISSEMENT DE L'ANIMATION DU DÉBUT ✨) -->
-    <header id="top" class="relative h-[110dvh] w-full flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 z-0 bg-[#0f172a]">
-            <!-- Masque pour fusionner avec le fond gris lors du scroll -->
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#f9f9fb] z-10"></div>
-            <iframe src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' frameborder='0' width='100%' height='100%' onload="this.classList.add('loaded')" style="pointer-events: none;" title="Animation Baymax Spline 3D"></iframe>
+    <!-- HERO -->
+    <header id="top" class="relative h-[100dvh] w-full flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0" style="background: linear-gradient(180deg, #2563eb 0%, #60a5fa 60%, #f9f9fb 100%);">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.85),transparent_75%)] z-10"></div>
+            <iframe src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' frameborder='0' width='100%' height='100%' onload="this.classList.add('loaded')" style="pointer-events: none;" title="Animation 3D Baymax"></iframe>
         </div>
-        <div class="relative z-20 text-center px-6 mt-[35vh]">
+        <div class="relative z-20 text-center px-6 mt-[20vh]">
             <div class="flex flex-col md:flex-row gap-5 justify-center reveal-up active">
-                <a href="#contact" class="nav-link btn-premium btn-primary"><span data-i18n="hero-btn">Parlons-en.</span> <i data-lucide="zap" class="w-4 h-4 fill-current" aria-hidden="true"></i></a>
+                <a href="#contact" class="nav-link btn-premium btn-primary"><span data-i18n="hero-btn">Parlons-en.</span> <i data-lucide="zap" class="w-4 h-4 fill-current"></i></a>
                 <a href="#portfolio" class="nav-link btn-premium btn-secondary"><span data-i18n="hero-btn-secondary">Nos créations.</span></a>
             </div>
         </div>
     </header>
 
-    <!-- EXPERTISE / SERVICES -->
+    <!-- SERVICES -->
     <section id="services" class="py-32 px-6">
         <div class="marquee-wrapper mb-20">
             <div class="marquee-content text-6xl md:text-9xl font-black uppercase tracking-tighter text-blue-600 opacity-20">
-                <span data-i18n="exp-title">On crée pour vous. E-learning.</span>
-                <span data-i18n="exp-title">On crée pour vous. E-learning.</span>
-                <span data-i18n="exp-title">On crée pour vous. E-learning.</span>
+                <span data-i18n="exp-title-marquee">On crée pour vous. E-learning.</span>
+                <span data-i18n="exp-title-marquee">On crée pour vous. E-learning.</span>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto relative z-20">
-            <div class="bento-grid">
-                <article class="md:col-span-3 bento-item reveal-up">
-                    <span class="tag" data-i18n="exp-web-tag">01. Web</span>
-                    <h3 class="text-3xl md:text-4xl font-black mb-6 tracking-tighter text-blue-600" data-i18n="exp-web-title">Web Design.</h3>
-                    <p class="text-slate-600 font-medium leading-relaxed" data-i18n="exp-web-desc">Des sites sur-mesure immersifs et un SEO aux petits oignons pour dominer le marché.</p>
-                </article>
-                <article class="md:col-span-3 bento-item reveal-up" style="transition-delay: 0.1s">
-                    <span class="tag" data-i18n="exp-3d-tag">02. 3D</span>
-                    <h3 class="text-3xl md:text-4xl font-black mb-6 tracking-tighter text-blue-600" data-i18n="exp-3d-title">Studio 3D.</h3>
-                    <p class="text-slate-600 font-medium leading-relaxed" data-i18n="exp-3d-desc">Du graphisme 3D haute qualité pour vos produits et projets immobiliers.</p>
-                </article>
-                <article class="md:col-span-2 bento-item reveal-up" style="transition-delay: 0.2s">
-                    <span class="tag" data-i18n="exp-apps-tag">03. Apps</span>
-                    <h3 class="text-2xl md:text-3xl font-black mb-6 tracking-tighter text-blue-600" data-i18n="exp-apps-title">Apps Mobile.</h3>
-                    <p class="text-slate-500 font-medium leading-relaxed" data-i18n="exp-apps-desc">Développement natif et publication sur les stores.</p>
-                </article>
-                <article class="md:col-span-2 bento-item reveal-up" style="transition-delay: 0.3s">
-                    <span class="tag" data-i18n="exp-elearning-tag">04. Learning</span>
-                    <h3 class="text-2xl md:text-3xl font-black mb-6 tracking-tighter text-blue-600" data-i18n="exp-elearning-title">E-learning.</h3>
-                    <p class="text-slate-500 font-medium leading-relaxed" data-i18n="exp-elearning-desc">Plateformes de formation interactives et pédagogie numérique.</p>
-                </article>
-                <article class="md:col-span-2 bento-item bento-blue reveal-up">
-                    <span class="tag" data-i18n="exp-ia-tag" style="background:white; color:var(--primary)">05. IA</span>
-                    <h3 class="text-2xl md:text-3xl font-black mb-6 tracking-tighter" data-i18n="exp-ia-title">IA & Robot.</h3>
-                    <p class="text-white opacity-90 font-medium leading-relaxed" data-i18n="exp-ia-desc">Chatbots intelligents et automatisation.</p>
-                </article>
-            </div>
+        <div class="max-w-7xl mx-auto bento-grid relative z-20">
+            <article class="md:col-span-3 bento-item reveal-up">
+                <span class="tag">01. Web</span>
+                <h3 class="text-3xl font-black mb-6 tracking-tighter text-blue-600" data-i18n="exp-web-h">Web Design Immersif</h3>
+                <p class="text-slate-600 font-medium leading-relaxed" data-i18n="exp-web-p">Des sites sur-mesure immersifs et un SEO aux petits oignons pour dominer le marché.</p>
+            </article>
+            <article class="md:col-span-3 bento-item reveal-up" style="transition-delay: 0.1s">
+                <span class="tag">02. 3D</span>
+                <h3 class="text-3xl font-black mb-6 tracking-tighter text-blue-600" data-i18n="exp-3d-h">Studio 3D.</h3>
+                <p class="text-slate-600 font-medium leading-relaxed" data-i18n="exp-3d-p">Du graphisme 3D haute qualité pour vos produits et projets immobiliers.</p>
+            </article>
+            <article class="md:col-span-2 bento-item reveal-up">
+                <span class="tag">03. Apps</span>
+                <h3 class="text-2xl font-black mb-6 text-blue-600" data-i18n="exp-app-h">Apps Mobile</h3>
+                <p class="text-slate-500 font-medium leading-relaxed" data-i18n="exp-app-p">Développement natif et publication stores.</p>
+            </article>
+            <article class="md:col-span-2 bento-item bento-blue reveal-up">
+                <span class="tag" style="background:white; color:var(--primary)">04. IA</span>
+                <h3 class="text-2xl font-black mb-6 tracking-tighter" data-i18n="exp-ia-h">IA & Robot.</h3>
+                <p class="text-white opacity-90 font-medium leading-relaxed" data-i18n="exp-ia-p">Chatbots intelligents et automatisation.</p>
+            </article>
+            <article class="md:col-span-2 bento-item reveal-up">
+                <span class="tag">05. Learning</span>
+                <h3 class="text-2xl font-black mb-6 text-blue-600" data-i18n="exp-learn-h">E-learning</h3>
+                <p class="text-slate-500 font-medium leading-relaxed" data-i18n="exp-learn-p">Plateformes interactives et interactives.</p>
+            </article>
         </div>
     </section>
 
-    <!-- ACCOMPAGNEMENT / MÉTHODE PREMIUM ✨ -->
-    <section id="process" class="py-32 px-6 overflow-hidden">
+    <!-- METHOD -->
+    <section id="process" class="py-32 px-6 bg-white/40">
         <div class="marquee-wrapper mb-24">
             <div class="marquee-content text-6xl md:text-9xl font-black uppercase tracking-tighter text-blue-600 opacity-20">
-                <span data-i18n="proc-title">Notre Accompagnement de A à Z. Méthode.</span>
-                <span data-i18n="proc-title">Notre Accompagnement de A à Z. Méthode.</span>
-                <span data-i18n="proc-title">Notre Accompagnement de A à Z. Méthode.</span>
+                <span data-i18n="proc-title-marquee">Notre Accompagnement. Méthode.</span>
+                <span data-i18n="proc-title-marquee">Notre Accompagnement. Méthode.</span>
             </div>
         </div>
         
         <div class="max-w-6xl mx-auto space-y-16">
-            <!-- Etape 1 -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center reveal-up">
-                <div class="md:col-span-7">
+            <!-- Phase 01 -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center reveal-up">
+                <div class="lg:col-span-7">
                     <div class="method-card">
-                        <span class="phase-badge">Phase 01</span>
-                        <h4 class="text-3xl font-black mb-4 text-blue-600 relative z-10" data-i18n="proc-1-h">Stratégie & Immersion</h4>
-                        <p class="text-slate-600 text-lg font-medium leading-relaxed relative z-10" data-i18n="proc-1-p">Nous commençons par immerger notre équipe dans votre univers. Analyse de vos besoins et définition précise des objectifs de conversion.</p>
+                        <span class="phase-badge" data-i18n="proc-1-tag">Phase 01</span>
+                        <h4 class="text-3xl font-black mb-4 text-blue-600" data-i18n="proc-1-h">Stratégie & Immersion</h4>
+                        <p class="text-slate-600 text-lg font-medium leading-relaxed" data-i18n="proc-1-p">Analyse de vos besoins et définition précise des objectifs.</p>
                         <span class="giant-num">01</span>
                     </div>
                 </div>
-                <div class="hidden md:flex md:col-span-5 justify-center">
-                    <div class="w-1 h-32 bg-gradient-to-b from-blue-600 to-transparent rounded-full opacity-20"></div>
-                </div>
+                <div class="hidden lg:flex lg:col-span-5 justify-center"><div class="w-1 h-32 bg-blue-600 opacity-10"></div></div>
             </div>
-
-            <!-- Etape 2 -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center reveal-up">
-                <div class="hidden md:flex md:col-span-5 justify-center">
-                    <div class="w-1 h-32 bg-gradient-to-b from-transparent via-blue-600 to-transparent rounded-full opacity-20"></div>
-                </div>
-                <div class="md:col-span-7">
+            <!-- Phase 02 -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center reveal-up">
+                <div class="hidden lg:flex lg:col-span-5 justify-center"><div class="w-1 h-32 bg-blue-600 opacity-10"></div></div>
+                <div class="lg:col-span-7">
                     <div class="method-card">
-                        <span class="phase-badge">Phase 02</span>
-                        <h4 class="text-3xl font-black mb-4 text-blue-600 relative z-10" data-i18n="proc-2-h">Conception Créative</h4>
-                        <p class="text-slate-600 text-lg font-medium leading-relaxed relative z-10" data-i18n="proc-2-p">L'étape créative. Création de wireframes et design d'interfaces haute-fidélité pour valider l'expérience utilisateur avant le code.</p>
+                        <span class="phase-badge" data-i18n="proc-2-tag">Phase 02</span>
+                        <h4 class="text-3xl font-black mb-4 text-blue-600" data-i18n="proc-2-h">Design & IA</h4>
+                        <p class="text-slate-600 text-lg font-medium leading-relaxed" data-i18n="proc-2-p">Conception visuelle et intégration technologique.</p>
                         <span class="giant-num">02</span>
                     </div>
                 </div>
             </div>
-
-            <!-- Etape 3 -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center reveal-up">
-                <div class="md:col-span-7">
+            <!-- Phase 03 -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center reveal-up">
+                <div class="lg:col-span-7">
                     <div class="method-card">
-                        <span class="phase-badge">Phase 03</span>
-                        <h4 class="text-3xl font-black mb-4 text-blue-600 relative z-10" data-i18n="proc-3-h">Développement & IA</h4>
-                        <p class="text-slate-600 text-lg font-medium leading-relaxed relative z-10" data-i18n="proc-3-p">Intégration technique pointue, animations 3D et tests rigoureux. Nous donnons vie au projet avec les meilleures technologies.</p>
+                        <span class="phase-badge" data-i18n="proc-3-tag">Phase 03</span>
+                        <h4 class="text-3xl font-black mb-4 text-blue-600" data-i18n="proc-3-h">Publication & Référencement</h4>
+                        <p class="text-slate-600 text-lg font-medium leading-relaxed" data-i18n="proc-3-p">Mise en ligne, SEO technique et suivi des performances.</p>
                         <span class="giant-num">03</span>
                     </div>
                 </div>
-                <div class="hidden md:flex md:col-span-5 justify-center">
-                    <div class="w-1 h-32 bg-gradient-to-b from-transparent via-blue-600 to-transparent rounded-full opacity-20"></div>
-                </div>
+                <div class="hidden lg:flex lg:col-span-5 justify-center"><div class="w-1 h-32 bg-blue-600 opacity-10"></div></div>
             </div>
-
-            <!-- Etape 4 -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center reveal-up">
-                <div class="hidden md:flex md:col-span-5 justify-center">
-                    <div class="w-1 h-32 bg-gradient-to-b from-transparent to-blue-600 rounded-full opacity-20"></div>
-                </div>
-                <div class="md:col-span-7">
+            <!-- Phase 04 -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center reveal-up">
+                <div class="hidden lg:flex lg:col-span-5 justify-center"><div class="w-1 h-32 bg-blue-600 opacity-10"></div></div>
+                <div class="lg:col-span-7">
                     <div class="method-card">
-                        <span class="phase-badge">Phase 04</span>
-                        <h4 class="text-3xl font-black mb-4 text-blue-600 relative z-10" data-i18n="proc-4-h">Lancement & Suivi</h4>
-                        <p class="text-slate-600 text-lg font-medium leading-relaxed relative z-10" data-i18n="proc-4-p">Mise en ligne, maintenance évolutive et support continu. Nous restons à vos côtés pour faire grandir votre présence digitale.</p>
+                        <span class="phase-badge" data-i18n="proc-4-tag">Phase 04</span>
+                        <h4 class="text-3xl font-black mb-4 text-blue-600" data-i18n="proc-4-h">Maintenance & Évolution</h4>
+                        <p class="text-slate-600 text-lg font-medium leading-relaxed" data-i18n="proc-4-p">Support technique continu et mises à jour évolutives.</p>
                         <span class="giant-num">04</span>
                     </div>
                 </div>
@@ -451,25 +368,18 @@
         </div>
     </section>
 
-    <!-- PORTFOLIO / RÉALISATIONS -->
+    <!-- PORTFOLIO -->
     <section id="portfolio" class="py-48 px-6">
-        <div class="marquee-wrapper mb-20">
-            <div class="marquee-content text-6xl md:text-9xl font-black uppercase tracking-tighter text-blue-600 opacity-20">
-                <span data-i18n="nav-realisations">Nos Créations. Réalisations.</span>
-                <span data-i18n="nav-realisations">Nos Créations. Réalisations.</span>
-                <span data-i18n="nav-realisations">Nos Créations. Réalisations.</span>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto bento-grid relative z-20">
-            <div class="md:col-span-3 bento-item reveal-up" style="padding:0; min-height:550px;">
-                <iframe src="https://my.spline.design/r4xbot-TowiBcjXeP3tiZRqqB7OwFiy/" width="100%" height="100%" onload="this.classList.add('loaded')" style="pointer-events: none;" title="Projet R4X Bot"></iframe>
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div class="bento-item p-0 min-h-[500px] relative shadow-xl reveal-up">
+                <iframe src="https://my.spline.design/r4xbot-TowiBcjXeP3tiZRqqB7OwFiy/" width="100%" height="100%" class="loaded" style="pointer-events: none;"></iframe>
                 <div class="absolute bottom-10 left-10 z-10">
                     <span class="tag" style="background: var(--primary); color: white;">Bot Evolution</span>
                     <h4 class="text-3xl font-black text-blue-600">R4X Concept</h4>
                 </div>
             </div>
-            <div class="md:col-span-3 bento-item reveal-up" style="padding:0; min-height:550px; transition-delay: 0.2s;">
-                <iframe src="https://my.spline.design/nexbotrobotcharacterconcept-ISR0inmI81qHYRxU9zwpmWsJ/" width="100%" height="100%" onload="this.classList.add('loaded')" style="pointer-events: none;" title="Projet NexBot"></iframe>
+            <div class="bento-item p-0 min-h-[500px] relative shadow-xl reveal-up" style="transition-delay: 0.2s">
+                <iframe src="https://my.spline.design/nexbotrobotcharacterconcept-ISR0inmI81qHYRxU9zwpmWsJ/" width="100%" height="100%" class="loaded" style="pointer-events: none;"></iframe>
                 <div class="absolute bottom-10 left-10 z-10">
                     <span class="tag" style="background: var(--primary); color: white;">Humanoid AI</span>
                     <h4 class="text-3xl font-black text-blue-600">NexBot Core</h4>
@@ -478,413 +388,387 @@
         </div>
     </section>
 
-    <!-- TESTIMONIALS / AVIS -->
-    <section id="testimonials" class="py-32 px-6">
-        <div class="marquee-wrapper mb-20">
-            <div class="marquee-content text-6xl md:text-9xl font-black uppercase tracking-tighter text-blue-600 opacity-20">
-                <span data-i18n="testi-title">Ils nous font confiance. Avis.</span>
-                <span data-i18n="testi-title">Ils nous font confiance. Avis.</span>
-                <span data-i18n="testi-title">Ils nous font confiance. Avis.</span>
-            </div>
+    <!-- CONTACT -->
+    <section id="contact" class="py-48 px-6 bg-[#0f172a]">
+        <div class="max-w-4xl mx-auto text-center mb-16">
+            <h2 class="text-5xl md:text-7xl font-black text-white mb-6" data-i18n="cont-h">Prêt à briller ?</h2>
+            <p class="text-slate-400 text-xl" data-i18n="cont-p">Laissez-nous vos coordonnées, on s'occupe du reste.</p>
         </div>
-        <div class="max-w-7xl mx-auto relative z-20">
-            <div class="bento-grid">
-                <blockquote class="md:col-span-2 bento-item reveal-up">
-                    <div class="flex text-amber-400 mb-4" aria-hidden="true"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
-                    <p class="text-lg font-bold italic mb-6 leading-relaxed text-slate-800" data-i18n="testi-1-txt">"JAAD a transformé notre vision en une réalité immersive. Le site 3D a doublé notre taux de conversion."</p>
-                    <cite class="flex items-center gap-4 not-italic">
-                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-black text-blue-600 text-xs">SC</div>
-                        <div><p class="font-black text-sm text-black">Sarah Cohen</p><p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">CEO, VisionTech</p></div>
-                    </cite>
-                </blockquote>
-                <blockquote class="md:col-span-2 bento-item reveal-up" style="transition-delay: 0.1s">
-                    <div class="flex text-amber-400 mb-4" aria-hidden="true"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
-                    <p class="text-lg font-bold italic mb-6 leading-relaxed text-slate-800" data-i18n="testi-2-txt">"Une équipe réactive et ultra-créative. L'intégration de l'IA dans notre workflow a tout changé."</p>
-                    <cite class="flex items-center gap-4 not-italic">
-                        <div class="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center font-black text-slate-700 text-xs">ML</div>
-                        <div><p class="font-black text-sm text-black">Marc Lefebvre</p><p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Dir. Innovation, ArchiLux</p></div>
-                    </cite>
-                </blockquote>
-                <blockquote class="md:col-span-2 bento-item reveal-up" style="transition-delay: 0.2s">
-                    <div class="flex text-amber-400 mb-4" aria-hidden="true"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
-                    <p class="text-lg font-bold italic mb-6 leading-relaxed text-slate-800" data-i18n="testi-3-txt">"Enfin une agence qui comprend les enjeux de demain. Le design de notre app est tout simplement sublime."</p>
-                    <cite class="flex items-center gap-4 not-italic">
-                        <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center font-black text-amber-700 text-xs">KA</div>
-                        <div><p class="font-black text-sm text-black">Karim Al-Fayed</p><p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Fondateur, Oasis Digital</p></div>
-                    </cite>
-                </blockquote>
-            </div>
-        </div>
-    </section>
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white/5 p-10 md:p-16 rounded-[48px] backdrop-blur-xl border border-white/10 relative overflow-hidden">
+                <div class="progress-bar-container"><div id="form-progress-fill"></div></div>
+                
+                <form id="quest-form" class="space-y-10" action="https://formspree.io/f/hello@jaad.studio" method="POST">
+                    <div id="form-steps-container">
+                        <div class="form-step active" id="step-1">
+                            <label class="block text-2xl font-black mb-6 text-white" data-i18n="form-q1">Votre nom ?</label>
+                            <input type="text" id="q-name" name="name" placeholder="Nom complet" required class="w-full bg-transparent border-b-2 border-white/10 py-5 text-xl text-white outline-none focus:border-blue-600 transition-all">
+                        </div>
+                        <div class="form-step" id="step-2">
+                            <label class="block text-2xl font-black mb-6 text-white" data-i18n="form-q2">Votre email ?</label>
+                            <input type="email" id="q-email" name="email" placeholder="votre@email.com" required class="w-full bg-transparent border-b-2 border-white/10 py-5 text-xl text-white outline-none focus:border-blue-600 transition-all">
+                        </div>
+                        <div class="form-step" id="step-3">
+                            <label class="block text-2xl font-black mb-6 text-white" data-i18n="form-q3">Quel service ?</label>
+                            <div class="flex flex-wrap gap-3">
+                                <button type="button" class="service-pill" onclick="selectFormService(this, 'Web Design')">Web Design</button>
+                                <button type="button" class="service-pill" onclick="selectFormService(this, 'Studio 3D')">Studio 3D</button>
+                                <button type="button" class="service-pill" onclick="selectFormService(this, 'IA')">IA Solutions</button>
+                                <button type="button" class="service-pill" onclick="selectFormService(this, 'E-learning')">E-learning</button>
+                            </div>
+                            <input type="hidden" id="q-service" name="service" required>
+                        </div>
+                        <div class="form-step" id="step-4">
+                            <label class="block text-2xl font-black mb-6 text-white" data-i18n="form-q4">Décrivez votre projet</label>
+                            <textarea id="q-desc" name="message" placeholder="..." class="w-full bg-transparent border-b-2 border-white/10 py-5 text-xl text-white outline-none focus:border-blue-600 h-32 resize-none"></textarea>
+                        </div>
+                        <div class="form-step" id="step-5">
+                            <label class="block text-2xl font-black mb-6 text-white" data-i18n="form-q5">Comment vous recontacter ?</label>
+                            <div class="flex flex-wrap gap-3">
+                                <button type="button" class="service-pill" onclick="selectContactPref(this, 'WhatsApp')">WhatsApp</button>
+                                <button type="button" class="service-pill" onclick="selectContactPref(this, 'Email')">Email</button>
+                                <button type="button" class="service-pill" onclick="selectContactPref(this, 'Téléphone')">Téléphone</button>
+                            </div>
+                            <input type="hidden" id="q-pref" name="contact_preference" required>
+                        </div>
+                    </div>
 
-    <!-- CONTACT / CONTACTEZ-NOUS -->
-    <section id="contact" class="py-48 px-6">
-        <div class="marquee-wrapper mb-20">
-            <div class="marquee-content text-6xl md:text-9xl font-black uppercase tracking-tighter text-blue-600 opacity-20">
-                <span data-i18n="cont-title">Contactez-nous. Contact.</span>
-                <span data-i18n="cont-title">Contactez-nous. Contact.</span>
-                <span data-i18n="cont-title">Contactez-nous. Contact.</span>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-            <div>
-                <p class="text-slate-600 text-xl font-medium max-w-sm mb-12" data-i18n="cont-desc">Répondez à quelques questions pour qualifier votre projet.</p>
-                <div class="space-y-6">
-                    <div class="flex items-center gap-4 text-sm font-bold text-blue-600">
-                        <i data-lucide="map-pin" class="w-5 h-5" aria-hidden="true"></i> <span data-i18n="cont-location">Aix-en-Provence & International</span>
-                    </div>
-                    <div class="flex items-center gap-4 text-sm font-bold text-blue-600">
-                        <i data-lucide="mail" class="w-5 h-5" aria-hidden="true"></i> <a href="mailto:hello@jaad.studio" class="hover:underline">hello@jaad.studio</a>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full bg-[#0f172a] border border-white/5 p-10 md:p-14 rounded-[48px] shadow-2xl relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 blur-[100px] rounded-full" aria-hidden="true"></div>
-                <div class="progress-bar-container relative z-10"><div id="form-progress-fill"></div></div>
-                <form id="quest-form" class="space-y-8 relative z-10" onsubmit="event.preventDefault();">
-                    <div class="form-step active" id="step-1">
-                        <label for="q-name" class="block text-2xl font-black mb-6 text-white tracking-tight" data-i18n="step-1-label">D'abord, comment vous appelez-vous ?</label>
-                        <input type="text" id="q-name" data-i18n-placeholder="cont-ph-name" placeholder="Votre nom" class="w-full bg-transparent border-b-2 border-white/10 px-0 py-4 text-xl text-white outline-none focus:border-blue-600 transition-all font-semibold" required>
-                    </div>
-                    <div class="form-step" id="step-2">
-                        <label for="q-email" class="block text-2xl font-black mb-6 text-white tracking-tight" data-i18n="step-2-label">Ravi ! Quel est votre email ?</label>
-                        <input type="email" id="q-email" data-i18n-placeholder="cont-ph-email" placeholder="votre@email.com" class="w-full bg-transparent border-b-2 border-white/10 px-0 py-4 text-xl text-white outline-none focus:border-blue-600 transition-all font-semibold" required>
-                        <div id="email-error" class="error-hint" data-i18n="err-email">Email invalide</div>
-                    </div>
-                    <div class="form-step" id="step-3">
-                        <label for="q-phone" class="block text-2xl font-black mb-6 text-white tracking-tight" data-i18n="step-phone-label">Et votre numéro de téléphone ?</label>
-                        <div class="country-select-wrapper">
-                            <select id="q-country-code" class="mr-4" aria-label="Indicatif pays"></select>
-                            <input type="tel" id="q-phone" placeholder="6 00 00 00 00" class="w-full bg-transparent px-0 py-4 text-xl text-white outline-none transition-all font-semibold" required>
-                        </div>
-                        <div id="phone-error" class="error-hint" data-i18n="err-phone">Numéro invalide</div>
-                    </div>
-                    <div class="form-step" id="step-4">
-                        <label class="block text-2xl font-black mb-6 text-white tracking-tight" data-i18n="step-3-label">Sur quoi pouvons-nous vous aider ?</label>
-                        <div class="flex flex-wrap gap-3 mt-4 text-white">
-                            <button type="button" class="service-pill" onclick="selectFormService(this, 'Web')" data-i18n="srv-web">Web</button>
-                            <button type="button" class="service-pill" onclick="selectFormService(this, 'Apps')" data-i18n="srv-apps">Apps</button>
-                            <button type="button" class="service-pill" onclick="selectFormService(this, '3D')" data-i18n="srv-3d">3D</button>
-                            <button type="button" class="service-pill" onclick="selectFormService(this, 'IA')" data-i18n="srv-ia">IA</button>
-                            <button type="button" class="service-pill" onclick="selectFormService(this, 'Learning')" data-i18n="srv-elearning">E-learning</button>
-                        </div>
-                        <input type="hidden" id="q-service" required>
-                    </div>
-                    <div class="form-step" id="step-5">
-                        <label for="q-msg" class="block text-2xl font-black mb-6 text-white tracking-tight" data-i18n="step-4-label">Décrivez-nous votre projet...</label>
-                        <textarea id="q-msg" data-i18n-placeholder="cont-ph-msg" placeholder="Détails..." class="w-full bg-transparent border-b-2 border-white/10 px-0 py-4 text-xl text-white outline-none focus:border-blue-600 transition-all font-semibold h-32 resize-none" required></textarea>
-                    </div>
-                    <div class="form-step" id="step-6">
-                        <label class="block text-2xl font-black mb-6 text-white tracking-tight" data-i18n="step-5-label">Comment souhaitez-vous être rappelé ?</label>
-                        <div class="flex flex-wrap gap-3 mt-4 text-white">
-                            <button type="button" class="service-pill" onclick="selectCallback(this, 'WhatsApp')"><i data-lucide="message-circle" class="w-4 h-4 inline mr-2" aria-hidden="true"></i> WhatsApp</button>
-                            <button type="button" class="service-pill" onclick="selectCallback(this, 'Email')"><i data-lucide="mail" class="w-4 h-4 inline mr-2" aria-hidden="true"></i> Email</button>
-                            <button type="button" class="service-pill" onclick="selectCallback(this, 'Appel')"><i data-lucide="phone" class="w-4 h-4 inline mr-2" aria-hidden="true"></i> Appel</button>
-                        </div>
-                        <input type="hidden" id="q-callback" required>
-                    </div>
                     <div class="form-step text-center py-10" id="step-success">
-                        <i data-lucide="check-circle" class="w-16 h-16 text-emerald-500 mx-auto mb-6" aria-hidden="true"></i>
-                        <h3 class="text-3xl font-black mb-4 text-white" data-i18n="form-success-title">C'est envoyé !</h3>
-                        <p class="text-slate-400 font-medium" data-i18n="form-success-desc">Transmis à hello@jaad.studio. Réponse sous 24h.</p>
-                        <button type="button" onclick="resetForm()" class="mt-8 text-blue-500 font-black uppercase text-xs tracking-widest">Nouveau projet</button>
+                        <i data-lucide="check-circle" class="w-16 h-16 text-emerald-400 mx-auto mb-6"></i>
+                        <h3 class="text-3xl font-black text-white mb-4" data-i18n="form-success-h">C'est envoyé !</h3>
+                        <p class="text-slate-400" data-i18n="form-success-p">Merci. Nous avons bien reçu votre demande sur hello@jaad.studio.</p>
                     </div>
-                    <div id="form-nav" class="flex justify-between items-center mt-12">
-                        <button type="button" id="prev-btn" onclick="changeStep(-1)" class="opacity-0 pointer-events-none text-slate-500 font-bold flex items-center gap-2 hover:text-white transition-opacity"><i data-lucide="chevron-left" aria-hidden="true"></i> <span data-i18n="form-prev">Retour</span></button>
-                        <button type="button" id="next-btn" onclick="changeStep(1)" class="btn-premium bg-white text-slate-900 border-none"><span id="next-btn-text" data-i18n="form-next">Suivant</span> <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i></button>
+
+                    <div id="form-nav" class="flex justify-between items-center pt-10">
+                        <button type="button" id="prev-btn" onclick="changeStep(-1)" class="opacity-0 pointer-events-none text-slate-400 font-bold uppercase text-xs flex items-center gap-2 hover:text-white transition-all">
+                            <i data-lucide="chevron-left" class="rtl:hidden"></i>
+                            <i data-lucide="chevron-right" class="hidden rtl:block"></i>
+                            <span data-i18n="form-prev">Retour</span>
+                        </button>
+                        <button type="button" id="next-btn" onclick="changeStep(1)" class="btn-premium bg-white text-slate-900 border-none px-10">
+                            <span id="next-btn-text" data-i18n="form-next">Suivant</span> 
+                            <i data-lucide="arrow-right" id="next-btn-icon" class="w-4 h-4 ml-2 rtl:hidden"></i>
+                            <i data-lucide="arrow-left" class="w-4 h-4 mr-2 hidden rtl:block"></i>
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="py-24 bg-white border-t border-slate-200 px-6" role="contentinfo">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-            <a href="#top" class="text-3xl font-black text-blue-600 tracking-tighter">JAAD<span class="text-slate-900">.</span></a>
-            <p class="text-slate-500 font-medium">Agence créative spécialisée en Web, 3D et Intelligence Artificielle.</p>
-            <div class="flex gap-6 text-slate-500">
-                <a href="#" class="hover:text-blue-600" aria-label="Instagram"><i data-lucide="instagram" aria-hidden="true"></i></a>
-                <a href="#" class="hover:text-blue-600" aria-label="LinkedIn"><i data-lucide="linkedin" aria-hidden="true"></i></a>
-            </div>
-        </div>
+    <footer class="py-16 bg-white border-t border-slate-100 text-center">
+        <a href="#top" class="nav-link text-3xl font-black text-blue-600 tracking-tighter">JAAD<span class="text-slate-900">.</span></a>
+        <p class="text-slate-400 text-xs mt-6" data-i18n="footer-copyright">© 2026 JAAD Studio - Design & Futur intelligent.</p>
     </footer>
 
-    <!-- AI CHAT MODAL -->
-    <div id="ai-chat-modal" aria-label="Assistant JAAD AI">
+    <!-- AI CHAT -->
+    <div id="ai-chat-modal">
         <div class="bg-blue-600 p-5 font-black text-white flex justify-between items-center">
-            <span class="flex items-center gap-2 text-xs uppercase tracking-widest"><i data-lucide="sparkles" class="w-4 h-4" aria-hidden="true"></i> JAAD AI</span>
-            <button onclick="toggleAiChat()" aria-label="Fermer le chat"><i data-lucide="x" class="w-5 h-5" aria-hidden="true"></i></button>
+            <span class="flex items-center gap-2 text-[11px] uppercase tracking-widest"><i data-lucide="sparkles" class="w-4 h-4"></i> JAAD AI</span>
+            <button onclick="toggleAiChat()"><i data-lucide="x" class="w-5 h-5"></i></button>
         </div>
-        <div id="chat-messages" class="chat-messages" role="log">
-            <div class="msg msg-ai">Bonjour ! Je suis l'IA de JAAD. Comment puis-je vous accompagner dans votre projet créatif aujourd'hui ?</div>
+        <div id="chat-messages" class="chat-messages">
+            <div class="msg msg-ai text-xs" data-i18n="chat-welcome">Bonjour ! Comment puis-je vous aider ?</div>
         </div>
-        <div class="p-4 flex gap-2 border-t bg-slate-50">
-            <input type="text" id="chat-input" class="flex-1 bg-white rounded-full px-4 py-2 outline-none text-xs border border-slate-200" placeholder="Votre message..." onkeypress="if(event.key === 'Enter') sendChatMessage()" aria-label="Votre message">
-            <button onclick="sendChatMessage()" class="bg-blue-600 text-white p-2 rounded-full" aria-label="Envoyer"><i data-lucide="send" class="w-4 h-4" aria-hidden="true"></i></button>
+        <div class="p-4 flex gap-2 border-t bg-white">
+            <input type="text" id="chat-input" class="flex-1 bg-slate-50 rounded-full px-5 py-3 outline-none text-xs" placeholder="..." onkeypress="if(event.key === 'Enter') sendChatMessage()">
+            <button onclick="sendChatMessage()" id="chat-send-btn" class="bg-blue-600 text-white p-3 rounded-full"><i data-lucide="send" class="w-4 h-4"></i></button>
         </div>
     </div>
 
     <script>
-        // --- CONFIGURATION IA (BLINDÉE ✨) ---
-        const apiKey = "AIzaSyBaJCBzdlj9qgKdYWnidzDJLEzof9kpN9s"; 
-        const MODEL_NAME = "gemini-1.5-flash"; // Modèle le plus stable pour la prod
-
-        // --- LISTE DES PAYS ---
-        const countriesList = [
-            { n: "France", c: "+33", f: "🇫🇷" }, { n: "Belgique", c: "+32", f: "🇧🇪" }, { n: "Suisse", c: "+41", f: "🇨🇭" },
-            { n: "Canada", c: "+1", f: "🇨🇦" }, { n: "Maroc", c: "+212", f: "🇲🇦" }, { n: "Algérie", c: "+213", f: "🇩🇿" },
-            { n: "Sénégal", c: "+221", f: "🇸🇳" }, { n: "Côte d'Ivoire", c: "+225", f: "🇨🇮" }, { n: "Tunisie", c: "+216", f: "🇹🇳" }
-        ];
-
-        function populateCountries() {
-            const select = document.getElementById('q-country-code');
-            if(!select) return;
-            countriesList.sort((a, b) => a.n.localeCompare(b.n)).forEach(country => {
-                const opt = document.createElement('option');
-                opt.value = country.c;
-                opt.textContent = `${country.f} ${country.c} (${country.n})`;
-                if (country.c === "+33") opt.selected = true;
-                select.appendChild(opt);
-            });
-        }
-
-        window.addEventListener('load', () => {
-            populateCountries();
-            setTimeout(() => {
-                document.getElementById('preloader').classList.add('preloader-active');
-                setTimeout(() => { document.getElementById('preloader').style.display = 'none'; }, 800);
-                revealOnScroll();
-                updateFormUI();
-            }, 800);
-        });
-
-        // --- FORMULAIRE LOGIC ---
-        let currentStep = 1;
-        const totalSteps = 6; 
-        let currentLang = 'fr';
-
-        function updateFormUI() {
-            document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
-            const activeStep = document.getElementById(`step-${currentStep}`);
-            if (activeStep) activeStep.classList.add('active');
-            const progress = (currentStep / totalSteps) * 100;
-            const progressEl = document.getElementById('form-progress-fill');
-            if(progressEl) progressEl.style.width = `${progress}%`;
-            
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtnText = document.getElementById('next-btn-text');
-            if (currentStep === 1) prevBtn.classList.add('opacity-0', 'pointer-events-none');
-            else prevBtn.classList.remove('opacity-0', 'pointer-events-none');
-            
-            if(nextBtnText) nextBtnText.innerText = currentStep === totalSteps ? translations[currentLang]["cont-btn"] : translations[currentLang]["form-next"];
-            const nav = document.getElementById('form-nav');
-            if(nav) nav.style.display = currentStep > totalSteps ? 'none' : 'flex';
-        }
-
-        function validateEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
-        function validatePhone(phone) { return /^[0-9\s\-]{8,15}$/.test(phone.trim()); }
-
-        function changeStep(n) {
-            if (n > 0) {
-                if (currentStep === 1 && !document.getElementById('q-name').value) return;
-                if (currentStep === 2) {
-                    const email = document.getElementById('q-email');
-                    if (!validateEmail(email.value)) { email.classList.add('input-error'); document.getElementById('email-error').style.display = 'block'; return; }
-                    else { email.classList.remove('input-error'); document.getElementById('email-error').style.display = 'none'; }
-                }
-                if (currentStep === 3) {
-                    const phone = document.getElementById('q-phone');
-                    if (!validatePhone(phone.value)) { phone.classList.add('input-error'); document.getElementById('phone-error').style.display = 'block'; return; }
-                    else { phone.classList.remove('input-error'); document.getElementById('phone-error').style.display = 'none'; }
-                }
-                if (currentStep === 4 && !document.getElementById('q-service').value) return;
-                if (currentStep === 5 && !document.getElementById('q-msg').value) return;
-                if (currentStep === 6 && !document.getElementById('q-callback').value) return;
-            }
-            currentStep += n;
-            if (currentStep > totalSteps) {
-                document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
-                document.getElementById('step-success').classList.add('active');
-                document.getElementById('form-progress-fill').style.width = '100%';
-            } else { updateFormUI(); }
-        }
-
-        function selectFormService(el, val) {
-            document.querySelectorAll('#step-4 .service-pill').forEach(p => p.classList.remove('selected'));
-            el.classList.add('selected');
-            document.getElementById('q-service').value = val;
-            setTimeout(() => changeStep(1), 400);
-        }
-
-        function selectCallback(el, val) {
-            document.querySelectorAll('#step-6 .service-pill').forEach(p => p.classList.remove('selected'));
-            el.classList.add('selected');
-            document.getElementById('q-callback').value = val;
-            setTimeout(() => changeStep(1), 400);
-        }
-
-        function resetForm() { 
-            currentStep = 1; 
-            document.getElementById('quest-form').reset();
-            document.querySelectorAll('.service-pill').forEach(p => p.classList.remove('selected'));
-            document.getElementById('step-success').classList.remove('active');
-            updateFormUI(); 
-        }
-
-        // --- GEMINI AI CHAT (FIXÉ ✨) ---
-        function toggleAiChat() { document.getElementById('ai-chat-modal').classList.toggle('active'); }
-
-        async function sendChatMessage() {
-            const input = document.getElementById('chat-input');
-            const msg = input.value.trim(); if (!msg) return;
-            const chatBox = document.getElementById('chat-messages');
-            chatBox.innerHTML += `<div class="msg msg-user">${msg}</div>`;
-            input.value = '';
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            const loadingId = 'ai-loading-' + Date.now();
-            chatBox.innerHTML += `<div class="msg msg-ai" id="${loadingId}">JAAD AI réfléchit...</div>`;
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            try {
-                if (!apiKey) throw new Error("Missing Key");
-                const response = await callGemini(msg, "Tu es JAAD AI, l'assistant expert d'une agence digitale (Web Design, 3D, IA, E-learning). Réponds de façon concise et professionnelle.");
-                document.getElementById(loadingId).innerText = response;
-            } catch (e) {
-                let errorMsg = "Désolé, une erreur technique est survenue.";
-                if (e.message === "Missing Key") errorMsg = "Clé API non configurée. Veuillez l'ajouter dans le code source (index.html).";
-                else if (e.message === "API Error") errorMsg = "L'API a renvoyé une erreur. Vérifiez la validité de votre clé.";
-                document.getElementById(loadingId).innerHTML = `<span class="text-red-500">${errorMsg}</span>`;
-            }
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        async function callGemini(p, s) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${apiKey}`;
-            const r = await fetch(url, { 
-                method: 'POST', 
-                headers: { 'Content-Type': 'application/json' }, 
-                body: JSON.stringify({ 
-                    contents: [{ parts: [{ text: p }] }], 
-                    system_instruction: { parts: [{ text: s }] } // Syntaxe v1beta exacte
-                }) 
-            });
-
-            if(!r.ok) {
-                const errorData = await r.json();
-                console.error("Gemini API Error:", errorData);
-                throw new Error("API Error");
-            }
-
-            const d = await r.json(); 
-            return d.candidates?.[0]?.content?.parts?.[0]?.text || "Je n'ai pas pu générer de réponse.";
-        }
-
-        // --- TRADUCTIONS ---
+        // --- API CONFIG ---
+        const apiKey = "AIzaSyBaJCBzdlj9qgKdYWnidzDJLEzof9kpN9s"; // La clé est injectée automatiquement au runtime dans cet environnement.
+        
         const translations = {
             fr: {
-                "nav-logo": "JAAD", "nav-expertise": "Expertise", "nav-realisations": "Nos Créations", "nav-contact-btn": "Contact",
-                "hero-btn": "Parlons-en.", "hero-btn-secondary": "Nos créations.", "exp-title": "On crée pour vous. E-learning.",
-                "proc-title": "Notre Accompagnement de A à Z. Méthode.",
-                "proc-1-h": "Stratégie & Immersion", "proc-1-p": "Nous commençons par immerger notre équipe dans votre univers. Analyse de vos besoins et définition précise des objectifs de conversion.",
-                "proc-2-h": "Conception Créative", "proc-2-p": "L'étape créative. Création de wireframes et design d'interfaces haute-fidélité pour valider l'expérience utilisateur avant le code.",
-                "proc-3-h": "Développement & IA", "proc-3-p": "Intégration technique pointue, animations 3D et tests rigoureux. Nous donnons vie au projet avec les meilleures technologies.",
-                "proc-4-h": "Lancement & Suivi", "proc-4-p": "Mise en ligne, maintenance évolutive et support continu. Nous restons à vos côtés pour faire grandir votre présence digitale.",
-                "cont-title": "Contactez-nous.", "cont-desc": "Répondez à quelques questions pour qualifier votre projet.",
-                "cont-location": "Aix-en-Provence & International", "cont-ph-name": "Votre nom", "cont-ph-email": "Email", "cont-ph-msg": "Détails de votre projet...", "cont-btn": "Envoyer",
-                "form-next": "Suivant", "form-prev": "Retour", "step-1-label": "Comment vous appelez-vous ?", "step-2-label": "Quel est votre email ?", "step-3-label": "Sur quoi pouvons-nous vous aider ?",
-                "step-4-label": "Décrivez-nous votre projet...", "step-5-label": "Comment souhaitez-vous être rappelé ?", "step-phone-label": "Et votre numéro de téléphone ?",
-                "err-email": "Email invalide", "err-phone": "Numéro invalide",
-                "srv-web": "Web", "srv-apps": "Apps", "srv-3d": "3D", "srv-ia": "IA", "srv-elearning": "E-learning",
-                "testi-title": "Ils nous font confiance. Avis.",
-                "form-success-title": "C'est envoyé !", "form-success-desc": "Transmis à hello@jaad.studio. Réponse sous 24h."
+                "nav-expertise": "Expertise", "nav-methode": "Méthode", "nav-realisations": "Réalisations", "nav-contact-btn": "Contact", "nav-close": "Fermer",
+                "hero-btn": "Parlons-en.", "hero-btn-secondary": "Nos créations.", "exp-title-marquee": "On crée pour vous. E-learning.",
+                "exp-web-h": "Web Design Immersif", "exp-web-p": "Des sites sur-mesure immersifs et un SEO aux petits oignons.",
+                "exp-3d-h": "Studio 3D.", "exp-3d-p": "Du graphisme 3D haute qualité pour vos produits.",
+                "exp-app-h": "Apps Mobile", "exp-app-p": "Développement natif et publication stores.",
+                "exp-ia-h": "IA & Robot.", "exp-ia-p": "Chatbots intelligents et automatisation.",
+                "exp-learn-h": "E-learning", "exp-learn-p": "Plateformes interactives et formation.",
+                "proc-title-marquee": "Notre Accompagnement. Méthode.", 
+                "proc-1-tag": "Phase 01", "proc-2-tag": "Phase 02", "proc-3-tag": "Phase 03", "proc-4-tag": "Phase 04",
+                "proc-1-h": "Stratégie & Immersion", "proc-1-p": "Analyse de vos besoins et définition précise.",
+                "proc-2-h": "Design & IA", "proc-2-p": "Conception visuelle et intégration technologique.",
+                "proc-3-h": "Publication & Référencement", "proc-3-p": "Mise en ligne, SEO technique et suivi des performances.",
+                "proc-4-h": "Maintenance & Évolution", "proc-4-p": "Support technique continu et mises à jour évolutives.",
+                "cont-h": "Prêt à briller ?", "cont-p": "Laissez-nous vos coordonnées, on s'occupe du reste.",
+                "form-q1": "Votre nom ?", "form-q2": "Votre email ?", "form-q3": "Quel service ?", "form-q4": "Décrivez votre projet", "form-q5": "Comment vous recontacter ?",
+                "form-prev": "Retour", "form-next": "Suivant", "form-send": "Envoyer", "form-success-h": "C'est envoyé !", "form-success-p": "Merci. Nous avons bien reçu votre demande sur hello@jaad.studio.",
+                "footer-copyright": "© 2026 JAAD Studio - Design & Futur intelligent.", "chat-welcome": "Bonjour ! Je suis JAAD AI. Comment puis-je vous aider ?"
             },
             en: {
-                "nav-logo": "JAAD", "nav-expertise": "Expertise", "nav-realisations": "Our Creations", "nav-contact-btn": "Contact",
-                "hero-btn": "Let's talk.", "hero-btn-secondary": "Works.", "exp-title": "We build for you. E-learning.",
-                "proc-title": "A to Z Support. Our Process.",
-                "proc-1-h": "Strategy & Immersion", "proc-1-p": "We start by immersing our team in your world. Analyzing your needs and defining conversion goals.",
-                "proc-2-h": "Creative Design", "proc-2-p": "The creative stage. Wireframing and high-fidelity UI design to validate the experience before coding.",
-                "proc-3-h": "Development & AI", "proc-3-p": "Sharp technical integration, 3D animations, and rigorous testing. We bring the project to life with top tech.",
-                "proc-4-h": "Launch & Support", "proc-4-p": "Going live, iterative maintenance, and continuous support. We stand by you to grow your digital presence.",
-                "cont-title": "Contact Us.", "cont-desc": "Answer a few questions to qualify your project.",
-                "cont-location": "Aix-en-Provence & International", "cont-ph-name": "Your name", "cont-ph-email": "Email", "cont-ph-msg": "Project details...", "cont-btn": "Submit",
-                "form-next": "Next", "form-prev": "Back", "step-1-label": "What is your name?", "step-2-label": "What is your email?", "step-3-label": "What do you need help with?",
-                "step-4-label": "Tell us more about your project...", "step-5-label": "How would you like to be reached?", "step-phone-label": "And your phone number?",
-                "err-email": "Invalid email", "err-phone": "Invalid phone number",
-                "srv-web": "Web", "srv-apps": "Apps", "srv-3d": "3D", "srv-ia": "AI", "srv-elearning": "E-learning",
-                "testi-title": "They trust us. Reviews.",
-                "form-success-title": "Sent successfully!", "form-success-desc": "Sent to hello@jaad.studio. Expect a reply within 24h."
+                "nav-expertise": "Expertise", "nav-methode": "Method", "nav-realisations": "Works", "nav-contact-btn": "Contact", "nav-close": "Close",
+                "hero-btn": "Let's talk.", "hero-btn-secondary": "Our works.", "exp-title-marquee": "We build for you. E-learning.",
+                "exp-web-h": "Immersive Web Design", "exp-web-p": "Custom immersive sites and sharp SEO.",
+                "exp-3d-h": "3D Studio", "exp-3d-p": "High-quality 3D graphics for your products.",
+                "exp-app-h": "Mobile Apps", "exp-app-p": "Native development and store publishing.",
+                "exp-ia-h": "AI & Robots", "exp-ia-p": "Intelligent chatbots and automation.",
+                "exp-learn-h": "E-learning", "exp-learn-p": "Interactive platforms and training.",
+                "proc-title-marquee": "Our Support. Method.", 
+                "proc-1-tag": "Phase 01", "proc-2-tag": "Phase 02", "proc-3-tag": "Phase 03", "proc-4-tag": "Phase 04",
+                "proc-1-h": "Strategy & Immersion", "proc-1-p": "Analysis of your needs and precise definition.",
+                "proc-2-h": "Design & AI", "proc-2-p": "Visual design and tech integration.",
+                "proc-3-h": "Publishing & SEO", "proc-3-p": "Launch, technical SEO, and performance tracking.",
+                "proc-4-h": "Maintenance & Evolution", "proc-4-p": "Continuous technical support and evolutionary updates.",
+                "cont-h": "Ready to shine?", "cont-p": "Leave us your details, we'll handle the rest.",
+                "form-q1": "Your name?", "form-q2": "Your email?", "form-q3": "Which service?", "form-q4": "Describe your project", "form-q5": "How to contact you?",
+                "form-prev": "Back", "form-next": "Next", "form-send": "Send", "form-success-h": "Sent!", "form-success-p": "Thank you. We received your request at hello@jaad.studio.",
+                "footer-copyright": "© 2026 JAAD Studio - Design & Smart Future.", "chat-welcome": "Hello! I am JAAD AI. How can I help you?"
             },
             ar: {
-                "nav-logo": "جاد", "nav-expertise": "خبراتنا", "nav-realisations": "إبداعاتنا", "nav-contact-btn": "تواصل معنا",
-                "hero-btn": "لنتحدث.", "hero-btn-secondary": "إبداعاتنا.", "exp-title": "نصمم لأجلك. التعليم الإلكتروني.",
-                "proc-title": "دعم شامل من الألف إلى الياء. طريقتنا.",
-                "proc-1-h": "الإستراتيجية والانغماس", "proc-1-p": "نبدأ بغمر فريقنا في عالمك. تحليل احتياجاتك وتحديد أهداف التحويل بدقة.",
-                "proc-2-h": "التصميم الإبداعي", "proc-2-p": "المرحلة الإبداعية. إنشاء النماذج وتصميم واجهات عالية الجودة للتحقق من تجربة المستخدم قبل البرمجة.",
-                "proc-3-h": "التطوير والذكاء الاصطناعي", "proc-3-p": "تكامل تقني دقيق، رسوم متحركة ثلاثية الأبعاد واختبارات صارمة. نعيد الحياة للمشروع بأفضل التقنيات.",
-                "proc-4-h": "الإطلاق والمتابعة", "proc-4-p": "الإطلاق، الصيانة التطورية والدعم المستمر. نبقى بجانبك لتنمية تواجدك الرقمي.",
-                "cont-title": "اتصل بنا.", "cont-desc": "أجب على certains الأسئلة لتأهيل مشروعك.",
-                "cont-location": "إيكس أون بروفانس وعالمي", "cont-ph-name": "الاسم", "cont-ph-email": "الايميل", "cont-ph-msg": "تفاصيل مشروعك...", "cont-btn": "إرسال",
-                "form-next": "التالي", "form-prev": "السابق", "step-1-label": "ما هو اسمك؟", "step-2-label": "ما هو بريدك الإلكتروني؟", "step-3-label": "بماذا يمكننا مساعدتك؟",
-                "step-4-label": "صف لنا مشروعك...", "step-5-label": "كيف نتمكن من التواصل معك؟", "step-phone-label": "وما هو رقم هاتفك؟",
-                "err-email": "بريد إلكتروني غير صالح", "err-phone": "رقم غير صالح",
-                "srv-web": "ويب", "srv-apps": "تطبيقات", "srv-3d": "ثلاثي الأبعاد", "srv-ia": "ذكاء اصطناعي", "srv-elearning": "التعليم الإلكتروني",
-                "testi-title": "عملاؤنا يثقون بنا. آراء.",
-                "form-success-title": "تم الإرسال!", "form-success-desc": "تم الإرسال إلى hello@jaad.studio. الرد خلال 24 ساعة."
+                "nav-expertise": "خبراتنا", "nav-methode": "منهجيتنا", "nav-realisations": "أعمالنا", "nav-contact-btn": "اتصل بنا", "nav-close": "إغلاق",
+                "hero-btn": "لنبدأ العمل.", "hero-btn-secondary": "استعرض أعمالنا.", "exp-title-marquee": "نبتكر من أجلك. التعليم الإلكتروني.",
+                "exp-web-h": "تصميم ويب غامر", "exp-web-p": "مواقع مخصصة وتحسين محركات البحث بشكل احترافي.",
+                "exp-3d-h": "استوديو ثلاثي الأبعاد", "exp-3d-p": "رسومات ثلاثية الأبعاد عالية الجودة لمنتجاتك.",
+                "exp-app-h": "تطبيقات الجوال", "exp-app-p": "تطوير أصلي ونشر على المتاجر.",
+                "exp-ia-h": "الذكاء الاصطناعي", "exp-ia-p": "روبوتات الدردشة الذكية والأتمتة.",
+                "exp-learn-h": "التعليم الإلكتروني", "exp-learn-p": "منصات تفاعلية وحلول تدريبية.",
+                "proc-title-marquee": "مرافقتنا لكم. المنهجية.", 
+                "proc-1-tag": "المرحلة الأولى", "proc-2-tag": "المرحلة الثانية", "proc-3-tag": "المرحلة الثالثة", "proc-4-tag": "المرحلة الرابعة",
+                "proc-1-h": "الاستراتيجية والانغماس", "proc-1-p": "تحليل احتياجاتكم وتحديد الأهداف بدقة.",
+                "proc-2-h": "التصميم والذكاء الاصطناعي", "proc-2-p": "التصميم المرئي والتكامل التقني.",
+                "proc-3-h": "النشر والأرشفة", "proc-3-p": "الإطلاق، تحسين محركات البحث ومتابعة الأداء.",
+                "proc-4-h": "الصيانة والتطوير", "proc-4-p": "الدعم الفني المستمر والتحديثات التطويرية.",
+                "cont-h": "هل أنت مستعد للتألق؟", "cont-p": "اترك لنا بياناتك وسنتولى الباقي.",
+                "form-q1": "ما اسمك؟", "form-q2": "بريدك الإلكتروني؟", "form-q3": "أي خدمة تختار؟", "form-q4": "صف لنا مشروعك", "form-q5": "كيف نرد عليك؟",
+                "form-prev": "رجوع", "form-next": "التالي", "form-send": "إرسال", "form-success-h": "تم الإرسال!", "form-success-p": "شكراً لك. استلمنا طلبك على hello@jaad.studio.",
+                "footer-copyright": "© 2026 استوديو جاد - تصميم ومستقبل ذكي.", "chat-welcome": "مرحباً! أنا JAAD AI. كيف يمكنني مساعدتك؟"
             }
         };
 
         function switchLanguage(lang) {
-            currentLang = lang; 
-            document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-            document.querySelectorAll('[data-i18n]').forEach(el => { 
-                const key = el.getAttribute('data-i18n'); 
-                if (translations[lang][key]) el.innerHTML = translations[lang][key]; 
-            });
-            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { 
-                const key = el.getAttribute('data-i18n-placeholder'); 
-                if (translations[lang][key]) el.placeholder = translations[lang][key]; 
-            });
-            ['fr', 'en', 'ar'].forEach(l => {
-                const btn = document.getElementById(`lang-${l}`);
-                if (btn) btn.className = (l === lang) ? "px-4 py-1.5 rounded-full text-[9px] font-black bg-white text-black shadow-sm transition-all" : "px-4 py-1.5 rounded-full text-[9px] font-black text-slate-400 transition-all";
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
             });
             updateFormUI();
         }
 
-        // --- UTILS ---
-        function toggleMenu() { document.getElementById('mobile-menu-overlay').classList.toggle('active'); }
-        function revealOnScroll() { 
-            const obs = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1 }); 
-            document.querySelectorAll('.reveal-up').forEach(el => obs.observe(el)); 
-        }
-
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) nav.classList.add('nav-shrink'); else nav.classList.remove('nav-shrink');
-            const winScroll = document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            document.getElementById("scroll-progress").style.width = (winScroll / height) * 100 + "%";
+        // --- PRELOADER ---
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                setTimeout(() => {
+                    preloader.classList.add('preloader-active');
+                    setTimeout(() => { preloader.style.display = 'none'; }, 1000);
+                }, 800);
+            }
+            lucide.createIcons();
+            revealOnScroll();
+            updateFormUI();
         });
 
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href.startsWith('#')) {
-                    e.preventDefault();
-                    const targetId = href.substring(1);
-                    const targetElement = document.getElementById(targetId === 'top' ? 'top' : targetId);
-                    if (targetElement) {
-                        document.getElementById('mobile-menu-overlay').classList.remove('active');
-                        window.scrollTo({ top: targetElement.offsetTop - 80, behavior: 'smooth' });
-                    }
+        // --- SMOOTH SCROLL ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const navHeight = document.getElementById('navbar').offsetHeight + 40;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                 }
             });
         });
 
-        lucide.createIcons();
+        // --- FORM LOGIC ---
+        let currentStep = 1;
+        const totalSteps = 5;
+
+        function updateFormUI() {
+            const lang = document.documentElement.lang || 'fr';
+            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+            const activeStep = document.getElementById(`step-${currentStep}`);
+            if (activeStep) activeStep.classList.add('active');
+            
+            const bar = document.getElementById('form-progress-fill');
+            if (bar) {
+                const progress = (currentStep / totalSteps) * 100;
+                bar.style.width = `${progress}%`;
+            }
+            
+            const prevBtn = document.getElementById('prev-btn');
+            if (prevBtn) {
+                if (currentStep === 1) prevBtn.classList.add('opacity-0', 'pointer-events-none');
+                else prevBtn.classList.remove('opacity-0', 'pointer-events-none');
+            }
+
+            const nextBtnText = document.getElementById('next-btn-text');
+            if (nextBtnText) {
+                if (currentStep === totalSteps) {
+                    nextBtnText.innerText = (translations[lang] && translations[lang]["form-send"]) ? translations[lang]["form-send"] : "Envoyer";
+                } else {
+                    nextBtnText.innerText = (translations[lang] && translations[lang]["form-next"]) ? translations[lang]["form-next"] : "Suivant";
+                }
+            }
+        }
+
+        function changeStep(n) {
+            if (n > 0) {
+                if (currentStep === 1 && !document.getElementById('q-name').value) return;
+                if (currentStep === 2 && !document.getElementById('q-email').value) return;
+                if (currentStep === 3 && !document.getElementById('q-service').value) return;
+                if (currentStep === totalSteps) {
+                    handleFormSubmit();
+                    return;
+                }
+            }
+            currentStep += n;
+            if (currentStep < 1) currentStep = 1;
+            if (currentStep > totalSteps) currentStep = totalSteps;
+            updateFormUI();
+        }
+
+        function selectFormService(el, val) {
+            document.querySelectorAll('#step-3 .service-pill').forEach(p => p.classList.remove('selected'));
+            el.classList.add('selected');
+            const hiddenInput = document.getElementById('q-service');
+            if (hiddenInput) hiddenInput.value = val;
+            setTimeout(() => changeStep(1), 300);
+        }
+
+        function selectContactPref(el, val) {
+            document.querySelectorAll('#step-5 .service-pill').forEach(p => p.classList.remove('selected'));
+            el.classList.add('selected');
+            const hiddenInput = document.getElementById('q-pref');
+            if (hiddenInput) hiddenInput.value = val;
+        }
+
+        async function handleFormSubmit() {
+            const form = document.getElementById('quest-form');
+            const nextBtn = document.getElementById('next-btn');
+            const nextBtnText = document.getElementById('next-btn-text');
+            if (nextBtn) nextBtn.disabled = true;
+            if (nextBtnText) nextBtnText.innerText = "...";
+            const formData = new FormData(form);
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (response.ok) {
+                    document.getElementById('form-steps-container').style.display = 'none';
+                    document.getElementById('form-nav').style.display = 'none';
+                    document.getElementById('step-success').classList.add('active');
+                } else {
+                    alert("Erreur lors de l'envoi.");
+                    if (nextBtn) nextBtn.disabled = false;
+                    updateFormUI();
+                }
+            } catch (error) {
+                alert("Erreur réseau.");
+                if (nextBtn) nextBtn.disabled = false;
+                updateFormUI();
+            }
+        }
+
+        // --- AI CHAT LOGIC (GEMINI API) ---
+        async function callGemini(userQuery) {
+            const systemPrompt = "Tu es JAAD AI, l'assistant virtuel expert de l'agence JAAD Studio. Ton rôle est de conseiller les clients sur le Web Design immersif, la 3D, l'IA et le E-learning. Sois créatif, professionnel et concis.";
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            let attempts = 0;
+            const maxAttempts = 5;
+            let delay = 1000;
+
+            while (attempts < maxAttempts) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: userQuery }] }],
+                            systemInstruction: { parts: [{ text: systemPrompt }] }
+                        })
+                    });
+
+                    if (!response.ok) throw new Error('API request failed');
+                    const result = await response.json();
+                    return result.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, je ne parviens pas à formuler une réponse.";
+                } catch (error) {
+                    attempts++;
+                    if (attempts === maxAttempts) return "Le service est momentanément indisponible. Veuillez réessayer plus tard.";
+                    await new Promise(res => setTimeout(res, delay));
+                    delay *= 2;
+                }
+            }
+        }
+
+        async function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const chatBox = document.getElementById('chat-messages');
+            const sendBtn = document.getElementById('chat-send-btn');
+            
+            if (!input || !chatBox || !input.value.trim()) return;
+            
+            const userMsg = input.value.trim();
+            chatBox.innerHTML += `<div class="msg msg-user">${userMsg}</div>`;
+            input.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Loading state
+            const loadingId = 'ai-loading-' + Date.now();
+            chatBox.innerHTML += `<div class="msg msg-ai text-xs italic" id="${loadingId}">JAAD AI réfléchit...</div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+            if (sendBtn) sendBtn.disabled = true;
+
+            try {
+                const aiResponse = await callGemini(userMsg);
+                const loadingEl = document.getElementById(loadingId);
+                if (loadingEl) {
+                    loadingEl.innerText = aiResponse;
+                    loadingEl.classList.remove('italic');
+                }
+            } catch (error) {
+                const loadingEl = document.getElementById(loadingId);
+                if (loadingEl) loadingEl.innerText = "Erreur de connexion avec l'IA.";
+            } finally {
+                if (sendBtn) sendBtn.disabled = false;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+
+        // --- UI UTILS ---
+        function toggleMenu() { 
+            const menu = document.getElementById('mobile-menu-overlay');
+            if (menu) menu.classList.toggle('active'); 
+        }
+        
+        function toggleAiChat() { 
+            const chat = document.getElementById('ai-chat-modal');
+            if (chat) chat.classList.toggle('active'); 
+        }
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (nav) {
+                if (window.scrollY > 50) nav.classList.add('nav-shrink'); 
+                else nav.classList.remove('nav-shrink');
+            }
+            const progressFill = document.getElementById("scroll-progress");
+            if (progressFill) {
+                const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                progressFill.style.width = (window.scrollY / h) * 100 + "%";
+            }
+        });
+
+        function revealOnScroll() { 
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+            }, { threshold: 0.1 }); 
+            document.querySelectorAll('.reveal-up').forEach(el => obs.observe(el)); 
+        }
     </script>
 </body>
 </html>
