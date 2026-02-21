@@ -1,7 +1,3 @@
-/**
- * Version de production stabilisée pour JAAD Studio
- * Utilise v1beta car gemini-1.5-flash y est mieux reconnu
- */
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Méthode non autorisée' });
@@ -14,8 +10,8 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Clé API non trouvée sur Vercel." });
   }
 
-  // On utilise l'URL v1beta (testée et fonctionnelle pour gemini-1.5-flash)
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  // LE SEUL CHANGEMENT EST ICI : On utilise gemini-2.0-flash (le modèle actif de Google)
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
   try {
     const response = await fetch(url, {
