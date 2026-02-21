@@ -2,7 +2,7 @@
   "name": "jaad-studio",
   "version": "1.0.0",
   "type": "module",
-  "description": "Configuration finale pour JAAD Studio",
+  "description": "Configuration pour JAAD Studio et son IA Gemini",
   "main": "index.html",
   "engines": {
     "node": "24.x"
