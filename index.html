@@ -2,7 +2,7 @@
 <html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>JAAD | Agence Créative Web, 3D, IA & E-learning</title>
     <meta name="description" content="JAAD Studio : Agence créative spécialisée en Web Design immersif, Studio 3D, Intelligence Artificielle et solutions E-learning.">
     
@@ -14,7 +14,6 @@
         :root {
             --primary: #2563eb;
             --primary-dark: #1d4ed8;
-            --primary-glow: rgba(37, 99, 235, 0.4);
             --bg-main: #f9f9fb; 
             --bg-card: #ffffff;
             --text-main: #1e293b;
@@ -29,6 +28,12 @@
             color: var(--text-main);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+        }
+
+        /* PROTECTION DU SCROLL : On force l'iframe à être ignorée par la souris et le toucher */
+        #hero-spline {
+            pointer-events: none !important;
+            user-select: none !important;
         }
 
         .noise::before {
@@ -47,20 +52,19 @@
             z-index: 1001;
         }
 
-        /* --- PRELOADER JAAD MAJUSCULE --- */
+        /* --- PRELOADER --- */
         #preloader {
             position: fixed; inset: 0; z-index: 9999;
             display: flex; align-items: center; justify-content: center;
             background: linear-gradient(180deg, var(--primary) 0%, var(--sky-blue) 60%, var(--bg-main) 100%);
-            transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+            transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
-        .preloader-active { transform: translateY(-100%); }
+        .preloader-active { transform: translateY(-100%); pointer-events: none; }
 
         .loader-logo-base {
             font-family: 'Outfit', sans-serif; 
-            /* MODIFICATION ICI : Taille dynamique qui ne dépasse jamais l'écran */
-            font-size: clamp(3.5rem, 12vw, 6rem); 
+            font-size: clamp(2.5rem, 12vw, 5rem); 
             font-weight: 900;
             color: rgba(255, 255, 255, 0.2); font-style: italic; letter-spacing: -0.02em;
             position: relative; text-transform: uppercase;
@@ -69,22 +73,14 @@
         .loader-logo-fill {
             position: absolute; top: 0; left: 0;
             color: #ffffff; width: 0%; overflow: hidden;
-            white-space: nowrap; transition: width 0.4s ease-in-out;
-        }
-
-        /* Fix Chrome Autofill (Empêche le bug du texte bleu sur bleu dans le formulaire) */
-        input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, textarea:-webkit-autofill, textarea:-webkit-autofill:hover, textarea:-webkit-autofill:focus {
-            -webkit-text-fill-color: white;
-            -webkit-box-shadow: 0 0 0px 1000px #0f172a inset;
-            transition: background-color 5000s ease-in-out 0s;
+            white-space: nowrap; transition: width 0.5s ease-in-out;
         }
 
         /* --- NAV --- */
         .glass-nav {
-            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px);
             border: 1px solid rgba(0, 0, 0, 0.05); transition: all 0.4s ease;
         }
-        .nav-shrink { padding: 0.75rem 0 !important; }
 
         /* --- BUTTONS --- */
         .btn-premium {
@@ -152,23 +148,14 @@
 
     <!-- PRELOADER -->
     <div id="preloader">
-        <div class="loader-content">
+        <div class="loader-content text-center">
             <div class="loader-logo-base">JAAD.<div class="loader-logo-fill" id="loader-fill">JAAD.</div></div>
         </div>
     </div>
 
-    <!-- MOBILE MENU -->
-    <div id="mobile-menu-overlay">
-        <a href="#services" class="text-4xl font-black text-slate-900 anchor-link" onclick="toggleMenu()" data-i18n="nav-expertise">Expertise</a>
-        <a href="#process" class="text-4xl font-black text-slate-900 anchor-link" onclick="toggleMenu()" data-i18n="nav-methode">Méthode</a>
-        <a href="#portfolio" class="text-4xl font-black text-slate-900 anchor-link" onclick="toggleMenu()" data-i18n="nav-realisations">Réalisations</a>
-        <a href="#contact" class="text-4xl font-black text-blue-600 anchor-link" onclick="toggleMenu()" data-i18n="nav-contact-btn">Contact</a>
-        <button class="mt-12 text-slate-400 font-bold uppercase text-xs" onclick="toggleMenu()" data-i18n="nav-close">Fermer</button>
-    </div>
-
     <!-- NAV -->
     <nav class="fixed top-0 w-full z-[1000] flex justify-center pt-8 px-4">
-        <div id="navbar" class="glass-nav px-8 md:px-10 py-5 rounded-full flex items-center max-w-6xl w-full justify-between">
+        <div id="navbar" class="glass-nav px-6 md:px-10 py-5 rounded-full flex items-center max-w-6xl w-full justify-between shadow-sm">
             <a href="#top" class="text-2xl font-black text-blue-600 tracking-tighter anchor-link">JAAD<span class="text-slate-900">.</span></a>
             <div class="hidden md:flex items-center gap-10 text-[10px] font-extrabold uppercase tracking-widest text-slate-500">
                 <a href="#services" class="hover:text-blue-600 anchor-link" data-i18n="nav-expertise">Expertise</a>
@@ -178,9 +165,9 @@
             </div>
             <div class="flex items-center gap-3">
                 <div class="flex bg-slate-100/50 p-1 rounded-full">
-                    <button class="px-4 py-1.5 rounded-full text-[9px] font-black hover:bg-white transition-all" onclick="switchLanguage('fr')">FR</button>
-                    <button class="px-4 py-1.5 rounded-full text-[9px] font-black hover:bg-white transition-all" onclick="switchLanguage('en')">EN</button>
-                    <button class="px-4 py-1.5 rounded-full text-[9px] font-black hover:bg-white transition-all" onclick="switchLanguage('ar')">AR</button>
+                    <button class="px-3 py-1.5 rounded-full text-[9px] font-black hover:bg-white" onclick="switchLanguage('fr')">FR</button>
+                    <button class="px-3 py-1.5 rounded-full text-[9px] font-black hover:bg-white" onclick="switchLanguage('en')">EN</button>
+                    <button class="px-3 py-1.5 rounded-full text-[9px] font-black hover:bg-white" onclick="switchLanguage('ar')">AR</button>
                 </div>
                 <button class="md:hidden p-2 text-slate-900" onclick="toggleMenu()"><i data-lucide="menu"></i></button>
             </div>
@@ -195,13 +182,21 @@
 
     <!-- HERO -->
     <header id="top" class="relative h-[100dvh] w-full flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 z-0" style="background: linear-gradient(180deg, var(--primary) 0%, var(--sky-blue) 60%, var(--bg-main) 100%);">
+        <!-- BACKGROUND LAYER - Absolument aucun événement souris/tactile ici -->
+        <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(180deg, var(--primary) 0%, var(--sky-blue) 60%, var(--bg-main) 100%);">
             <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.85),transparent_75%)] z-10 pointer-events-none"></div>
-            <!-- MODIFICATION ICI : Moins de zoom (125vw) et décalage sur-mesure pour centrer parfaitement sur mobile -->
-            <iframe src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' frameborder='0' class="absolute top-1/2 left-1/2 -translate-x-[55%] md:-translate-x-1/2 -translate-y-1/2 w-[125vw] md:w-full h-full max-w-none opacity-0 transition-opacity duration-1000" onload="this.style.opacity='1'"></iframe>
+            
+            <!-- SPLINE IFRAME - PARFAITEMENT CENTRÉ ET NON-BLOQUANT -->
+            <iframe id="hero-spline" 
+                    src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' 
+                    frameborder='0' 
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] w-[150vw] md:w-full h-full max-w-none opacity-0 transition-opacity duration-1000" 
+                    onload="this.style.opacity='1'"></iframe>
         </div>
-        <div class="relative z-20 text-center px-6 mt-[20vh]">
-            <div class="flex flex-col md:flex-row gap-5 justify-center reveal-up active">
+
+        <!-- CONTENT LAYER -->
+        <div class="relative z-20 text-center px-6 mt-[35dvh] pointer-events-none">
+            <div class="flex flex-col md:flex-row gap-5 justify-center reveal-up active pointer-events-auto">
                 <a href="#contact" class="btn-premium btn-primary anchor-link"><span data-i18n="hero-btn">Parlons-en.</span> <i data-lucide="zap" class="w-4 h-4 fill-current"></i></a>
                 <a href="#portfolio" class="btn-premium btn-secondary anchor-link"><span data-i18n="hero-btn-secondary">Nos créations.</span></a>
             </div>
@@ -269,12 +264,11 @@
         </div>
     </section>
 
-    <!-- CONTACT (FORM 6 STEPS) -->
+    <!-- CONTACT -->
     <section id="contact" class="py-48 px-6 bg-[#0f172a]">
         <div class="max-w-3xl mx-auto">
             <div class="bg-white/5 p-10 md:p-16 rounded-[48px] border border-white/10 relative overflow-hidden backdrop-blur-xl min-h-[500px] flex flex-col justify-center">
                 
-                <!-- SUCCESS MESSAGE (Caché par défaut) -->
                 <div id="form-success" class="hidden text-center py-10 reveal-up">
                     <div class="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-8">
                         <i data-lucide="check" class="text-white w-12 h-12"></i>
@@ -284,10 +278,8 @@
                     <button type="button" onclick="resetForm()" class="mt-10 btn-premium btn-primary bg-white text-slate-900" data-i18n="form-btn-back">Retour au site</button>
                 </div>
 
-                <!-- LE FORMULAIRE -->
                 <div id="form-wrapper">
                     <div class="progress-bar-container"><div id="form-progress-fill"></div></div>
-                    <!-- Formulaire connecté à Formspree -->
                     <form id="quest-form" class="space-y-10" action="https://formspree.io/f/xjgeayjr" method="POST">
                         <div id="form-steps-container">
                             <div class="form-step active" id="step-1">
@@ -341,7 +333,7 @@
         <p class="text-slate-400 text-xs mt-6">© 2026 JAAD Studio.</p>
     </footer>
 
-    <!-- AI CHAT MODAL -->
+    <!-- AI CHAT -->
     <div id="ai-chat-modal">
         <div class="bg-blue-600 p-5 text-white flex justify-between items-center font-black">
             <span class="flex items-center gap-2 text-[11px] uppercase tracking-widest"><i data-lucide="sparkles"></i> JAAD AI</span>
@@ -370,7 +362,6 @@
                 "method-2-title": "Design", "method-2-desc": "Conception visuelle et IA.",
                 "method-3-title": "Publication", "method-3-desc": "Mise en ligne et SEO technique.",
                 "method-4-title": "Maintenance", "method-4-desc": "Support continu et évolutions.",
-                "port-title": "Nos Réalisations.",
                 "port-title-marquee": "Nos réalisations. Nos réalisations. Nos réalisations.",
                 "form-name": "Votre nom ?", "form-email": "Votre email ?", "form-phone": "Votre numéro ?", "form-service": "Quel service ?", "form-desc": "Description", "form-pref": "Contact par ?",
                 "form-btn-next": "Suivant", "form-btn-prev": "Retour", "form-btn-send": "Envoyer", "form-btn-back": "Retour au site",
@@ -390,7 +381,6 @@
                 "method-2-title": "Design", "method-2-desc": "Visual conception and AI.",
                 "method-3-title": "Publishing", "method-3-desc": "Going live and technical SEO.",
                 "method-4-title": "Maintenance", "method-4-desc": "Continuous support and updates.",
-                "port-title": "Our Works.",
                 "port-title-marquee": "Our works. Our works. Our works.",
                 "form-name": "Your name?", "form-email": "Your email?", "form-phone": "Your phone?", "form-service": "Which service?", "form-desc": "Description", "form-pref": "Contact via?",
                 "form-btn-next": "Next", "form-btn-prev": "Back", "form-btn-send": "Send", "form-btn-back": "Back to site",
@@ -410,7 +400,6 @@
                 "method-2-title": "التصميم", "method-2-desc": "التصور المرئي والذكاء الاصطناعي.",
                 "method-3-title": "النشر", "method-3-desc": "الإطلاق وتحسين محركات البحث.",
                 "method-4-title": "الصيانة", "method-4-desc": "دعم مستمر وتحديثات.",
-                "port-title": "أعمالنا.",
                 "port-title-marquee": "أعمالنا. أعمالنا. أعمالنا.",
                 "form-name": "اسمك؟", "form-email": "بريدك الإلكتروني؟", "form-phone": "رقم هاتفك؟", "form-service": "أي خدمة؟", "form-desc": "الوصف", "form-pref": "التواصل عبر؟",
                 "form-btn-next": "التالي", "form-btn-prev": "رجوع", "form-btn-send": "إرسال", "form-btn-back": "العودة للموقع",
@@ -421,8 +410,6 @@
         function switchLanguage(lang) {
             document.documentElement.lang = lang; document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
             document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.getAttribute('data-i18n'); if (translations[lang][key]) el.innerText = translations[lang][key]; });
-            
-            // Mise à jour du bouton du formulaire selon la langue choisie
             const nextBtn = document.getElementById('next-btn');
             if (nextBtn) nextBtn.innerText = (currentStep === 6) ? translations[lang]["form-btn-send"] : translations[lang]["form-btn-next"];
         }
@@ -432,10 +419,8 @@
 
         window.addEventListener('load', () => {
             const fill = document.getElementById('loader-fill');
-            // Le texte se remplit très vite (100ms après le chargement)
             setTimeout(() => { if(fill) fill.style.width = '100%'; }, 100);
-            // Le rideau se lève très vite (800ms au lieu de 1800ms)
-            setTimeout(() => { document.getElementById('preloader').classList.add('preloader-active'); revealOnScroll(); }, 800);
+            setTimeout(() => { document.getElementById('preloader').classList.add('preloader-active'); revealOnScroll(); }, 700);
             lucide.createIcons();
         });
 
@@ -444,242 +429,80 @@
         function changeStep(n) {
             const steps = document.querySelectorAll('.form-step');
             const lang = document.documentElement.lang || 'fr';
-            
-            // Empêche de reculer avant l'étape 1
             if (n < 0 && currentStep <= 1) return;
-            
-            // VALIDATION DES CHAMPS AVANT D'AVANCER
             if (n > 0) {
                 const currentStepEl = steps[currentStep - 1];
-                
-                // Vérifie les champs texte classiques (Affiche l'alerte native du navigateur)
                 const inputs = currentStepEl.querySelectorAll('input[required], textarea[required]');
-                for (let input of inputs) {
-                    if (!input.checkValidity()) {
-                        input.reportValidity();
-                        return; // Stoppe l'avancement
-                    }
-                }
-                
-                // Vérifie les boutons de sélection (Services)
-                if (currentStep === 4 && !document.getElementById('q-service').value) {
-                    alert(translations[lang]["form-err-service"]);
-                    return;
-                }
-                
-                // Vérifie les boutons de sélection (Contact)
-                if (currentStep === 6 && !document.getElementById('q-pref').value) {
-                    alert(translations[lang]["form-err-pref"]);
-                    return;
-                }
+                for (let input of inputs) { if (!input.checkValidity()) { input.reportValidity(); return; } }
+                if (currentStep === 4 && !document.getElementById('q-service').value) { alert(translations[lang]["form-err-service"]); return; }
+                if (currentStep === 6 && !document.getElementById('q-pref').value) { alert(translations[lang]["form-err-pref"]); return; }
             }
-            
-            // Si on est à la dernière étape et qu'on avance, on soumet le formulaire
-            if (n > 0 && currentStep >= steps.length) { 
-                handleFormSubmit(); 
-                return; 
-            }
-            
-            // Retire la classe 'active' seulement si l'élément existe
-            if (steps[currentStep - 1]) {
-                steps[currentStep - 1].classList.remove('active');
-            }
-            
+            if (n > 0 && currentStep >= steps.length) { handleFormSubmit(); return; }
+            if (steps[currentStep - 1]) steps[currentStep - 1].classList.remove('active');
             currentStep += n;
-            
-            // Ajoute la classe 'active' à la nouvelle étape
-            if (steps[currentStep - 1]) {
-                steps[currentStep - 1].classList.add('active');
-            }
-            
+            if (steps[currentStep - 1]) steps[currentStep - 1].classList.add('active');
             document.getElementById('form-progress-fill').style.width = (currentStep / steps.length) * 100 + "%";
-            
             const prevBtn = document.getElementById('prev-btn');
-            if (prevBtn) {
-                prevBtn.style.opacity = (currentStep === 1) ? "0" : "1";
-                prevBtn.style.pointerEvents = (currentStep === 1) ? "none" : "auto";
-            }
-            
+            if (prevBtn) { prevBtn.style.opacity = (currentStep === 1) ? "0" : "1"; prevBtn.style.pointerEvents = (currentStep === 1) ? "none" : "auto"; }
             const nextBtn = document.getElementById('next-btn');
-            if (nextBtn) {
-                nextBtn.innerText = (currentStep === steps.length) ? translations[lang]["form-btn-send"] : translations[lang]["form-btn-next"];
-            }
+            if (nextBtn) nextBtn.innerText = (currentStep === steps.length) ? translations[lang]["form-btn-send"] : translations[lang]["form-btn-next"];
         }
-        function selectFormService(el, val) { 
-            document.querySelectorAll('#step-4 button').forEach(b => b.classList.remove('selected')); 
-            el.classList.add('selected'); document.getElementById('q-service').value = val; setTimeout(() => changeStep(1), 300); 
-        }
-        function selectContactPref(el, val) { 
-            document.querySelectorAll('#step-6 button').forEach(b => b.classList.remove('selected')); 
-            el.classList.add('selected'); document.getElementById('q-pref').value = val; 
-        }
+        function selectFormService(el, val) { document.querySelectorAll('#step-4 button').forEach(b => b.classList.remove('selected')); el.classList.add('selected'); document.getElementById('q-service').value = val; setTimeout(() => changeStep(1), 300); }
+        function selectContactPref(el, val) { document.querySelectorAll('#step-6 button').forEach(b => b.classList.remove('selected')); el.classList.add('selected'); document.getElementById('q-pref').value = val; }
 
         async function handleFormSubmit() {
             const form = document.getElementById('quest-form');
-            const actionUrl = form.getAttribute('action');
             const btn = document.getElementById('next-btn');
-            
-            // Animation de chargement sur le bouton
             btn.innerHTML = '<i data-lucide="loader-2" class="animate-spin w-5 h-5"></i> Envoi...';
             btn.style.pointerEvents = 'none';
-
             try { 
-                const response = await fetch(actionUrl, { 
-                    method: 'POST', 
-                    body: new FormData(form), 
-                    headers: { 'Accept': 'application/json' } 
-                }); 
-
-                if (response.ok) { 
-                    // ON CACHE LE FORMULAIRE ET ON AFFICHE LE BEAU MESSAGE DE SUCCÈS
-                    document.getElementById('form-wrapper').style.display = 'none';
-                    const successDiv = document.getElementById('form-success');
-                    successDiv.classList.remove('hidden');
-                    // Ré-initialiser les icônes lucide pour le checkmark
-                    lucide.createIcons();
-                    // Lancer l'animation d'apparition
-                    setTimeout(() => successDiv.classList.add('active'), 50);
-                } else {
-                    alert("❌ Formspree a refusé l'envoi. Avez-vous mis le bon lien ID (ex: /f/xabcd) ?");
-                    btn.innerText = 'Réessayer';
-                    btn.style.pointerEvents = 'auto';
-                }
-            } catch (e) { 
-                alert("❌ Erreur réseau. Vérifiez votre connexion."); 
-                btn.innerText = 'Réessayer';
-                btn.style.pointerEvents = 'auto';
-            }
+                const response = await fetch(form.getAttribute('action'), { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } }); 
+                if (response.ok) { document.getElementById('form-wrapper').style.display = 'none'; const successDiv = document.getElementById('form-success'); successDiv.classList.remove('hidden'); lucide.createIcons(); setTimeout(() => successDiv.classList.add('active'), 50); }
+                else { alert("Erreur d'envoi."); btn.innerText = 'Réessayer'; btn.style.pointerEvents = 'auto'; }
+            } catch (e) { alert("Erreur réseau."); btn.innerText = 'Réessayer'; btn.style.pointerEvents = 'auto'; }
         }
 
         function resetForm() {
-            // Masquer le message de succès
-            const successDiv = document.getElementById('form-success');
-            successDiv.classList.remove('active');
-            
+            const successDiv = document.getElementById('form-success'); successDiv.classList.remove('active');
             setTimeout(() => {
-                successDiv.classList.add('hidden');
-                
-                // Réafficher le formulaire
-                document.getElementById('form-wrapper').style.display = 'block';
-                
-                // Réinitialiser les champs de texte
-                document.getElementById('quest-form').reset();
-                
-                // Retirer la sélection visuelle des boutons (Web, 3D, IA, Email, etc.)
-                document.querySelectorAll('.service-pill').forEach(b => b.classList.remove('selected'));
-                document.getElementById('q-service').value = '';
-                document.getElementById('q-pref').value = '';
-                
-                // Remettre le formulaire à l'étape 1
-                currentStep = 1;
-                const steps = document.querySelectorAll('.form-step');
-                steps.forEach(s => s.classList.remove('active'));
-                if (steps[0]) steps[0].classList.add('active');
-                
-                // Réinitialiser la barre de progression bleue
+                successDiv.classList.add('hidden'); document.getElementById('form-wrapper').style.display = 'block';
+                document.getElementById('quest-form').reset(); document.querySelectorAll('.service-pill').forEach(b => b.classList.remove('selected'));
+                document.getElementById('q-service').value = ''; document.getElementById('q-pref').value = ''; currentStep = 1;
+                const steps = document.querySelectorAll('.form-step'); steps.forEach(s => s.classList.remove('active')); steps[0].classList.add('active');
                 document.getElementById('form-progress-fill').style.width = (1 / steps.length) * 100 + "%";
-                
-                // Réinitialiser les boutons Précédent/Suivant
-                const prevBtn = document.getElementById('prev-btn');
-                if (prevBtn) {
-                    prevBtn.style.opacity = "0";
-                    prevBtn.style.pointerEvents = "none";
-                }
-                
-                const lang = document.documentElement.lang || 'fr';
-                const nextBtn = document.getElementById('next-btn');
-                if (nextBtn) {
-                    nextBtn.innerText = translations[lang]["form-btn-next"];
-                    nextBtn.style.pointerEvents = 'auto'; // Réactiver le clic
-                }
-            }, 300); // Petite pause pour l'animation visuelle
+                const prevBtn = document.getElementById('prev-btn'); prevBtn.style.opacity = "0"; prevBtn.style.pointerEvents = "none";
+                const nextBtn = document.getElementById('next-btn'); nextBtn.innerText = translations[document.documentElement.lang || 'fr']["form-btn-next"]; nextBtn.style.pointerEvents = 'auto';
+            }, 300);
         }
 
-        // AI CHAT (MÉMOIRE ET AUTOMATISATION)
-        let chatHistory = []; // La mémoire de la conversation
-
+        let chatHistory = [];
         async function callAi(history) {
             try {
-                const res = await fetch('/api/chat', { 
-                    method: 'POST', 
-                    headers: {'Content-Type': 'application/json'}, 
-                    body: JSON.stringify({ history: history }) // On envoie toute la mémoire
-                });
-                const data = await res.json(); 
-                if (!res.ok) throw new Error(data.error || "Erreur serveur");
-                return data.text;
+                const res = await fetch('/api/chat', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ history: history }) });
+                const data = await res.json(); if (!res.ok) throw new Error(data.error || "Erreur serveur"); return data.text;
             } catch (e) { return `[JAAD AI] Oups ! ${e.message}`; }
         }
-
         async function sendChatMessage() {
-            const input = document.getElementById('chat-input'); 
-            const box = document.getElementById('chat-messages'); 
-            if(!input.value.trim()) return;
-            
-            const msg = input.value; 
-            box.innerHTML += `<div class="msg msg-user">${msg}</div>`; 
-            input.value = '';
-            
-            // On sauvegarde le message du client dans la mémoire
+            const input = document.getElementById('chat-input'); const box = document.getElementById('chat-messages'); if(!input.value.trim()) return;
+            const msg = input.value; box.innerHTML += `<div class="msg msg-user">${msg}</div>`; input.value = '';
             chatHistory.push({ role: "user", parts: [{ text: msg }] });
-
-            box.innerHTML += `<div class="msg msg-ai italic" id="loading">...</div>`; 
-            box.scrollTop = box.scrollHeight;
-            
-            let responseText = await callAi(chatHistory); 
-            document.getElementById('loading').remove();
-
-            // INTERCEPTION DU SIGNAL SECRET DE L'IA
+            box.innerHTML += `<div class="msg msg-ai italic" id="loading">...</div>`; box.scrollTop = box.scrollHeight;
+            let responseText = await callAi(chatHistory); document.getElementById('loading').remove();
             const contactMatch = responseText.match(/<CONTACT_DATA>([\s\S]*?)<\/CONTACT_DATA>/);
-            
             if (contactMatch) {
                 try {
-                    // On transforme le texte de l'IA en vraies données
-                    const contactData = JSON.parse(contactMatch[1]);
-                    
-                    // On prépare l'envoi vers Formspree en arrière-plan
-                    const formData = new FormData();
-                    formData.append('name', contactData.name);
-                    formData.append('email', contactData.email);
-                    formData.append('phone', contactData.phone);
-                    formData.append('service', contactData.service || 'IA Bot');
-                    formData.append('message', "🤖 LEAD GÉNÉRÉ PAR L'IA :\n" + contactData.message);
-
-                    // Envoi silencieux du mail vers ton lien sécurisé Formspree !
-                    fetch('https://formspree.io/f/xjgeayjr', {
-                        method: 'POST',
-                        body: formData,
-                        headers: { 'Accept': 'application/json' }
-                    });
-
-                    // On efface le bloc secret de la réponse et on rajoute un beau message de confirmation
-                    responseText = responseText.replace(contactMatch[0], '') + "<br><br>✨ <b>Parfait ! Vos informations ont bien été transmises à notre équipe. Nous vous recontactons très vite !</b>";
-                } catch(e) { console.error("Erreur de parsing", e); }
+                    const contactData = JSON.parse(contactMatch[1]); const formData = new FormData();
+                    formData.append('name', contactData.name); formData.append('email', contactData.email); formData.append('phone', contactData.phone); formData.append('service', contactData.service || 'IA Bot'); formData.append('message', "🤖 LEAD GÉNÉRÉ PAR L'IA :\n" + contactData.message);
+                    fetch('https://formspree.io/f/xjgeayjr', { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
+                    responseText = responseText.replace(contactMatch[0], '') + "<br><br>✨ <b>Vos informations ont été transmises !</b>";
+                } catch(e) { console.error(e); }
             }
-
-            // On sauvegarde la réponse de l'IA dans la mémoire (avec le code secret s'il y en a un, pour que l'IA sache ce qu'elle a fait)
             chatHistory.push({ role: "model", parts: [{ text: responseText }] });
-
-            // On affiche le message (en transformant les retours à la ligne pour faire propre)
-            box.innerHTML += `<div class="msg msg-ai">${responseText.replace(/\n/g, '<br>')}</div>`; 
-            box.scrollTop = box.scrollHeight;
+            box.innerHTML += `<div class="msg msg-ai">${responseText.replace(/\n/g, '<br>')}</div>`; box.scrollTop = box.scrollHeight;
         }
 
-        function revealOnScroll() { 
-            const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }); }); 
-            document.querySelectorAll('.reveal-up').forEach(el => obs.observe(el)); 
-        }
-
-        document.querySelectorAll('.anchor-link').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const targetId = this.getAttribute('href'); 
-                if (targetId && targetId.startsWith('#')) { 
-                    e.preventDefault(); 
-                    const target = document.querySelector(targetId); 
-                    if (target) { window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' }); } 
-                }
-            });
-        });
+        function revealOnScroll() { const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }); }); document.querySelectorAll('.reveal-up').forEach(el => obs.observe(el)); }
+        document.querySelectorAll('.anchor-link').forEach(anchor => { anchor.addEventListener('click', function (e) { const targetId = this.getAttribute('href'); if (targetId && targetId.startsWith('#')) { e.preventDefault(); const target = document.querySelector(targetId); if (target) { window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' }); } } }); });
     </script>
 </body>
 </html>
