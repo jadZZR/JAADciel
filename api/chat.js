@@ -1,6 +1,5 @@
 /**
- * Ce code est le "cerveau" serveur.
- * À mettre dans le dossier "api", dans le fichier "chat.js".
+ * Version ultra-stable pour Vercel et Google Gemini
  */
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -14,8 +13,8 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Clé API absente des réglages Vercel." });
   }
 
-  // URL stable (v1) de l'API Google Gemini
-  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  // Utilisation de v1beta qui est la version la plus compatible pour gemini-1.5-flash
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
   try {
     const response = await fetch(url, {
@@ -32,7 +31,7 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       return res.status(response.status).json({ 
-        error: data.error?.message || "Erreur Google Gemini" 
+        error: data.error?.message || "Erreur de configuration Google" 
       });
     }
 
