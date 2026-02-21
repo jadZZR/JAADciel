@@ -30,13 +30,19 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- BOUCLIER DE SCROLL (SOLUTION FINALE) --- */
+        /* PROTECTION DU SCROLL : On force l'iframe à être ignorée par la souris et le toucher */
+        #hero-spline {
+            pointer-events: none !important;
+            user-select: none !important;
+        }
+
+        /* BOUCLIER DE SCROLL (Z-10) */
         .scroll-shield {
             position: absolute;
             inset: 0;
             z-index: 10;
             background: transparent;
-            pointer-events: auto; /* Capture le doigt pour le scroll */
+            pointer-events: auto;
         }
 
         .noise::before {
@@ -67,7 +73,8 @@
 
         .loader-logo-base {
             font-family: 'Outfit', sans-serif; 
-            font-size: clamp(2rem, 12vw, 5rem); 
+            /* Taille réduite pour éviter tout débordement sur mobile */
+            font-size: clamp(2.2rem, 10vw, 5rem); 
             font-weight: 900;
             color: rgba(255, 255, 255, 0.2); font-style: italic; letter-spacing: -0.02em;
             position: relative; text-transform: uppercase;
@@ -191,24 +198,24 @@
 
     <!-- HERO -->
     <header id="top" class="relative h-[100dvh] w-full flex items-center justify-center overflow-hidden">
-        <!-- BACKGROUND LAYER (z-0) -->
+        <!-- BACKGROUND LAYER -->
         <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(180deg, var(--primary) 0%, var(--sky-blue) 60%, var(--bg-main) 100%);">
             <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.85),transparent_75%)] z-10 pointer-events-none"></div>
             
-            <!-- SPLINE (z-5) - CENTRAGE MOBILE OPTIMISÉ (-43% pour compenser le décalage gauche) -->
+            <!-- SPLINE IFRAME - DÉZOOMÉ (125vw) ET DÉCALÉ (-47%) POUR LIRE LE J -->
             <iframe id="hero-spline" 
                     src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' 
                     frameborder='0' 
-                    class="absolute top-1/2 left-1/2 -translate-x-[43%] md:-translate-x-1/2 -translate-y-[45%] w-[200vw] md:w-full h-full max-w-none opacity-0 transition-opacity duration-1000 z-5" 
+                    class="absolute top-1/2 left-1/2 -translate-x-[47%] md:-translate-x-1/2 -translate-y-[45%] w-[125vw] md:w-full h-full max-w-none opacity-0 transition-opacity duration-1000 z-5" 
                     onload="this.style.opacity='1'"></iframe>
         </div>
 
-        <!-- SCROLL SHIELD (z-10) - Permet de scroller librement sur mobile sans être bloqué par l'iframe -->
+        <!-- SCROLL SHIELD -->
         <div class="scroll-shield"></div>
 
-        <!-- CONTENT LAYER (z-20) - Toujours cliquable par dessus le shield -->
-        <div class="relative z-20 text-center px-6 mt-[35dvh]">
-            <div class="flex flex-col md:flex-row gap-5 justify-center reveal-up active">
+        <!-- CONTENT LAYER -->
+        <div class="relative z-20 text-center px-6 mt-[35dvh] pointer-events-none">
+            <div class="flex flex-col md:flex-row gap-5 justify-center reveal-up active pointer-events-auto">
                 <a href="#contact" class="btn-premium btn-primary anchor-link"><span data-i18n="hero-btn">Parlons-en.</span> <i data-lucide="zap" class="w-4 h-4 fill-current"></i></a>
                 <a href="#portfolio" class="btn-premium btn-secondary anchor-link"><span data-i18n="hero-btn-secondary">Nos créations.</span></a>
             </div>
@@ -332,7 +339,7 @@
         <p class="text-slate-400 text-xs mt-6">© 2026 JAAD Studio.</p>
     </footer>
 
-    <!-- AI CHAT -->
+    <!-- AI CHAT MODAL -->
     <div id="ai-chat-modal">
         <div class="bg-blue-600 p-5 text-white flex justify-between items-center font-black">
             <span class="flex items-center gap-2 text-[11px] uppercase tracking-widest"><i data-lucide="sparkles"></i> JAAD AI</span>
