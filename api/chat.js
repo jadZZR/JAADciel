@@ -1,5 +1,5 @@
 /**
- * Version finale ultra-stable - Utilise v1beta pour Gemini 1.5 Flash
+ * Version de production stabilisée pour Google Gemini 1.5 Flash
  */
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -13,8 +13,8 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "La clé GEMINI_API_KEY n'est pas configurée sur Vercel." });
   }
 
-  // Utilisation de v1beta (indispensable pour gemini-1.5-flash actuellement)
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  // Utilisation de l'URL stable v1 avec le modèle gemini-1.5-flash
+  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
   try {
     const response = await fetch(url, {
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: [{ 
-          parts: [{ text: `Tu es JAAD AI, l'assistant expert de l'agence JAAD Studio (Web, 3D, IA). Réponds de manière professionnelle et concise. Client : ${message}` }] 
+          parts: [{ text: `Tu es JAAD AI, l'assistant expert de l'agence JAAD Studio. Réponds de façon pro et courte. Client : ${message}` }] 
         }]
       })
     });
@@ -30,15 +30,16 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok) {
+      // Si Google renvoie une erreur, on l'affiche pour déboguer
       return res.status(response.status).json({ 
-        error: data.error?.message || "Erreur de réponse Google" 
+        error: data.error?.message || "Erreur de communication avec Google" 
       });
     }
 
-    const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text || "Je n'ai pas pu générer de réponse.";
+    const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, je n'ai pas pu générer de réponse.";
     res.status(200).json({ text: aiText });
 
   } catch (error) {
-    res.status(500).json({ error: "Erreur de connexion serveur : " + error.message });
+    res.status(500).json({ error: "Erreur serveur Vercel : " + error.message });
   }
 }
