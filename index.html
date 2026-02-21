@@ -182,8 +182,8 @@
         #form-progress-fill { width: 0%; height: 100%; background: var(--primary); transition: width 0.5s ease; }
         
         .service-pill {
-            padding: 0.8rem 1.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 100px; cursor: pointer; transition: all 0.3s ease; font-weight: 600; color: white;
+            padding: 0.8rem 1.8rem; background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 100px; cursor: pointer; transition: all 0.3s ease; font-weight: 600; color: #0f172a;
             font-size: 13px;
         }
         .service-pill:hover, .service-pill.selected { background: var(--primary); border-color: var(--primary); color: white; transform: scale(1.05); }
@@ -206,6 +206,7 @@
         /* Fix pour RTL */
         [dir="rtl"] .giant-num { right: auto; left: -1rem; }
         [dir="rtl"] .floating-btns { right: auto; left: 2rem; }
+        [dir="rtl"] .service-pill { color: #0f172a; }
     </style>
 </head>
 <body class="noise">
@@ -370,6 +371,12 @@
 
     <!-- PORTFOLIO -->
     <section id="portfolio" class="py-48 px-6">
+        <div class="marquee-wrapper mb-20">
+            <div class="marquee-content text-6xl md:text-9xl font-black uppercase tracking-tighter text-blue-600 opacity-20">
+                <span data-i18n="nav-realisations-marquee">Nos Créations. Réalisations.</span>
+                <span data-i18n="nav-realisations-marquee">Nos Créations. Réalisations.</span>
+            </div>
+        </div>
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
             <div class="bento-item p-0 min-h-[500px] relative shadow-xl reveal-up">
                 <iframe src="https://my.spline.design/r4xbot-TowiBcjXeP3tiZRqqB7OwFiy/" width="100%" height="100%" class="loaded" style="pointer-events: none;"></iframe>
@@ -477,8 +484,7 @@
     </div>
 
     <script>
-        // --- API CONFIG ---
-        const apiKey = "AIzaSyBaJCBzdlj9qgKdYWnidzDJLEzof9kpN9s"; // La clé est injectée automatiquement au runtime dans cet environnement.
+        const apiKey = "AIzaSyBaJCBzdlj9qgKdYWnidzDJLEzof9kpN9s"; // La clé est injectée automatiquement au runtime.
         
         const translations = {
             fr: {
@@ -495,6 +501,7 @@
                 "proc-2-h": "Design & IA", "proc-2-p": "Conception visuelle et intégration technologique.",
                 "proc-3-h": "Publication & Référencement", "proc-3-p": "Mise en ligne, SEO technique et suivi des performances.",
                 "proc-4-h": "Maintenance & Évolution", "proc-4-p": "Support technique continu et mises à jour évolutives.",
+                "nav-realisations-marquee": "Nos Créations. Réalisations.",
                 "cont-h": "Prêt à briller ?", "cont-p": "Laissez-nous vos coordonnées, on s'occupe du reste.",
                 "form-q1": "Votre nom ?", "form-q2": "Votre email ?", "form-q3": "Quel service ?", "form-q4": "Décrivez votre projet", "form-q5": "Comment vous recontacter ?",
                 "form-prev": "Retour", "form-next": "Suivant", "form-send": "Envoyer", "form-success-h": "C'est envoyé !", "form-success-p": "Merci. Nous avons bien reçu votre demande sur hello@jaad.studio.",
@@ -514,6 +521,7 @@
                 "proc-2-h": "Design & AI", "proc-2-p": "Visual design and tech integration.",
                 "proc-3-h": "Publishing & SEO", "proc-3-p": "Launch, technical SEO, and performance tracking.",
                 "proc-4-h": "Maintenance & Evolution", "proc-4-p": "Continuous technical support and evolutionary updates.",
+                "nav-realisations-marquee": "Our Creations. Portfolio.",
                 "cont-h": "Ready to shine?", "cont-p": "Leave us your details, we'll handle the rest.",
                 "form-q1": "Your name?", "form-q2": "Your email?", "form-q3": "Which service?", "form-q4": "Describe your project", "form-q5": "How to contact you?",
                 "form-prev": "Back", "form-next": "Next", "form-send": "Send", "form-success-h": "Sent!", "form-success-p": "Thank you. We received your request at hello@jaad.studio.",
@@ -533,6 +541,7 @@
                 "proc-2-h": "التصميم والذكاء الاصطناعي", "proc-2-p": "التصميم المرئي والتكامل التقني.",
                 "proc-3-h": "النشر والأرشفة", "proc-3-p": "الإطلاق، تحسين محركات البحث ومتابعة الأداء.",
                 "proc-4-h": "الصيانة والتطوير", "proc-4-p": "الدعم الفني المستمر والتحديثات التطويرية.",
+                "nav-realisations-marquee": "إبداعاتنا. أعمالنا.",
                 "cont-h": "هل أنت مستعد للتألق؟", "cont-p": "اترك لنا بياناتك وسنتولى الباقي.",
                 "form-q1": "ما اسمك؟", "form-q2": "بريدك الإلكتروني؟", "form-q3": "أي خدمة تختار؟", "form-q4": "صف لنا مشروعك", "form-q5": "كيف نرد عليك؟",
                 "form-prev": "رجوع", "form-next": "التالي", "form-send": "إرسال", "form-success-h": "تم الإرسال!", "form-success-p": "شكراً لك. استلمنا طلبك على hello@jaad.studio.",
@@ -552,7 +561,6 @@
             updateFormUI();
         }
 
-        // --- PRELOADER ---
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             if (preloader) {
@@ -590,25 +598,22 @@
             document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
             const activeStep = document.getElementById(`step-${currentStep}`);
             if (activeStep) activeStep.classList.add('active');
-            
             const bar = document.getElementById('form-progress-fill');
             if (bar) {
                 const progress = (currentStep / totalSteps) * 100;
                 bar.style.width = `${progress}%`;
             }
-            
             const prevBtn = document.getElementById('prev-btn');
             if (prevBtn) {
                 if (currentStep === 1) prevBtn.classList.add('opacity-0', 'pointer-events-none');
                 else prevBtn.classList.remove('opacity-0', 'pointer-events-none');
             }
-
             const nextBtnText = document.getElementById('next-btn-text');
             if (nextBtnText) {
                 if (currentStep === totalSteps) {
-                    nextBtnText.innerText = (translations[lang] && translations[lang]["form-send"]) ? translations[lang]["form-send"] : "Envoyer";
+                    nextBtnText.innerText = translations[lang]["form-send"] || "Envoyer";
                 } else {
-                    nextBtnText.innerText = (translations[lang] && translations[lang]["form-next"]) ? translations[lang]["form-next"] : "Suivant";
+                    nextBtnText.innerText = translations[lang]["form-next"] || "Suivant";
                 }
             }
         }
@@ -618,10 +623,7 @@
                 if (currentStep === 1 && !document.getElementById('q-name').value) return;
                 if (currentStep === 2 && !document.getElementById('q-email').value) return;
                 if (currentStep === 3 && !document.getElementById('q-service').value) return;
-                if (currentStep === totalSteps) {
-                    handleFormSubmit();
-                    return;
-                }
+                if (currentStep === totalSteps) { handleFormSubmit(); return; }
             }
             currentStep += n;
             if (currentStep < 1) currentStep = 1;
@@ -673,18 +675,15 @@
             }
         }
 
-        // --- AI CHAT LOGIC (GEMINI API) ---
+        // --- AI LOGIC (GEMINI API) ---
         async function callGemini(userQuery) {
             const systemPrompt = "Tu es JAAD AI, l'assistant virtuel expert de l'agence JAAD Studio. Ton rôle est de conseiller les clients sur le Web Design immersif, la 3D, l'IA et le E-learning. Sois créatif, professionnel et concis.";
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             
             let attempts = 0;
-            const maxAttempts = 5;
-            let delay = 1000;
-
-            while (attempts < maxAttempts) {
+            while (attempts < 5) {
                 try {
-                    const response = await fetch(url, {
+                    const response = await fetch(endpoint, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -693,14 +692,13 @@
                         })
                     });
 
-                    if (!response.ok) throw new Error('API request failed');
-                    const result = await response.json();
-                    return result.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, je ne parviens pas à formuler une réponse.";
+                    if (!response.ok) throw new Error('API Error');
+                    const data = await response.json();
+                    return data.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, je n'ai pas pu générer de réponse.";
                 } catch (error) {
                     attempts++;
-                    if (attempts === maxAttempts) return "Le service est momentanément indisponible. Veuillez réessayer plus tard.";
-                    await new Promise(res => setTimeout(res, delay));
-                    delay *= 2;
+                    if (attempts === 5) return "Désolé, le service est actuellement indisponible. Veuillez réessayer plus tard.";
+                    await new Promise(r => setTimeout(r, Math.pow(2, attempts) * 1000));
                 }
             }
         }
@@ -709,7 +707,6 @@
             const input = document.getElementById('chat-input');
             const chatBox = document.getElementById('chat-messages');
             const sendBtn = document.getElementById('chat-send-btn');
-            
             if (!input || !chatBox || !input.value.trim()) return;
             
             const userMsg = input.value.trim();
@@ -717,49 +714,34 @@
             input.value = '';
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // Loading state
             const loadingId = 'ai-loading-' + Date.now();
-            chatBox.innerHTML += `<div class="msg msg-ai text-xs italic" id="${loadingId}">JAAD AI réfléchit...</div>`;
+            chatBox.innerHTML += `<div class="msg msg-ai text-xs italic" id="${loadingId}">...</div>`;
             chatBox.scrollTop = chatBox.scrollHeight;
             if (sendBtn) sendBtn.disabled = true;
 
-            try {
-                const aiResponse = await callGemini(userMsg);
-                const loadingEl = document.getElementById(loadingId);
-                if (loadingEl) {
-                    loadingEl.innerText = aiResponse;
-                    loadingEl.classList.remove('italic');
-                }
-            } catch (error) {
-                const loadingEl = document.getElementById(loadingId);
-                if (loadingEl) loadingEl.innerText = "Erreur de connexion avec l'IA.";
-            } finally {
-                if (sendBtn) sendBtn.disabled = false;
-                chatBox.scrollTop = chatBox.scrollHeight;
+            const response = await callGemini(userMsg);
+            const loadingEl = document.getElementById(loadingId);
+            if (loadingEl) {
+                loadingEl.innerText = response;
+                loadingEl.classList.remove('italic');
             }
+            if (sendBtn) sendBtn.disabled = false;
+            chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        // --- UI UTILS ---
-        function toggleMenu() { 
-            const menu = document.getElementById('mobile-menu-overlay');
-            if (menu) menu.classList.toggle('active'); 
-        }
+        function toggleMenu() { document.getElementById('mobile-menu-overlay').classList.toggle('active'); }
+        function toggleAiChat() { document.getElementById('ai-chat-modal').classList.toggle('active'); }
         
-        function toggleAiChat() { 
-            const chat = document.getElementById('ai-chat-modal');
-            if (chat) chat.classList.toggle('active'); 
-        }
-
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if (nav) {
                 if (window.scrollY > 50) nav.classList.add('nav-shrink'); 
                 else nav.classList.remove('nav-shrink');
             }
-            const progressFill = document.getElementById("scroll-progress");
-            if (progressFill) {
+            const prog = document.getElementById("scroll-progress");
+            if (prog) {
                 const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                progressFill.style.width = (window.scrollY / h) * 100 + "%";
+                prog.style.width = (window.scrollY / h) * 100 + "%";
             }
         });
 
