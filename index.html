@@ -3,35 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAAD | Votre Agence Créative</title>
+    
+    <!-- SEO de base -->
+    <title>JAAD | Agence Créative Web, 3D, IA & E-learning</title>
+    <meta name="description" content="JAAD Studio : Agence créative spécialisée en Web Design immersif, Studio 3D, Intelligence Artificielle et solutions E-learning. Basée à Aix-en-Provence.">
+    <meta name="keywords" content="Agence Web, Web Design, Studio 3D, Intelligence Artificielle, E-learning, Aix-en-Provence, Création de sites, IA, Design Immersif">
+    <meta name="author" content="JAAD Studio">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://jaad.studio/">
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jaad.studio/">
+    <meta property="og:title" content="JAAD | Votre Agence Créative & IA">
+    <meta property="og:description" content="Transformez votre vision en réalité immersive. Experts en Web, 3D, IA et E-learning.">
+    <meta property="og:image" content="https://jaad.studio/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://jaad.studio/">
+    <meta property="twitter:title" content="JAAD | Votre Agence Créative & IA">
+    <meta property="twitter:description" content="Design immersif et futur intelligent. Experts en solutions digitales innovantes.">
+    <meta property="twitter:image" content="https://jaad.studio/og-image.jpg">
+
+    <!-- Données Structurées JSON-LD (Google Rich Snippets) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "JAAD Studio",
+      "image": "https://jaad.studio/logo.png",
+      "@id": "https://jaad.studio/",
+      "url": "https://jaad.studio/",
+      "telephone": "+33600000000",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "",
+        "addressLocality": "Aix-en-Provence",
+        "postalCode": "13100",
+        "addressCountry": "FR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 43.5297,
+        "longitude": 5.4474
+      },
+      "email": "hello@jaad.studio",
+      "sameAs": [
+        "https://www.instagram.com/jaad.studio",
+        "https://www.linkedin.com/company/jaad-studio"
+      ],
+      "service": [
+        "Web Design Immersif",
+        "Studio 3D",
+        "Intelligence Artificielle",
+        "E-learning",
+        "Apps Mobile"
+      ]
+    }
+    </script>
+
     <!-- Scripts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --primary: #2563eb;
             --primary-dark: #1d4ed8;
-            --primary-deep: #1e3a8a;
-            --accent: #60a5fa;
-            --ivory: #ffffff;
-            --whatsapp: #25d366;
-            --gemini: #8e75ff;
-            --mouse-x: 50%;
-            --mouse-y: 50%;
+            --primary-glow: rgba(37, 99, 235, 0.4);
+            --bg-dark-start: #020617;
+            --bg-dark-end: #0f172a;
+            --bg-light-start: #ffffff;
+            --bg-light-end: #f8fafc;
+            --error: #ef4444;
         }
 
         body {
             font-family: 'Outfit', sans-serif;
-            background: #f8fafc;
+            background: var(--bg-dark-start);
             color: #0f172a;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            transition: direction 0.3s ease;
         }
 
-        /* --- ATMOSPHÈRE NETTE & GRAIN --- */
+        /* --- ATMOSPHÈRE --- */
         .noise::before {
             content: "";
             position: fixed;
@@ -44,20 +101,19 @@
 
         #scroll-progress {
             position: fixed; top: 0; left: 0; width: 0%; height: 4px;
-            background: var(--primary);
-            z-index: 1001; transition: width 0.1s ease-out;
+            background: linear-gradient(90deg, var(--primary), #60a5fa);
+            z-index: 1001;
         }
 
         /* --- PRELOADER --- */
         #preloader {
-            position: fixed; inset: 0; z-index: 2000;
-            display: flex; background: transparent;
+            position: fixed; inset: 0; z-index: 9999; display: flex; background: transparent; height: 100dvh;
             pointer-events: none;
         }
         .loader-panel { 
-            flex: 1; height: 100%; background: var(--primary); 
-            transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1); 
-            pointer-events: all;
+            flex: 1; height: 100%; background: #020617; 
+            transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1); 
+            pointer-events: auto;
         }
         .preloader-active .loader-panel { transform: translateY(-100%); }
         .loader-panel:nth-child(2) { transition-delay: 0.05s; }
@@ -66,761 +122,661 @@
         
         .loader-content {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            z-index: 2010; transition: all 0.4s ease;
+            z-index: 10000; transition: all 0.4s ease;
         }
-        .preloader-active .loader-content { opacity: 0; transform: translate(-50%, -80%); }
+        .preloader-active .loader-content { opacity: 0; transform: translate(-50%, -60%); pointer-events: none; }
+
+        .jaad-logo-anim {
+            font-size: 5rem; font-weight: 900; color: white; letter-spacing: -0.05em; font-style: italic;
+            animation: logoScale 0.8s ease-out forwards;
+        }
+        @keyframes logoScale {
+            from { opacity: 0; transform: scale(0.9) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
 
         /* --- NAVIGATION --- */
         .glass-nav {
-            background: #ffffff; 
-            border: 1px solid rgba(0, 0, 0, 0.05); 
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.7); 
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .nav-shrink { padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; }
+        .nav-shrink {
+            padding-top: 0.75rem !important;
+            padding-bottom: 0.75rem !important;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
 
         /* --- ACTIONS FLOTTANTES --- */
         .floating-btns {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            z-index: 1500;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            align-items: flex-end;
+            position: fixed; bottom: 2rem; right: 2rem; z-index: 1500;
+            display: flex; flex-direction: column; gap: 1rem;
         }
-
-        /* Boutons circulaires et nets */
         .action-circle {
-            width: 54px;
-            height: 54px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            border: none;
-            cursor: pointer;
+            width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: white; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            border: none; cursor: pointer; background: #020617;
+        }
+        .action-circle:hover { transform: scale(1.1) translateY(-5px); box-shadow: 0 20px 40px var(--primary-glow); }
+
+        /* --- BOUTONS --- */
+        .btn-premium {
+            padding: 1.2rem 2.8rem; border-radius: 100px; font-weight: 900; text-transform: uppercase; font-size: 11px;
+            letter-spacing: 0.15em; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            display: inline-flex; align-items: center; gap: 0.8rem; cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .btn-primary { background: #020617; color: white; border-color: #020617; }
+        .btn-primary:hover { background: var(--primary); border-color: var(--primary); transform: scale(1.05); }
+        .btn-secondary { background: white; color: #020617; border: 2px solid rgba(0,0,0,0.1); }
+        .btn-secondary:hover { border-color: var(--primary); color: var(--primary); transform: scale(1.05); }
+
+        /* --- SECTIONS ET TRANSITIONS --- */
+        .section-dark { 
+            background: linear-gradient(180deg, var(--bg-dark-start) 0%, var(--bg-dark-end) 100%);
+            color: white; 
+            position: relative;
+        }
+        .section-light { 
+            background: linear-gradient(180deg, var(--bg-light-start) 0%, var(--bg-light-end) 100%);
+            color: #0f172a; 
             position: relative;
         }
 
-        .whatsapp-btn { background: var(--whatsapp); }
-        .gemini-trigger { background: var(--gemini); }
-
-        .action-circle:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        .transition-top-white {
+            position: absolute; top: -15vh; left: 0; width: 100%; height: 15vh;
+            background: linear-gradient(to top, var(--bg-light-start), transparent);
+            pointer-events: none; z-index: 10;
         }
-
-        /* Label au survol pour le JAAD AI */
-        .gemini-trigger::before {
-            content: "JAAD AI";
-            position: absolute;
-            right: 70px;
-            background: var(--gemini);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 10px;
-            font-weight: 800;
-            opacity: 0;
-            transform: translateX(10px);
-            transition: all 0.3s ease;
+        .transition-bottom-white {
+            position: absolute; bottom: -15vh; left: 0; width: 100%; height: 15vh;
+            background: linear-gradient(to bottom, var(--bg-light-end), transparent);
+            pointer-events: none; z-index: 10;
+        }
+        .transition-dark-fade {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 20vh;
+            background: linear-gradient(to bottom, transparent, var(--bg-dark-start));
             pointer-events: none;
-            white-space: nowrap;
         }
-        .gemini-trigger:hover::before { opacity: 1; transform: translateX(0); }
 
-        .wa-notify {
-            position: absolute; top: 0; right: 0; width: 14px; height: 14px;
-            background: #ff3b30; border: 2px solid white; border-radius: 50%;
-            animation: bounceNotify 2s infinite;
-        }
-        @keyframes bounceNotify { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
-
-        /* --- AI CHAT MODAL --- */
-        #ai-chat-modal {
-            position: fixed;
-            bottom: 6rem;
-            right: 1.5rem;
-            width: 350px;
-            max-width: 90vw;
-            background: white;
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-            z-index: 1600;
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            border: 1px solid #f1f5f9;
-        }
-        #ai-chat-modal.active { display: flex; animation: slideUp 0.4s ease; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .chat-header { background: var(--gemini); color: white; padding: 1.25rem; font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
-        .chat-messages { height: 300px; overflow-y: auto; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; font-size: 13px; }
-        .msg { padding: 10px 14px; border-radius: 16px; max-width: 85%; line-height: 1.5; }
-        .msg-ai { background: #f1f5f9; color: #1e293b; align-self: flex-start; border-bottom-left-radius: 4px; }
-        .msg-user { background: var(--gemini); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
-
-        /* --- BENTO SYSTEM --- */
+        /* --- BENTO GRID --- */
         .bento-grid {
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
+            grid-template-columns: repeat(1, 1fr);
             gap: 1.5rem;
-            align-items: stretch;
         }
-
-        @media (max-width: 1024px) {
-            .bento-grid { grid-template-columns: repeat(2, 1fr); }
-            .tablet-full { grid-column: span 2 / span 2 !important; }
-        }
-        
-        @media (max-width: 640px) {
-            .bento-grid { grid-template-columns: 1fr; gap: 1rem; }
-            .bento-grid > div { grid-column: span 1 / span 1 !important; min-height: 280px !important; }
+        @media (min-width: 768px) {
+            .bento-grid { grid-template-columns: repeat(6, 1fr); }
+            .md\:col-span-3 { grid-column: span 3 / span 3; }
+            .md\:col-span-2 { grid-column: span 2 / span 2; }
         }
 
         .bento-item {
             position: relative;
-            background: #ffffff; 
-            border-radius: 32px;
-            padding: 2.5rem;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px);
+            border-radius: 40px; padding: 3rem; border: 1px solid rgba(0, 0, 0, 0.05);
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 340px;
-            z-index: 1;
         }
-
-        .bento-item::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(37, 99, 235, 0.06), transparent 40%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-        }
-
-        .bento-item:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary);
-            box-shadow: 0 40px 80px -20px rgba(37, 99, 235, 0.1);
-        }
-        .bento-item:hover::before { opacity: 1; }
-
-        .bento-blue {
-            background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%) !important;
-            color: #ffffff !important;
-            border: none !important;
-        }
+        .section-dark .bento-item { background: rgba(255, 255, 255, 0.03); border-color: rgba(255, 255, 255, 0.05); }
+        .bento-item:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+        .bento-blue { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%) !important; color: white; border: none; }
 
         .tag {
-            font-family: 'Outfit', sans-serif;
-            font-size: 9px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--primary);
-            background: #eff6ff;
-            padding: 8px 16px;
-            border-radius: 100px;
-            width: fit-content;
-            margin-bottom: 1.5rem;
+            display: inline-block; padding: 0.5rem 1.2rem; background: rgba(0,0,0,0.05);
+            border-radius: 100px; font-size: 10px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.1em; margin-bottom: 1.5rem;
         }
-
-        .bento-blue .tag { background: rgba(255, 255, 255, 0.15); color: #fff; }
+        .section-dark .tag { background: rgba(255,255,255,0.1); color: white; }
 
         /* --- MARQUEE --- */
-        .marquee-wrapper {
-            position: relative;
-            overflow: hidden;
-            padding: 3rem 0;
-            background: #fff;
-            white-space: nowrap;
-        }
-        .marquee-content {
-            display: flex;
-            gap: 4rem;
-            animation: marquee 60s linear infinite;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+        .marquee-wrapper { position: relative; overflow: hidden; padding: 3rem 0; white-space: nowrap; }
+        .marquee-content { display: flex; gap: 4rem; animation: marquee 30s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* --- BOUTONS --- */
-        .btn-premium {
-            position: relative;
-            padding: 1.1rem 2.4rem;
-            border-radius: 100px;
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 0.12em;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.7rem;
-            z-index: 50;
-            white-space: nowrap;
-        }
-        .btn-primary { 
-            background: #0f172a; color: white; 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        .btn-primary:hover { background: var(--primary); }
-
-        .btn-secondary {
-            background: #fff;
-            color: #0f172a;
-            border: 1px solid #e2e8f0;
-        }
-
-        /* --- SERVICE PILLS --- */
-        .service-pill {
-            cursor: pointer;
-            padding: 10px 20px;
-            border-radius: 100px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            background: rgba(255, 255, 255, 0.05);
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            white-space: nowrap;
-            color: rgba(255, 255, 255, 0.6);
-        }
-        .service-pill:hover { border-color: #ffffff; color: #ffffff; }
-        .service-pill.active { background: #ffffff; color: var(--primary-deep); border-color: #ffffff; }
-
-        /* --- JOURNEY TIMELINE --- */
-        .timeline-container { position: relative; max-width: 800px; margin: 0 auto; }
-        .timeline-line { position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: #e2e8f0; z-index: 0; }
-        .timeline-step { position: relative; z-index: 1; display: flex; gap: 2rem; margin-bottom: 4rem; }
-        .timeline-dot {
-            width: 42px; height: 42px; background: #fff; border: 2px solid var(--primary); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; font-weight: 900; color: var(--primary);
-            flex-shrink: 0; box-shadow: 0 0 0 8px #f8fafc;
-        }
-        .timeline-content-card { background: #fff; border: 1px solid #f1f5f9; padding: 2rem; border-radius: 24px; box-shadow: 0 10px 20px -5px rgba(0,0,0,0.02); width: 100%; }
-
-        #mobile-menu-overlay { position: fixed; inset: 0; background: #ffffff; z-index: 900; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2.5rem; opacity: 0; pointer-events: none; transition: all 0.4s ease; }
-        #mobile-menu-overlay.active { opacity: 1; pointer-events: all; }
-
-        .reveal-up { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
-        .reveal-up.active { opacity: 1; transform: translateY(0); }
-        
-        iframe { opacity: 0; transition: opacity 1s ease; pointer-events: none; }
+        /* --- IFRAMES --- */
+        iframe { opacity: 0; transition: opacity 1.5s ease; filter: saturate(1.2); }
         iframe.loaded { opacity: 1 !important; }
 
-        .spline-container { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        /* --- REVEAL ANIM --- */
+        .reveal-up { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal-up.active { opacity: 1; transform: translateY(0); }
 
-        @media (max-width: 768px) {
-            #hero-spline-container { 
-                height: 100%;
-                width: 100%;
-                transform: scale(1.4); 
-                transform-origin: center center; 
-            }
-            header { height: 100dvh !important; }
-            section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
-            .marquee-content { font-size: 2.5rem !important; }
-            .timeline-line { left: 15px; }
-            .timeline-dot { width: 32px; height: 32px; font-size: 12px; }
+        /* --- QUESTIONNAIRE --- */
+        .form-step { display: none; opacity: 0; transform: translateY(15px); transition: all 0.5s ease; }
+        .form-step.active { display: block; opacity: 1; transform: translateY(0); }
+        .progress-bar-container { width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 100px; margin-bottom: 3rem; }
+        #form-progress-fill { width: 0%; height: 100%; background: var(--primary); transition: width 0.5s ease; }
+        
+        .service-pill {
+            padding: 0.8rem 1.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 100px; cursor: pointer; transition: all 0.3s ease; font-weight: 600;
         }
+        .service-pill:hover, .service-pill.selected { background: var(--primary); border-color: var(--primary); transform: scale(1.05); }
 
-        .star-rating { color: #facc15; display: flex; gap: 2px; }
-        .verified-badge { background: #f1f5f9; color: #475569; padding: 4px 12px; border-radius: 100px; font-size: 9px; font-weight: 800; display: flex; align-items: center; gap: 4px; }
+        .input-error { border-color: var(--error) !important; color: var(--error) !important; }
+        .error-hint { color: var(--error); font-size: 10px; font-weight: 800; text-transform: uppercase; margin-top: 0.5rem; display: none; }
 
-        /* AI TOOLS UI */
-        .typing-dots { display: flex; gap: 4px; padding: 10px; }
-        .dot { width: 6px; height: 6px; background: #94a3b8; border-radius: 50%; animation: typing 1.4s infinite; }
-        .dot:nth-child(2) { animation-delay: 0.2s; }
-        .dot:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes typing { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        /* --- SELECT PAYS --- */
+        .country-select-wrapper {
+            display: flex; align-items: center; border-bottom: 2px solid rgba(255, 255, 255, 0.1); transition: border-color 0.3s ease;
+        }
+        .country-select-wrapper:focus-within { border-color: var(--primary); }
+        #q-country-code { background: transparent; color: white; border: none; outline: none; font-weight: 700; padding: 1rem 0.5rem 1rem 0; cursor: pointer; font-size: 1.1rem; appearance: none; max-width: 120px; }
+        #q-country-code option { background: #020617; color: white; }
+
+        /* --- AI CHAT MODAL --- */
+        #ai-chat-modal {
+            position: fixed; bottom: 8rem; right: 2rem; width: 360px; max-width: calc(100vw - 4rem);
+            background: white; border-radius: 28px; box-shadow: 0 30px 70px rgba(0,0,0,0.2);
+            z-index: 1500; display: none; flex-direction: column; overflow: hidden; border: 1px solid rgba(0,0,0,0.05);
+        }
+        #ai-chat-modal.active { display: flex; }
+        .chat-messages { height: 350px; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; background: #f8fafc; }
+        .msg { padding: 0.8rem 1.2rem; border-radius: 18px; font-size: 13px; line-height: 1.5; max-width: 85%; }
+        .msg-user { align-self: flex-end; background: #2563eb; color: white; border-bottom-right-radius: 4px; }
+        .msg-ai { align-self: flex-start; background: white; color: #0f172a; border-bottom-left-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+
+        #mobile-menu-overlay { position: fixed; inset: 0; background: #ffffff; z-index: 2000; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2.5rem; opacity: 0; pointer-events: none; transition: all 0.4s ease; }
+        #mobile-menu-overlay.active { opacity: 1; pointer-events: all; }
     </style>
 </head>
 <body class="noise">
 
     <div id="scroll-progress"></div>
 
-    <!-- ACTIONS FLOTTANTES -->
-    <div class="floating-btns">
-        <button onclick="toggleAiChat()" class="action-circle gemini-trigger">
-            <i data-lucide="sparkles" class="w-6 h-6"></i>
-        </button>
-        <a href="https://wa.me/33000000000" target="_blank" class="action-circle whatsapp-btn">
-            <div class="wa-notify"></div>
-            <i data-lucide="message-circle" class="w-6 h-6"></i>
-        </a>
-    </div>
-
-    <!-- AI CHAT MODAL (JAAD AI) -->
-    <div id="ai-chat-modal">
-        <div class="chat-header">
-            <span class="flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4"></i> JAAD AI</span>
-            <button onclick="toggleAiChat()" class="hover:opacity-60"><i data-lucide="x" class="w-5 h-5"></i></button>
-        </div>
-        <div id="chat-messages" class="chat-messages">
-            <div class="msg msg-ai">Bonjour ! Je suis JAAD AI. Comment puis-je vous aider dans votre stratégie digitale ?</div>
-        </div>
-        <div class="p-4 border-t border-slate-100 flex gap-2">
-            <input type="text" id="chat-input" placeholder="Posez votre question..." class="flex-1 text-xs border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-purple-400 transition-all">
-            <button onclick="sendChatMessage()" class="w-10 h-10 bg-purple-500 text-white rounded-xl flex items-center justify-center hover:bg-purple-600 transition-all">
-                <i data-lucide="send" class="w-4 h-4"></i>
-            </button>
-        </div>
-    </div>
-
     <!-- PRELOADER -->
     <div id="preloader">
         <div class="loader-panel"></div><div class="loader-panel"></div><div class="loader-panel"></div><div class="loader-panel"></div>
         <div class="loader-content">
-            <div class="jaad-reveal text-7xl font-black italic tracking-tighter text-white">JAAD.</div>
-            <div class="text-[10px] font-bold uppercase tracking-[0.5em] mt-4 opacity-40 text-white text-center">Studio</div>
+            <div class="jaad-logo-anim">JAAD.</div>
         </div>
     </div>
 
     <!-- MOBILE MENU -->
-    <div id="mobile-menu-overlay">
-        <a href="#services" class="text-4xl font-black text-slate-900 tracking-tighter" data-i18n="nav-expertise" onclick="toggleMenu()">Expertise</a>
-        <a href="#portfolio" class="text-4xl font-black text-slate-900 tracking-tighter" data-i18n="nav-realisations" onclick="toggleMenu()">Réalisations</a>
-        <a href="#contact" class="text-4xl font-black text-blue-600 tracking-tighter" data-i18n="nav-contact" onclick="toggleMenu()">Contact</a>
+    <div id="mobile-menu-overlay" aria-hidden="true">
+        <a href="#services" class="nav-link text-4xl font-black text-slate-900 hover:text-blue-600 transition-colors">Expertise</a>
+        <a href="#portfolio" class="nav-link text-4xl font-black text-slate-900 hover:text-blue-600 transition-colors">Réalisations</a>
+        <a href="#testimonials" class="nav-link text-4xl font-black text-slate-900 hover:text-blue-600 transition-colors">Avis</a>
+        <a href="#contact" class="nav-link text-4xl font-black text-blue-600">Contact</a>
         <button class="mt-12 text-slate-400 font-bold uppercase tracking-widest text-xs" onclick="toggleMenu()">Fermer</button>
     </div>
 
     <!-- NAVIGATION -->
-    <nav class="fixed top-0 w-full z-[1000] flex justify-center pt-6 px-4">
-        <div id="navbar" class="glass-nav px-8 md:px-10 py-4 md:py-5 rounded-full flex items-center max-w-6xl w-full justify-between">
-            <a href="#" class="text-2xl font-black text-blue-600 tracking-tighter flex items-center h-full">JAAD<span class="text-slate-900">.</span></a>
-            
+    <nav class="fixed top-0 w-full z-[1000] flex justify-center pt-8 px-4" role="navigation">
+        <div id="navbar" class="glass-nav px-8 md:px-10 py-5 rounded-full flex items-center max-w-6xl w-full justify-between">
+            <a href="#top" class="nav-link text-2xl font-black text-blue-600 tracking-tighter" aria-label="Accueil JAAD">JAAD<span class="text-slate-900">.</span></a>
             <div class="hidden md:flex items-center gap-10 text-[10px] font-extrabold text-slate-500 uppercase tracking-[0.2em]">
-                <a href="#services" data-i18n="nav-expertise" class="hover:text-blue-600 transition-all">Expertise</a>
-                <a href="#portfolio" data-i18n="nav-realisations" class="hover:text-blue-600 transition-all">Réalisations</a>
-                <a href="#contact" class="bg-slate-900 text-white px-8 py-3 rounded-full hover:bg-blue-600 transition-all shadow-lg">Contact</a>
+                <a href="#services" class="nav-link hover:text-blue-600 transition-colors">Expertise</a>
+                <a href="#portfolio" class="nav-link hover:text-blue-600 transition-colors">Réalisations</a>
+                <a href="#testimonials" class="nav-link hover:text-blue-600 transition-colors">Avis</a>
+                <a href="#contact" class="nav-link bg-slate-900 text-white px-8 py-3 rounded-full hover:bg-blue-600 hover:scale-105 transition-all">Contact</a>
             </div>
-
             <div class="flex items-center gap-3">
-                <div class="flex bg-slate-100 p-1 rounded-full items-center">
-                    <button class="px-3 md:px-4 py-1.5 rounded-full text-[9px] font-black active bg-white text-blue-600 shadow-sm transition-all" id="lang-fr" onclick="switchLanguage('fr')">FR</button>
-                    <button class="px-3 md:px-4 py-1.5 rounded-full text-[9px] font-black text-slate-400 transition-all" id="lang-en" onclick="switchLanguage('en')">EN</button>
-                    <button class="px-3 md:px-4 py-1.5 rounded-full text-[9px] font-black text-slate-400" id="lang-ar" onclick="switchLanguage('ar')">AR</button>
+                <div class="flex bg-slate-100/50 p-1 rounded-full items-center">
+                    <button id="lang-fr" class="px-4 py-1.5 rounded-full text-[9px] font-black bg-white text-black shadow-sm" onclick="switchLanguage('fr')" aria-label="Version Française">FR</button>
+                    <button id="lang-en" class="px-4 py-1.5 rounded-full text-[9px] font-black text-slate-400" onclick="switchLanguage('en')" aria-label="English Version">EN</button>
+                    <button id="lang-ar" class="px-4 py-1.5 rounded-full text-[9px] font-black text-slate-400" onclick="switchLanguage('ar')" aria-label="Versional Arabiyya">AR</button>
                 </div>
-                <button id="menu-btn" class="md:hidden text-slate-900 flex items-center h-full p-2" onclick="toggleMenu()"><i data-lucide="menu"></i></button>
+                <button class="md:hidden p-2 text-slate-900" onclick="toggleMenu()" aria-label="Ouvrir le menu"><i data-lucide="menu"></i></button>
             </div>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <header class="relative h-[100dvh] w-full flex items-center justify-center overflow-hidden bg-white">
-        <div id="hero-spline-container" class="spline-container">
-            <iframe src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' frameborder='0' width='100%' height='100%' onload="this.classList.add('loaded')"></iframe>
-        </div>
+    <!-- ACTIONS FLOTTANTES -->
+    <div class="floating-btns">
+        <button onclick="toggleAiChat()" class="action-circle bg-blue-600" aria-label="Ouvrir JAAD AI"><i data-lucide="sparkles" class="w-6 h-6 text-white" aria-hidden="true"></i></button>
+        <a href="https://wa.me/33600000000" target="_blank" class="action-circle" style="background:#25d366" aria-label="Contact WhatsApp"><i data-lucide="message-circle" class="w-6 h-6 text-white" aria-hidden="true"></i></a>
+    </div>
 
-        <div class="relative z-10 text-center px-6 mt-[35vh]">
-            <div class="flex flex-col md:flex-row gap-5 justify-center items-center reveal-up active">
-                <a href="#contact" class="btn-premium btn-primary w-full md:w-auto justify-center">
-                    <span data-i18n="hero-btn">Parlons-en.</span>
-                    <i data-lucide="zap" class="w-4 h-4 fill-current text-blue-400"></i>
-                </a>
-                <a href="#portfolio" class="btn-premium btn-secondary w-full md:w-auto justify-center">
-                    <span data-i18n="hero-btn-secondary">Nos créations.</span>
-                </a>
+    <!-- HERO -->
+    <header id="top" class="relative h-[110dvh] w-full flex items-center justify-center overflow-hidden section-dark">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#020617]/40 z-10"></div>
+            <iframe src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' frameborder='0' width='100%' height='100%' onload="this.classList.add('loaded')" style="pointer-events: none;" title="Animation 3D Background" loading="lazy"></iframe>
+            <div class="transition-dark-fade"></div>
+        </div>
+        <div class="relative z-20 text-center px-6 mt-[35vh]">
+            <div class="flex flex-col md:flex-row gap-5 justify-center reveal-up active">
+                <a href="#contact" class="nav-link btn-premium btn-primary"><span data-i18n="hero-btn">Parlons-en.</span> <i data-lucide="zap" class="w-4 h-4 fill-current" aria-hidden="true"></i></a>
+                <a href="#portfolio" class="nav-link btn-premium btn-secondary"><span data-i18n="hero-btn-secondary">Nos créations.</span></a>
             </div>
         </div>
     </header>
 
-    <!-- TITRE : EXPERTISE (MARQUEE) -->
-    <div class="marquee-wrapper border-y border-slate-100">
-        <div class="marquee-content text-5xl md:text-8xl font-black uppercase tracking-tighter text-slate-900">
-            <span data-i18n="exp-title">On crée pour vous.</span>
-            <span data-i18n="exp-title">On crée pour vous.</span>
-            <span data-i18n="exp-title">On crée pour vous.</span>
-            <span data-i18n="exp-title">On crée pour vous.</span>
+    <!-- EXPERTISE -->
+    <section id="services" class="py-32 px-6 section-light">
+        <div class="transition-top-white"></div>
+        <div class="marquee-wrapper mb-20" aria-hidden="true">
+            <div class="marquee-content text-6xl md:text-9xl font-black uppercase tracking-tighter text-blue-900 opacity-5">
+                <span data-i18n="exp-title">On crée pour vous. E-learning.</span>
+                <span data-i18n="exp-title">On crée pour vous. E-learning.</span>
+                <span data-i18n="exp-title">On crée pour vous. E-learning.</span>
+            </div>
         </div>
-    </div>
-
-    <!-- EXPERTISE SECTION -->
-    <section id="services" class="py-20 md:py-32 px-4 md:px-12 bg-white overflow-hidden">
-        <div class="max-w-7xl mx-auto">
+        <div class="max-w-7xl mx-auto relative z-20">
             <div class="bento-grid">
-                <!-- 01 Web -->
-                <div class="md:col-span-3 tablet-full bento-item reveal-up">
-                    <div>
-                        <div class="tag">01. Web</div>
-                        <h3 class="text-3xl md:text-4xl font-black mb-6 tracking-tighter text-slate-900">Web Design.</h3>
-                        <p class="text-slate-500 text-base leading-relaxed font-medium mb-8">Des sites sur-mesure et un SEO aux petits oignons. Chez nous, tout est possible.</p>
-                    </div>
-                </div>
+                <article class="md:col-span-3 bento-item reveal-up">
+                    <span class="tag" data-i18n="exp-web-tag">01. Web</span>
+                    <h3 class="text-3xl md:text-4xl font-black mb-6 tracking-tighter" data-i18n="exp-web-title">Web Design.</h3>
+                    <p class="text-slate-500 font-medium leading-relaxed" data-i18n="exp-web-desc">Des sites sur-mesure immersifs et un SEO aux petits oignons pour dominer le marché.</p>
+                </article>
+                <article class="md:col-span-3 bento-item reveal-up" style="transition-delay: 0.1s">
+                    <span class="tag" data-i18n="exp-3d-tag">02. 3D</span>
+                    <h3 class="text-3xl md:text-4xl font-black mb-6 tracking-tighter" data-i18n="exp-3d-title">Studio 3D.</h3>
+                    <p class="text-slate-500 font-medium leading-relaxed" data-i18n="exp-3d-desc">Du graphisme 3D haute qualité pour vos produits et projets immobiliers.</p>
+                </article>
+                <article class="md:col-span-2 bento-item reveal-up" style="transition-delay: 0.2s">
+                    <span class="tag" data-i18n="exp-apps-tag">03. Apps</span>
+                    <h3 class="text-2xl md:text-3xl font-black mb-6 tracking-tighter" data-i18n="exp-apps-title">Apps Mobile.</h3>
+                    <p class="text-slate-500 font-medium leading-relaxed" data-i18n="exp-apps-desc">Développement natif et publication sur les stores.</p>
+                </article>
+                <article class="md:col-span-2 bento-item reveal-up" style="transition-delay: 0.3s">
+                    <span class="tag" data-i18n="exp-elearning-tag">04. Learning</span>
+                    <h3 class="text-2xl md:text-3xl font-black mb-6 tracking-tighter" data-i18n="exp-elearning-title">E-learning.</h3>
+                    <p class="text-slate-500 font-medium leading-relaxed" data-i18n="exp-elearning-desc">Plateformes de formation interactives et pédagogie numérique.</p>
+                </article>
+                <article class="md:col-span-2 bento-item bento-blue reveal-up">
+                    <span class="tag" data-i18n="exp-ia-tag" style="background:white; color:var(--primary)">05. IA</span>
+                    <h3 class="text-2xl md:text-3xl font-black mb-6 tracking-tighter" data-i18n="exp-ia-title">IA & Robot.</h3>
+                    <p class="text-white opacity-90 font-medium leading-relaxed" data-i18n="exp-ia-desc">Chatbots intelligents et automatisation.</p>
+                </article>
+            </div>
+        </div>
+        <div class="transition-bottom-white"></div>
+    </section>
 
-                <!-- 02 3D -->
-                <div class="md:col-span-3 tablet-full bento-item reveal-up" style="transition-delay: 0.1s">
-                    <div>
-                        <div class="tag">02. 3D</div>
-                        <h3 class="text-3xl md:text-4xl font-black mb-6 tracking-tighter text-slate-900">Studio 3D.</h3>
-                        <p class="text-slate-500 text-base leading-relaxed font-medium mb-8">Du graphisme 3D haute qualité et 100% personnalisable pour épater vos clients.</p>
-                    </div>
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="py-48 px-6 section-dark">
+        <div class="max-w-7xl mx-auto bento-grid relative z-20">
+            <div class="md:col-span-3 bento-item reveal-up" style="padding:0; min-height:550px;">
+                <iframe src="https://my.spline.design/r4xbot-TowiBcjXeP3tiZRqqB7OwFiy/" width="100%" height="100%" class="loaded" style="pointer-events: none;" title="Projet Portfolio 1" loading="lazy"></iframe>
+                <div class="absolute bottom-10 left-10 z-10">
+                    <span class="tag" style="background: var(--primary); color: white;">Bot Evolution</span>
+                    <h4 class="text-3xl font-black text-white">R4X Concept</h4>
                 </div>
-
-                <!-- 03 Apps -->
-                <div class="md:col-span-3 tablet-full bento-item reveal-up" style="transition-delay: 0.2s">
-                    <div>
-                        <div class="tag">03. Apps</div>
-                        <h3 class="text-3xl md:text-4xl font-black mb-6 tracking-tighter text-slate-900">Apps Mobile.</h3>
-                        <p class="text-slate-500 text-base leading-relaxed font-medium mb-8">On développe et on publie vos apps sur les stores. Sans aucune limite de code.</p>
-                    </div>
-                </div>
-
-                <!-- 04 IA -->
-                <div class="md:col-span-3 tablet-full bento-item bento-blue reveal-up" style="transition-delay: 0.25s">
-                    <div>
-                        <div class="tag">04. IA</div>
-                        <h3 class="text-3xl md:text-4xl font-black mb-6 tracking-tighter">IA & Robot.</h3>
-                        <p class="text-white opacity-90 text-base leading-relaxed font-medium mb-8">Chatbots et automatisation intelligente pour vous faire gagner un temps précieux.</p>
-                    </div>
+            </div>
+            <div class="md:col-span-3 bento-item reveal-up" style="padding:0; min-height:550px; transition-delay: 0.2s;">
+                <iframe src="https://my.spline.design/nexbotrobotcharacterconcept-ISR0inmI81qHYRxU9zwpmWsJ/" width="100%" height="100%" class="loaded" style="pointer-events: none;" title="Projet Portfolio 2" loading="lazy"></iframe>
+                <div class="absolute bottom-10 left-10 z-10">
+                    <span class="tag" style="background: var(--primary); color: white;">Humanoid AI</span>
+                    <h4 class="text-3xl font-black text-white">NexBot Core</h4>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- TITRE : ACCOMPAGNEMENT (MARQUEE) -->
-    <div class="marquee-wrapper border-y border-slate-100">
-        <div class="marquee-content text-5xl md:text-8xl font-black uppercase tracking-tighter text-slate-900">
-            <span data-i18n="journey-title">On s'occupe de tout.</span>
-            <span data-i18n="journey-title">On s'occupe de tout.</span>
-        </div>
-    </div>
-
-    <!-- TIMELINE SECTION -->
-    <section id="journey" class="py-20 md:py-32 px-4 md:px-12 bg-white">
-        <div class="max-w-4xl mx-auto">
-            <div class="timeline-container">
-                <div class="timeline-line"></div>
-                <div class="timeline-step reveal-up">
-                    <div class="timeline-dot">1</div>
-                    <div class="timeline-content-card">
-                        <div class="flex items-center gap-4 mb-4">
-                            <i data-lucide="pen-tool" class="text-blue-600 w-6 h-6"></i>
-                            <h3 class="text-2xl font-black tracking-tighter" data-i18n="step1-title">On imagine.</h3>
-                        </div>
-                        <p class="text-slate-500 font-medium leading-relaxed" data-i18n="step1-desc">Architecture, stratégie et design. On crée l'étincelle qui fera la différence.</p>
-                    </div>
-                </div>
-                <div class="timeline-step reveal-up" style="transition-delay: 0.1s">
-                    <div class="timeline-dot">2</div>
-                    <div class="timeline-content-card">
-                        <div class="flex items-center gap-4 mb-4">
-                            <i data-lucide="rocket" class="text-blue-600 w-6 h-6"></i>
-                            <h3 class="text-2xl font-black tracking-tighter" data-i18n="step2-title">On propulse.</h3>
-                        </div>
-                        <p class="text-slate-500 font-medium leading-relaxed" data-i18n="step2-desc">Code, mise en ligne et publication. Votre projet conquiert le monde numérique.</p>
-                    </div>
-                </div>
-                <div class="timeline-step reveal-up" style="transition-delay: 0.2s">
-                    <div class="timeline-dot">3</div>
-                    <div class="timeline-content-card">
-                        <div class="flex items-center gap-4 mb-4">
-                            <i data-lucide="trending-up" class="text-blue-600 w-6 h-6"></i>
-                            <h3 class="text-2xl font-black tracking-tighter" data-i18n="step3-title">On conquiert.</h3>
-                        </div>
-                        <p class="text-slate-500 font-medium leading-relaxed" data-i18n="step3-desc">Optimisation SEO et référencement. On vous place au sommet des recherches.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TITRE : PROJETS (MARQUEE) -->
-    <div class="marquee-wrapper border-y border-slate-100">
-        <div class="marquee-content text-5xl md:text-8xl font-black uppercase tracking-tighter text-slate-900">
-            <span data-i18n="port-title">Nos créations.</span>
-            <span data-i18n="port-title">Nos créations.</span>
-        </div>
-    </div>
-
-    <!-- PORTFOLIO SECTION -->
-    <section id="portfolio" class="py-20 md:py-32 px-4 md:px-12 bg-slate-50">
-        <div class="max-w-7xl mx-auto">
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="py-32 px-6 section-light overflow-hidden">
+        <div class="transition-top-white"></div>
+        <div class="max-w-7xl mx-auto relative z-20">
+            <header class="text-center mb-20 reveal-up">
+                <h2 class="text-5xl md:text-7xl font-black tracking-tighter mb-4" data-i18n="testi-title">Ils nous font confiance.</h2>
+                <p class="text-slate-400 font-medium" data-i18n="testi-desc">La satisfaction client est notre moteur de création.</p>
+            </header>
             <div class="bento-grid">
-                <div class="md:col-span-3 tablet-full bento-item reveal-up" style="padding: 0; min-height: 400px; md:min-height: 500px;">
-                    <div class="spline-container">
-                        <iframe src="https://my.spline.design/r4xbot-TowiBcjXeP3tiZRqqB7OwFiy/" frameborder='0' width='100%' height='100%' onload="this.classList.add('loaded')"></iframe>
-                    </div>
-                    <div class="absolute bottom-0 left-0 w-full p-10 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none">
-                        <span class="tag">Bot Concept</span>
-                        <h3 class="text-3xl md:text-4xl font-black tracking-tighter text-blue-600">R4X Evolution</h3>
-                    </div>
-                </div>
-                <div class="md:col-span-3 tablet-full bento-item reveal-up" style="padding: 0; min-height: 400px; md:min-height: 500px; transition-delay: 0.2s">
-                    <div class="spline-container">
-                        <iframe src="https://my.spline.design/nexbotrobotcharacterconcept-ISR0inmI81qHYRxU9zwpmWsJ/" frameborder='0' width='100%' height='100%' onload="this.classList.add('loaded')"></iframe>
-                    </div>
-                    <div class="absolute bottom-0 left-0 w-full p-10 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none">
-                        <span class="tag">AI Humanoïde</span>
-                        <h3 class="text-3xl md:text-4xl font-black tracking-tighter text-blue-600">NexBot Core</h3>
-                    </div>
-                </div>
+                <blockquote class="md:col-span-2 bento-item reveal-up">
+                    <div class="flex text-amber-400 mb-4" aria-hidden="true"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
+                    <p class="text-lg font-bold italic mb-6 leading-relaxed text-slate-700" data-i18n="testi-1-txt">"JAAD a transformé notre vision en une réalité immersive. Le site 3D a doublé notre taux de conversion."</p>
+                    <cite class="flex items-center gap-4 not-italic">
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-black text-blue-600 text-xs">SC</div>
+                        <div><p class="font-black text-sm">Sarah Cohen</p><p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">CEO, VisionTech</p></div>
+                    </cite>
+                </blockquote>
+                <blockquote class="md:col-span-2 bento-item reveal-up" style="transition-delay: 0.1s">
+                    <div class="flex text-amber-400 mb-4" aria-hidden="true"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
+                    <p class="text-lg font-bold italic mb-6 leading-relaxed text-slate-700" data-i18n="testi-2-txt">"Une équipe réactive et ultra-créative. L'intégration de l'IA dans notre workflow a tout changé."</p>
+                    <cite class="flex items-center gap-4 not-italic">
+                        <div class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center font-black text-slate-600 text-xs">ML</div>
+                        <div><p class="font-black text-sm">Marc Lefebvre</p><p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Directeur Innovation, ArchiLux</p></div>
+                    </cite>
+                </blockquote>
+                <blockquote class="md:col-span-2 bento-item reveal-up" style="transition-delay: 0.2s">
+                    <div class="flex text-amber-400 mb-4" aria-hidden="true"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
+                    <p class="text-lg font-bold italic mb-6 leading-relaxed text-slate-700" data-i18n="testi-3-txt">"Enfin une agence qui comprend les enjeux de demain. Le design de notre app est tout simplement sublime."</p>
+                    <cite class="flex items-center gap-4 not-italic">
+                        <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center font-black text-amber-600 text-xs">KA</div>
+                        <div><p class="font-black text-sm">Karim Al-Fayed</p><p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Fondateur, Oasis Digital</p></div>
+                    </cite>
+                </blockquote>
             </div>
         </div>
-    </section>
-
-    <!-- TITRE : AVIS (MARQUEE) -->
-    <div class="marquee-wrapper border-y border-slate-100">
-        <div class="marquee-content text-5xl md:text-8xl font-black uppercase tracking-tighter text-slate-900">
-            <span data-i18n="testi-title">Votre confiance.</span>
-            <span data-i18n="testi-title">Votre confiance.</span>
-        </div>
-    </div>
-
-    <!-- AVIS CLIENTS -->
-    <section id="testimonials" class="py-20 md:py-32 px-4 md:px-12 bg-white overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <div class="bento-grid">
-                <div class="md:col-span-3 tablet-full bento-item reveal-up">
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="star-rating"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
-                        <div class="verified-badge">Vérifié</div>
-                    </div>
-                    <p class="text-xl font-bold text-slate-800 leading-relaxed mb-10 italic">"Une approche du code vraiment différente. JAAD a su transformer notre vision complexe en une interface d'une fluidité incroyable."</p>
-                    <div class="flex items-center gap-4 mt-auto border-t border-slate-100 pt-8">
-                        <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-xs">JD</div>
-                        <div>
-                            <h4 class="font-black text-slate-900 text-sm">Julien Delmas</h4>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">CEO — TechNova</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="md:col-span-3 tablet-full bento-item reveal-up" style="transition-delay: 0.1s">
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="star-rating"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
-                        <div class="verified-badge">Vérifié</div>
-                    </div>
-                    <p class="text-xl font-bold text-slate-800 leading-relaxed mb-10 italic">"Le Studio 3D a dépassé toutes nos attentes. La personnalisation est totale et l'impact sur nos ventes a été immédiat."</p>
-                    <div class="flex items-center gap-4 mt-auto border-t border-slate-100 pt-8">
-                        <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-xs">SA</div>
-                        <div>
-                            <h4 class="font-black text-slate-900 text-sm">Sarah Alami</h4>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Marketing Dir — LuxRetail</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="transition-bottom-white"></div>
     </section>
 
     <!-- CONTACT -->
-    <div class="marquee-wrapper border-y border-slate-100">
-        <div class="marquee-content text-5xl md:text-8xl font-black uppercase tracking-tighter text-slate-900">
-            <span data-i18n="cont-title">Échangeons.</span>
-            <span data-i18n="cont-title">Échangeons.</span>
-        </div>
-    </div>
-
-    <section id="contact" class="py-20 md:py-32 px-4 md:px-6">
-        <div class="max-w-6xl mx-auto bg-slate-900 rounded-[64px] p-10 md:p-24 text-white relative overflow-hidden shadow-2xl">
-            <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
-                <div>
-                    <h2 class="text-6xl md:text-8xl font-black mb-10 tracking-tighter leading-[0.9]">Parlons-en.</h2>
-                    <p class="text-slate-400 text-xl mb-12 font-medium max-w-sm">Choisissez votre service et dites-nous tout.</p>
-                    <div class="flex items-center gap-4 text-sm font-bold text-slate-500 mt-8">
-                        <i data-lucide="map-pin" class="w-5 h-5 text-blue-500"></i> International
+    <section id="contact" class="py-48 px-6 section-light">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+            <div>
+                <h2 class="text-6xl md:text-8xl font-black mb-8 tracking-tighter leading-[0.9]" data-i18n="cont-title">Parlons-en.</h2>
+                <p class="text-slate-400 text-xl font-medium max-w-sm mb-12" data-i18n="cont-desc">Répondez à quelques questions pour qualifier votre projet.</p>
+                <div class="space-y-6">
+                    <div class="flex items-center gap-4 text-sm font-bold text-blue-600">
+                        <i data-lucide="map-pin" class="w-5 h-5" aria-hidden="true"></i> <span data-i18n="cont-location">Aix-en-Provence & International</span>
+                    </div>
+                    <div class="flex items-center gap-4 text-sm font-bold text-blue-600">
+                        <i data-lucide="mail" class="w-5 h-5" aria-hidden="true"></i> <a href="mailto:hello@jaad.studio" class="hover:underline">hello@jaad.studio</a>
                     </div>
                 </div>
-                <form class="space-y-6" onsubmit="event.preventDefault();">
-                    <input type="text" placeholder="Comment vous appelez-vous ?" class="w-full bg-white/5 border border-white/10 px-8 py-6 rounded-3xl outline-none focus:border-blue-600 transition-all font-semibold text-white">
-                    <input type="email" placeholder="Votre meilleur email" class="w-full bg-white/5 border border-white/10 px-8 py-6 rounded-3xl outline-none focus:border-blue-600 transition-all font-semibold text-white">
-                    <div class="space-y-4">
-                        <p class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500" data-i18n="cont-choice">Choisissez un service</p>
-                        <div class="flex flex-wrap gap-2">
-                            <div class="service-pill active" onclick="selectService(this)" data-i18n="srv-web">Site Web</div>
-                            <div class="service-pill" onclick="selectService(this)" data-i18n="srv-apps">Apps</div>
-                            <div class="service-pill" onclick="selectService(this)" data-i18n="srv-3d">Studio 3D</div>
-                            <div class="service-pill" onclick="selectService(this)" data-i18n="srv-edu">E-learning</div>
-                            <div class="service-pill" onclick="selectService(this)" data-i18n="srv-other">Autres</div>
-                        </div>
+            </div>
+            <div class="w-full bg-slate-900 border border-slate-800 p-10 md:p-14 rounded-[48px] shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 blur-[100px] rounded-full" aria-hidden="true"></div>
+                <div class="progress-bar-container relative z-10"><div id="form-progress-fill"></div></div>
+                <form id="quest-form" class="space-y-8 relative z-10" onsubmit="event.preventDefault();">
+                    <div class="form-step active" id="step-1">
+                        <label for="q-name" class="block text-2xl font-black mb-6 text-white tracking-tight" data-i18n="step-1-label">D'abord, comment vous appelez-vous ?</label>
+                        <input type="text" id="q-name" data-i18n-placeholder="cont-ph-name" placeholder="Votre nom" class="w-full bg-transparent border-b-2 border-white/10 px-0 py-4 text-xl text-white outline-none focus:border-blue-600 transition-all font-semibold" required>
                     </div>
-                    <textarea placeholder="Votre projet en quelques mots..." rows="4" class="w-full bg-white/5 border border-white/10 px-8 py-6 rounded-3xl outline-none focus:border-blue-600 transition-all resize-none font-semibold text-white"></textarea>
-                    <button class="w-full btn-premium bg-blue-600 text-white justify-center py-7 text-xl shadow-xl hover:bg-blue-700 transition-all">
-                        <span>Envoyer.</span>
-                    </button>
+                    <div class="form-step" id="step-2">
+                        <label for="q-email" class="block text-2xl font-black mb-6 text-white tracking-tight" data-i18n="step-2-label">Ravi ! Quel est votre email ?</label>
+                        <input type="email" id="q-email" data-i18n-placeholder="cont-ph-email" placeholder="votre@email.com" class="w-full bg-transparent border-b-2 border-white/10 px-0 py-4 text-xl text-white outline-none focus:border-blue-600 transition-all font-semibold" required>
+                        <div id="email-error" class="error-hint" data-i18n="err-email">Email invalide</div>
+                    </div>
+                    <div class="form-step" id="step-3">
+                        <label for="q-phone" class="block text-2xl font-black mb-6 text-white tracking-tight" data-i18n="step-phone-label">Et votre numéro de téléphone ?</label>
+                        <div class="country-select-wrapper">
+                            <select id="q-country-code" class="mr-4" aria-label="Indicatif pays"></select>
+                            <input type="tel" id="q-phone" placeholder="6 00 00 00 00" class="w-full bg-transparent px-0 py-4 text-xl text-white outline-none transition-all font-semibold" required>
+                        </div>
+                        <div id="phone-error" class="error-hint" data-i18n="err-phone">Numéro invalide</div>
+                    </div>
+                    <div class="form-step" id="step-4">
+                        <label class="block text-2xl font-black mb-6 text-white tracking-tight" data-i18n="step-3-label">Sur quoi pouvons-nous vous aider ?</label>
+                        <div class="flex flex-wrap gap-3 mt-4 text-white">
+                            <button type="button" class="service-pill" onclick="selectFormService(this, 'Web')" data-i18n="srv-web">Web</button>
+                            <button type="button" class="service-pill" onclick="selectFormService(this, 'Apps')" data-i18n="srv-apps">Apps</button>
+                            <button type="button" class="service-pill" onclick="selectFormService(this, '3D')" data-i18n="srv-3d">3D</button>
+                            <button type="button" class="service-pill" onclick="selectFormService(this, 'IA')" data-i18n="srv-ia">IA</button>
+                            <button type="button" class="service-pill" onclick="selectFormService(this, 'Learning')" data-i18n="srv-elearning">E-learning</button>
+                        </div>
+                        <input type="hidden" id="q-service" required>
+                    </div>
+                    <div class="form-step" id="step-5">
+                        <label for="q-msg" class="block text-2xl font-black mb-6 text-white tracking-tight" data-i18n="step-4-label">Décrivez-nous votre projet...</label>
+                        <textarea id="q-msg" data-i18n-placeholder="cont-ph-msg" placeholder="Détails..." class="w-full bg-transparent border-b-2 border-white/10 px-0 py-4 text-xl text-white outline-none focus:border-blue-600 transition-all font-semibold h-32 resize-none" required></textarea>
+                    </div>
+                    <div class="form-step" id="step-6">
+                        <label class="block text-2xl font-black mb-6 text-white tracking-tight" data-i18n="step-5-label">Comment souhaitez-vous être rappelé ?</label>
+                        <div class="flex flex-wrap gap-3 mt-4 text-white">
+                            <button type="button" class="service-pill" onclick="selectCallback(this, 'WhatsApp')"><i data-lucide="message-circle" class="w-4 h-4 inline mr-2" aria-hidden="true"></i> WhatsApp</button>
+                            <button type="button" class="service-pill" onclick="selectCallback(this, 'Email')"><i data-lucide="mail" class="w-4 h-4 inline mr-2" aria-hidden="true"></i> Email</button>
+                            <button type="button" class="service-pill" onclick="selectCallback(this, 'Appel')"><i data-lucide="phone" class="w-4 h-4 inline mr-2" aria-hidden="true"></i> Appel</button>
+                        </div>
+                        <input type="hidden" id="q-callback" required>
+                    </div>
+                    <div class="form-step text-center py-10" id="step-success">
+                        <i data-lucide="check-circle" class="w-16 h-16 text-emerald-500 mx-auto mb-6" aria-hidden="true"></i>
+                        <h3 class="text-3xl font-black mb-4 text-white" data-i18n="form-success-title">C'est envoyé !</h3>
+                        <p class="text-slate-400 font-medium" data-i18n="form-success-desc">Transmis à hello@jaad.studio. Réponse sous 24h.</p>
+                        <button type="button" onclick="resetForm()" class="mt-8 text-blue-500 font-black uppercase text-xs tracking-widest">Nouveau projet</button>
+                    </div>
+                    <div id="form-nav" class="flex justify-between items-center mt-12">
+                        <button type="button" id="prev-btn" onclick="changeStep(-1)" class="opacity-0 pointer-events-none text-slate-500 font-bold flex items-center gap-2 hover:text-white transition-opacity"><i data-lucide="chevron-left" aria-hidden="true"></i> <span data-i18n="form-prev">Retour</span></button>
+                        <button type="button" id="next-btn" onclick="changeStep(1)" class="btn-premium bg-white text-slate-900 border-none"><span id="next-btn-text" data-i18n="form-next">Suivant</span> <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i></button>
+                    </div>
                 </form>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="py-24 bg-white border-t border-slate-100 px-6 md:px-12">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
-            <div class="md:col-span-2">
-                <a href="#" class="text-2xl md:text-3xl font-black text-blue-600 tracking-tighter mb-6 md:mb-8 block">JAAD STUDIO<span class="text-slate-900">.</span></a>
-                <p class="text-slate-400 max-w-sm mx-auto md:mx-0 font-medium leading-relaxed">Nous créons des produits numériques qui marquent les esprits et propulsent les marques au sommet.</p>
-                <div class="flex justify-center md:justify-start gap-6 mt-8">
-                    <a href="#" class="w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 hover:border-blue-600 hover:text-blue-600 transition-all"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 hover:border-blue-600 hover:text-blue-600 transition-all"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-                </div>
-            </div>
-            <div>
-                <h4 class="font-black text-slate-900 uppercase tracking-widest text-xs mb-6 md:mb-8">Navigation</h4>
-                <ul class="space-y-4 text-slate-400 font-bold text-sm">
-                    <li><a href="#services" class="hover:text-blue-600 transition-all">Expertise</a></li>
-                    <li><a href="#portfolio" class="hover:text-blue-600 transition-all">Portfolio</a></li>
-                    <li><a href="#contact" class="hover:text-blue-600 transition-all">Contact</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-black text-slate-900 uppercase tracking-widest text-xs mb-6 md:mb-8">Légal</h4>
-                <ul class="space-y-4 text-slate-400 font-bold text-sm">
-                    <li><a href="#" class="hover:text-blue-600 transition-all">Mentions légales</a></li>
-                    <li><a href="#" class="hover:text-blue-600 transition-all">Confidentialité</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto border-t border-slate-50 mt-16 md:mt-20 pt-10 md:pt-12 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p class="text-[10px] font-bold uppercase tracking-[0.5em] text-slate-300 text-center">© 2026 JAAD STUDIO — ON CRÉE LE FUTUR</p>
-            <div class="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-600 rounded-full text-[10px] font-black uppercase tracking-widest">
-                <span class="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span> Dispo projets
+    <footer class="py-24 bg-white border-t border-slate-100 px-6" role="contentinfo">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <a href="#top" class="text-3xl font-black text-blue-600 tracking-tighter">JAAD<span class="text-slate-900">.</span></a>
+            <p class="text-slate-400 font-medium">Agence créative spécialisée en Web, 3D et Intelligence Artificielle.</p>
+            <div class="flex gap-6 text-slate-400">
+                <a href="#" class="hover:text-blue-600" aria-label="Instagram"><i data-lucide="instagram" aria-hidden="true"></i></a>
+                <a href="#" class="hover:text-blue-600" aria-label="LinkedIn"><i data-lucide="linkedin" aria-hidden="true"></i></a>
             </div>
         </div>
     </footer>
 
+    <!-- AI CHAT MODAL -->
+    <div id="ai-chat-modal" aria-label="Assistant JAAD AI">
+        <div class="bg-blue-600 p-5 font-black text-white flex justify-between items-center">
+            <span class="flex items-center gap-2 text-xs uppercase tracking-widest"><i data-lucide="sparkles" class="w-4 h-4" aria-hidden="true"></i> JAAD AI</span>
+            <button onclick="toggleAiChat()" aria-label="Fermer le chat"><i data-lucide="x" class="w-5 h-5" aria-hidden="true"></i></button>
+        </div>
+        <div id="chat-messages" class="chat-messages" role="log">
+            <div class="msg msg-ai">Bonjour ! Je suis l'IA de JAAD. Comment puis-je vous accompagner dans votre projet créatif aujourd'hui ?</div>
+        </div>
+        <div class="p-4 flex gap-2 border-t bg-slate-50">
+            <input type="text" id="chat-input" class="flex-1 bg-white rounded-full px-4 py-2 outline-none text-xs border border-slate-200" placeholder="Votre message..." onkeypress="if(event.key === 'Enter') sendChatMessage()" aria-label="Votre message">
+            <button onclick="sendChatMessage()" class="bg-blue-600 text-white p-2 rounded-full" aria-label="Envoyer"><i data-lucide="send" class="w-4 h-4" aria-hidden="true"></i></button>
+        </div>
+    </div>
+
     <script>
-        const apiKey = ""; 
+        /* --- CLÉ API GEMINI --- 
+           Insérez votre clé entre les guillemets ci-dessous. 
+           Laissez vide dans l'environnement de test (Canvas). */
+        const apiKey = "AIzaSyBaJCBzdlj9qgKdYWnidzDJLEzof9kpN9s"; 
 
-        document.addEventListener('DOMContentLoaded', () => { if(window.lucide) lucide.createIcons(); });
+        // --- LISTE DES PAYS ---
+        const countriesList = [
+            { n: "France", c: "+33", f: "🇫🇷" }, { n: "Belgique", c: "+32", f: "🇧🇪" }, { n: "Suisse", c: "+41", f: "🇨🇭" },
+            { n: "Canada", c: "+1", f: "🇨🇦" }, { n: "États-Unis", c: "+1", f: "🇺🇸" }, { n: "Royaume-Uni", c: "+44", f: "🇬🇧" },
+            { n: "Maroc", c: "+212", f: "🇲🇦" }, { n: "Algérie", c: "+213", f: "🇩🇿" }, { n: "Tunisie", c: "+216", f: "🇹🇳" },
+            { n: "Émirats Arabes Unis", c: "+971", f: "🇦🇪" }, { n: "Luxembourg", c: "+352", f: "🇱🇺" },
+            { n: "Sénégal", c: "+221", f: "🇸🇳" }, { n: "Espagne", c: "+34", f: "🇪🇸" }, { n: "Italie", c: "+39", f: "🇮🇹" },
+            { n: "Allemagne", c: "+49", f: "🇩🇪" }, { n: "Portugal", c: "+351", f: "🇵🇹" }, { n: "Côte d'Ivoire", c: "+225", f: "🇨🇮" },
+            { n: "Cameroun", c: "+237", f: "🇨🇲" }, { n: "Madagascar", c: "+261", f: "🇲🇬" }, { n: "Liban", c: "+961", f: "🇱🇧" },
+            { n: "Arabie Saoudite", c: "+966", f: "🇸🇦" }, { n: "Qatar", c: "+974", f: "🇶🇦" }, { n: "Turquie", c: "+90", f: "🇹🇷" },
+            { n: "Australie", c: "+61", f: "🇦🇺" }, { n: "Brésil", c: "+55", f: "🇧🇷" }, { n: "Mexique", c: "+52", f: "🇲🇽" }, { n: "Japon", c: "+81", f: "🇯🇵" }
+        ];
 
-        // --- GEMINI CHAT ---
-        async function callGemini(prompt, systemInstruction = "") {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            const payload = {
-                contents: [{ parts: [{ text: prompt }] }],
-                systemInstruction: systemInstruction ? { parts: [{ text: systemInstruction }] } : undefined
-            };
+        function populateCountries() {
+            const select = document.getElementById('q-country-code');
+            if(!select) return;
+            countriesList.sort((a, b) => a.n.localeCompare(b.n)).forEach(country => {
+                const opt = document.createElement('option');
+                opt.value = country.c;
+                opt.textContent = `${country.f} ${country.c} (${country.n})`;
+                if (country.c === "+33") opt.selected = true;
+                select.appendChild(opt);
+            });
+        }
 
-            let delay = 1000;
-            for (let i = 0; i < 5; i++) {
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (!response.ok) throw new Error('API Error');
-                    const data = await response.json();
-                    return data.candidates?.[0]?.content?.parts?.[0]?.text;
-                } catch (err) {
-                    if (i === 4) throw err;
-                    await new Promise(r => setTimeout(r, delay));
-                    delay *= 2;
+        // --- PRELOADER ---
+        window.addEventListener('load', () => {
+            populateCountries();
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('preloader-active');
+                setTimeout(() => { document.getElementById('preloader').style.display = 'none'; }, 800);
+                revealOnScroll();
+                updateFormUI();
+            }, 800);
+        });
+
+        // --- FORMULAIRE LOGIC ---
+        let currentStep = 1;
+        const totalSteps = 6; 
+        let currentLang = 'fr';
+
+        function updateFormUI() {
+            document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
+            const activeStep = document.getElementById(`step-${currentStep}`);
+            if (activeStep) activeStep.classList.add('active');
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('form-progress-fill').style.width = `${progress}%`;
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtnText = document.getElementById('next-btn-text');
+            if (currentStep === 1) prevBtn.classList.add('opacity-0', 'pointer-events-none');
+            else prevBtn.classList.remove('opacity-0', 'pointer-events-none');
+            nextBtnText.innerText = currentStep === totalSteps ? translations[currentLang]["cont-btn"] : translations[currentLang]["form-next"];
+            document.getElementById('form-nav').style.display = currentStep > totalSteps ? 'none' : 'flex';
+        }
+
+        function validateEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+        function validatePhone(phone) { return /^[0-9\s\-]{8,15}$/.test(phone.trim()); }
+
+        function changeStep(n) {
+            if (n > 0) {
+                if (currentStep === 1 && !document.getElementById('q-name').value) return;
+                if (currentStep === 2) {
+                    const email = document.getElementById('q-email');
+                    if (!validateEmail(email.value)) { email.classList.add('input-error'); document.getElementById('email-error').style.display = 'block'; return; }
+                    else { email.classList.remove('input-error'); document.getElementById('email-error').style.display = 'none'; }
                 }
+                if (currentStep === 3) {
+                    const phone = document.getElementById('q-phone');
+                    if (!validatePhone(phone.value)) { phone.classList.add('input-error'); document.getElementById('phone-error').style.display = 'block'; return; }
+                    else { phone.classList.remove('input-error'); document.getElementById('phone-error').style.display = 'none'; }
+                }
+                if (currentStep === 4 && !document.getElementById('q-service').value) return;
+                if (currentStep === 5 && !document.getElementById('q-msg').value) return;
+                if (currentStep === 6 && !document.getElementById('q-callback').value) return;
             }
+            currentStep += n;
+            if (currentStep > totalSteps) {
+                document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+                document.getElementById('step-success').classList.add('active');
+                document.getElementById('form-progress-fill').style.width = '100%';
+            } else { updateFormUI(); }
         }
 
-        function toggleAiChat() {
-            document.getElementById('ai-chat-modal').classList.toggle('active');
+        function selectFormService(el, val) {
+            document.querySelectorAll('#step-4 .service-pill').forEach(p => p.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('q-service').value = val;
+            setTimeout(() => changeStep(1), 400);
         }
+
+        function selectCallback(el, val) {
+            document.querySelectorAll('#step-6 .service-pill').forEach(p => p.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('q-callback').value = val;
+            setTimeout(() => changeStep(1), 400);
+        }
+
+        function resetForm() { 
+            currentStep = 1; 
+            document.getElementById('quest-form').reset();
+            document.querySelectorAll('.service-pill').forEach(p => p.classList.remove('selected'));
+            document.getElementById('step-success').classList.remove('active');
+            updateFormUI(); 
+        }
+
+        // --- GEMINI API & CHAT ---
+        function toggleAiChat() { document.getElementById('ai-chat-modal').classList.toggle('active'); }
 
         async function sendChatMessage() {
             const input = document.getElementById('chat-input');
-            const msg = input.value.trim();
-            if (!msg) return;
-
+            const msg = input.value.trim(); if (!msg) return;
             const chatBox = document.getElementById('chat-messages');
             chatBox.innerHTML += `<div class="msg msg-user">${msg}</div>`;
             input.value = '';
             chatBox.scrollTop = chatBox.scrollHeight;
-
-            const typing = document.createElement('div');
-            typing.className = 'typing-dots';
-            typing.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
-            chatBox.appendChild(typing);
-
             try {
-                const systemPrompt = "Tu es JAAD AI, l'assistant de JAAD Studio. JAAD est une agence créative experte en Web Design, Apps Mobile, Studio 3D et IA. Réponds de manière concise, élégante et persuasive en français. Ton but est de convaincre l'utilisateur de travailler avec l'agence.";
-                const response = await callGemini(msg, systemPrompt);
-                chatBox.removeChild(typing);
+                const response = await callGemini(msg, "Tu es JAAD AI, l'assistant créatif d'une agence digitale experte en Web Design, 3D, IA et E-learning.");
                 chatBox.innerHTML += `<div class="msg msg-ai">${response}</div>`;
-            } catch (err) {
-                chatBox.removeChild(typing);
-                chatBox.innerHTML += `<div class="msg msg-ai text-red-500">Un problème de connexion. Réessayez ?</div>`;
+            } catch (e) {
+                chatBox.innerHTML += `<div class="msg msg-ai text-red-500">Service momentanément indisponible.</div>`;
             }
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        function toggleMenu() {
-            const overlay = document.getElementById('mobile-menu-overlay');
-            overlay.classList.toggle('active');
-            const icon = document.querySelector('#menu-btn i');
-            const isOpened = overlay.classList.contains('active');
-            icon.setAttribute('data-lucide', isOpened ? 'x' : 'menu');
-            lucide.createIcons();
+        async function callGemini(p, s) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const r = await fetch(url, { 
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' }, 
+                body: JSON.stringify({ contents: [{ parts: [{ text: p }] }], systemInstruction: { parts: [{ text: s }] } }) 
+            });
+            const d = await r.json(); 
+            return d.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, je rencontre une difficulté technique.";
         }
 
-        function selectService(el) {
-            document.querySelectorAll('.service-pill').forEach(pill => pill.classList.remove('active'));
-            el.classList.add('active');
-        }
+        // --- TRADUCTIONS ---
+        const translations = {
+            fr: {
+                "nav-logo": "JAAD", "nav-expertise": "Expertise", "nav-realisations": "Réalisations", "nav-contact-btn": "Contact",
+                "hero-btn": "Parlons-en.", "hero-btn-secondary": "Nos créations.", "exp-title": "On crée pour vous. E-learning.",
+                "cont-title": "Parlons-en.", "cont-desc": "Répondez à quelques questions pour qualifier votre projet.",
+                "cont-location": "Aix-en-Provence & International", "cont-ph-name": "Votre nom", "cont-ph-email": "Email", "cont-ph-msg": "Détails de votre projet...", "cont-btn": "Envoyer",
+                "form-next": "Suivant", "form-prev": "Retour", "step-1-label": "Comment vous appelez-vous ?", "step-2-label": "Quel est votre email ?", "step-3-label": "Sur quoi pouvons-nous vous aider ?",
+                "step-4-label": "Décrivez-nous votre projet...", "step-5-label": "Comment souhaitez-vous être rappelé ?", "step-phone-label": "Et votre numéro de téléphone ?",
+                "err-email": "Email invalide", "err-phone": "Numéro invalide",
+                "srv-web": "Web", "srv-apps": "Apps", "srv-3d": "3D", "srv-ia": "IA", "srv-elearning": "E-learning",
+                "form-success-title": "C'est envoyé !", "form-success-desc": "Transmis à hello@jaad.studio. Réponse sous 24h."
+            },
+            en: {
+                "nav-logo": "JAAD", "nav-expertise": "Expertise", "nav-realisations": "Works", "nav-contact-btn": "Contact",
+                "hero-btn": "Let's talk.", "hero-btn-secondary": "Works.", "exp-title": "We build for you. E-learning.",
+                "cont-title": "Let's talk.", "cont-desc": "Answer a few questions to qualify your project.",
+                "cont-location": "Aix-en-Provence & International", "cont-ph-name": "Your name", "cont-ph-email": "Email", "cont-ph-msg": "Project details...", "cont-btn": "Submit",
+                "form-next": "Next", "form-prev": "Back", "step-1-label": "What is your name?", "step-2-label": "What is your email?", "step-3-label": "What do you need help with?",
+                "step-4-label": "Tell us more about your project...", "step-5-label": "How would you like to be reached?", "step-phone-label": "And your phone number?",
+                "err-email": "Invalid email", "err-phone": "Invalid phone number",
+                "srv-web": "Web", "srv-apps": "Apps", "srv-3d": "3D", "srv-ia": "AI", "srv-elearning": "E-learning",
+                "form-success-title": "Sent successfully!", "form-success-desc": "Sent to hello@jaad.studio. Expect a reply within 24h."
+            },
+            ar: {
+                "nav-logo": "جاد", "nav-expertise": "خبراتنا", "nav-realisations": "أعمالنا", "nav-contact-btn": "تواصل معنا",
+                "hero-btn": "لنتحدث.", "hero-btn-secondary": "إبداعاتنا.", "exp-title": "نصمم لأجلك. التعليم الإلكتروني.",
+                "cont-title": "لنتحدث.", "cont-desc": "أجب على بعض الأسئلة لتأهيل مشروعك.",
+                "cont-location": "إيكس أون بروفانس وعالمي", "cont-ph-name": "الاسم", "cont-ph-email": "الايميل", "cont-ph-msg": "تفاصيل مشروعك...", "cont-btn": "إرسال",
+                "form-next": "التالي", "form-prev": "السابق", "step-1-label": "ما هو اسمك؟", "step-2-label": "ما هو بريدك الإلكتروني؟", "step-3-label": "بماذا يمكننا مساعدتك؟",
+                "step-4-label": "صف لنا مشروعك...", "step-5-label": "كيف نتمكن من التواصل معك؟", "step-phone-label": "وما هو رقم هاتفك؟",
+                "err-email": "بريد إلكتروني غير صالح", "err-phone": "رقم غير صالح",
+                "srv-web": "ويب", "srv-apps": "تطبيقات", "srv-3d": "ثلاثي الأبعاد", "srv-ia": "ذكاء اصطناعي", "srv-elearning": "التعليم الإلكتروني",
+                "form-success-title": "تم الإرسال!", "form-success-desc": "تم الإرسال إلى hello@jaad.studio. الرد خلال 24 ساعة."
+            }
+        };
 
         function switchLanguage(lang) {
+            currentLang = lang; 
             document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) el.innerHTML = translations[lang][key];
+            document.querySelectorAll('[data-i18n]').forEach(el => { 
+                const key = el.getAttribute('data-i18n'); 
+                if (translations[lang][key]) el.innerHTML = translations[lang][key]; 
             });
-            document.querySelectorAll('button[id^="lang-"]').forEach(btn => {
-                const isActive = btn.id === `lang-${lang}`;
-                btn.className = isActive 
-                    ? "px-3 md:px-4 py-1.5 rounded-full text-[9px] font-black bg-white text-blue-600 shadow-sm transition-all"
-                    : "px-3 md:px-4 py-1.5 rounded-full text-[9px] font-black text-slate-400 transition-all";
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { 
+                const key = el.getAttribute('data-i18n-placeholder'); 
+                if (translations[lang][key]) el.placeholder = translations[lang][key]; 
             });
-            if(window.lucide) lucide.createIcons();
+            ['fr', 'en', 'ar'].forEach(l => {
+                const btn = document.getElementById(`lang-${l}`);
+                if (btn) btn.className = (l === lang) ? "px-4 py-1.5 rounded-full text-[9px] font-black bg-white text-black shadow-sm transition-all" : "px-4 py-1.5 rounded-full text-[9px] font-black text-slate-400 transition-all";
+            });
+            updateFormUI();
         }
 
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('preloader').classList.add('preloader-active');
-                setTimeout(() => {
-                    document.getElementById('preloader').style.display = 'none';
-                    revealOnScroll();
-                }, 600);
-            }, 600);
-        });
-
-        function revealOnScroll() {
-            const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.15 });
-            document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+        function toggleMenu() { document.getElementById('mobile-menu-overlay').classList.toggle('active'); }
+        function revealOnScroll() { 
+            const obs = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1 }); 
+            document.querySelectorAll('.reveal-up').forEach(el => obs.observe(el)); 
         }
 
         window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('nav-shrink'); else nav.classList.remove('nav-shrink');
             const winScroll = document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             document.getElementById("scroll-progress").style.width = (winScroll / height) * 100 + "%";
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) nav.classList.add('nav-shrink');
-            else nav.classList.remove('nav-shrink');
         });
 
-        document.querySelectorAll('.bento-item').forEach(item => {
-            item.addEventListener('mousemove', e => {
-                const rect = item.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                item.style.setProperty('--mouse-x', `${x}px`);
-                item.style.setProperty('--mouse-y', `${y}px`);
+        // --- NAVIGATION SMOOTH SCROLL (FIX) ---
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = href.substring(1);
+                    const targetElement = document.getElementById(targetId === 'top' ? 'top' : targetId);
+                    if (targetElement) {
+                        document.getElementById('mobile-menu-overlay').classList.remove('active');
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
             });
         });
 
-        const translations = {
-            fr: { "exp-title": "On crée pour vous.", "journey-title": "On s'occupe de tout.", "hero-btn": "Parlons-en.", "hero-btn-secondary": "Nos créations.", "port-title": "Nos créations.", "testi-title": "Votre confiance.", "cont-choice": "Choisissez un service", "step1-title": "On imagine.", "step1-desc": "Architecture, stratégie et design. On crée l'étincelle qui fera la différence.", "step2-title": "On propulse.", "step2-desc": "Code, mise en ligne et publication. Votre projet conquiert le monde numérique.", "step3-title": "On conquiert.", "step3-desc": "Optimisation SEO et référencement. On vous place au sommet des recherches.", "srv-web": "Site Web", "srv-apps": "Apps", "srv-3d": "Studio 3D", "srv-edu": "E-learning", "srv-other": "Autres" },
-            en: { "exp-title": "We build for you.", "journey-title": "We handle everything.", "hero-btn": "Let's talk.", "hero-btn-secondary": "Our works.", "port-title": "Our works.", "testi-title": "Kind words.", "cont-choice": "Choose a service", "step1-title": "We imagine.", "step1-desc": "Strategy and design. We create the spark that makes the difference.", "step2-title": "We launch.", "step2-desc": "Code and deployment. Your project conquers the digital world.", "step3-title": "We conquer.", "step3-desc": "SEO and ranking. We put you at the top of search results.", "srv-web": "Website", "srv-apps": "Apps", "srv-3d": "3D Studio", "srv-edu": "E-learning", "srv-other": "Other" },
-            ar: { "exp-title": "نصمم لأجلك.", "journey-title": "نتولى كل شيء.", "hero-btn": "لنتحدث.", "hero-btn-secondary": "إبداعاتنا.", "port-title": "إبداعاتنا.", "testi-title": "ثقتكم.", "cont-choice": "اختر الخدمة", "step1-title": "نتخيل.", "step1-desc": "الهندسة والتصميم. نصنع الشرارة التي تصنع الفارق.", "step2-title": "ننطلق.", "step2-desc": "البرمجة والنشر. مشروعك يغزو العالم الرقمي الآن.", "step3-title": "نغزو.", "step3-desc": "تحسين محركات البحث. نضعك في مقدمة نتائج البحث دائماً.", "srv-web": "موقع ويب", "srv-apps": "تطبيق", "srv-3d": "ثلاثي الأبعاد", "srv-edu": "تعليمي", "srv-other": "أخرى" }
-        };
+        lucide.createIcons();
     </script>
 </body>
 </html>
