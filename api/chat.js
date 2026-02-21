@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "La clé GEMINI_API_KEY n'est pas configurée sur Vercel." });
   }
 
-  // Correction de l'URL : On utilise v1beta car gemini-1.5-flash y est mieux supporté
+  // Utilisation de v1beta (indispensable pour gemini-1.5-flash actuellement)
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
   try {
