@@ -30,10 +30,13 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* PROTECTION DU SCROLL : On force l'iframe à être ignorée par la souris et le toucher */
-        #hero-spline {
-            pointer-events: none !important;
-            user-select: none !important;
+        /* --- BOUCLIER DE SCROLL (SOLUTION FINALE) --- */
+        .scroll-shield {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            background: transparent;
+            pointer-events: auto; /* Capture le doigt pour le scroll */
         }
 
         .noise::before {
@@ -64,7 +67,7 @@
 
         .loader-logo-base {
             font-family: 'Outfit', sans-serif; 
-            font-size: clamp(2.5rem, 12vw, 5rem); 
+            font-size: clamp(2rem, 12vw, 5rem); 
             font-weight: 900;
             color: rgba(255, 255, 255, 0.2); font-style: italic; letter-spacing: -0.02em;
             position: relative; text-transform: uppercase;
@@ -74,6 +77,12 @@
             position: absolute; top: 0; left: 0;
             color: #ffffff; width: 0%; overflow: hidden;
             white-space: nowrap; transition: width 0.5s ease-in-out;
+        }
+
+        /* Fix Chrome Autofill */
+        input:-webkit-autofill {
+            -webkit-text-fill-color: white !important;
+            -webkit-box-shadow: 0 0 0px 1000px #0f172a inset !important;
         }
 
         /* --- NAV --- */
@@ -182,21 +191,24 @@
 
     <!-- HERO -->
     <header id="top" class="relative h-[100dvh] w-full flex items-center justify-center overflow-hidden">
-        <!-- BACKGROUND LAYER - Absolument aucun événement souris/tactile ici -->
+        <!-- BACKGROUND LAYER (z-0) -->
         <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(180deg, var(--primary) 0%, var(--sky-blue) 60%, var(--bg-main) 100%);">
             <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.85),transparent_75%)] z-10 pointer-events-none"></div>
             
-            <!-- SPLINE IFRAME - PARFAITEMENT CENTRÉ ET NON-BLOQUANT -->
+            <!-- SPLINE (z-5) - CENTRAGE MOBILE OPTIMISÉ (-43% pour compenser le décalage gauche) -->
             <iframe id="hero-spline" 
                     src='https://my.spline.design/baymaxinlove-EmcbFPi0lep1BCpAqecwkQ7T/' 
                     frameborder='0' 
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] w-[150vw] md:w-full h-full max-w-none opacity-0 transition-opacity duration-1000" 
+                    class="absolute top-1/2 left-1/2 -translate-x-[43%] md:-translate-x-1/2 -translate-y-[45%] w-[200vw] md:w-full h-full max-w-none opacity-0 transition-opacity duration-1000 z-5" 
                     onload="this.style.opacity='1'"></iframe>
         </div>
 
-        <!-- CONTENT LAYER -->
-        <div class="relative z-20 text-center px-6 mt-[35dvh] pointer-events-none">
-            <div class="flex flex-col md:flex-row gap-5 justify-center reveal-up active pointer-events-auto">
+        <!-- SCROLL SHIELD (z-10) - Permet de scroller librement sur mobile sans être bloqué par l'iframe -->
+        <div class="scroll-shield"></div>
+
+        <!-- CONTENT LAYER (z-20) - Toujours cliquable par dessus le shield -->
+        <div class="relative z-20 text-center px-6 mt-[35dvh]">
+            <div class="flex flex-col md:flex-row gap-5 justify-center reveal-up active">
                 <a href="#contact" class="btn-premium btn-primary anchor-link"><span data-i18n="hero-btn">Parlons-en.</span> <i data-lucide="zap" class="w-4 h-4 fill-current"></i></a>
                 <a href="#portfolio" class="btn-premium btn-secondary anchor-link"><span data-i18n="hero-btn-secondary">Nos créations.</span></a>
             </div>
@@ -224,8 +236,8 @@
     <section id="process" class="py-32 px-6 bg-white/40">
         <div class="marquee-wrapper mb-20">
             <div class="marquee-content text-6xl md:text-9xl font-black uppercase tracking-tighter text-blue-600 opacity-20">
-                <span data-i18n="method-title-marquee">Notre méthode. Notre méthode. Notre méthode.</span>
-                <span data-i18n="method-title-marquee">Notre méthode. Notre méthode. Notre méthode.</span>
+                <span data-i18n="method-title-marquee">Notre méthode. Stratégie. Design.</span>
+                <span data-i18n="method-title-marquee">Notre méthode. Stratégie. Design.</span>
             </div>
         </div>
         <div class="max-w-6xl mx-auto space-y-16">
@@ -250,8 +262,8 @@
     <section id="portfolio" class="py-48 px-6">
         <div class="marquee-wrapper mb-20">
             <div class="marquee-content text-6xl md:text-9xl font-black uppercase tracking-tighter text-blue-600 opacity-20">
-                <span data-i18n="port-title-marquee">Nos réalisations. Nos réalisations. Nos réalisations.</span>
-                <span data-i18n="port-title-marquee">Nos réalisations. Nos réalisations. Nos réalisations.</span>
+                <span data-i18n="port-title-marquee">Nos réalisations. Web. 3D. IA.</span>
+                <span data-i18n="port-title-marquee">Nos réalisations. Web. 3D. IA.</span>
             </div>
         </div>
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -282,18 +294,9 @@
                     <div class="progress-bar-container"><div id="form-progress-fill"></div></div>
                     <form id="quest-form" class="space-y-10" action="https://formspree.io/f/xjgeayjr" method="POST">
                         <div id="form-steps-container">
-                            <div class="form-step active" id="step-1">
-                                <label class="block text-2xl font-black mb-6 text-white" data-i18n="form-name">Votre nom ?</label>
-                                <input type="text" name="name" id="q-name" placeholder="Nom complet" required class="w-full bg-transparent border-b-2 border-white/10 py-5 text-xl text-white outline-none focus:border-blue-600 transition-colors">
-                            </div>
-                            <div class="form-step" id="step-2">
-                                <label class="block text-2xl font-black mb-6 text-white" data-i18n="form-email">Votre email ?</label>
-                                <input type="email" name="email" id="q-email" placeholder="votre@email.com" required class="w-full bg-transparent border-b-2 border-white/10 py-5 text-xl text-white outline-none focus:border-blue-600 transition-colors">
-                            </div>
-                            <div class="form-step" id="step-3">
-                                <label class="block text-2xl font-black mb-6 text-white" data-i18n="form-phone">Votre numéro ?</label>
-                                <input type="tel" name="phone" id="q-phone" placeholder="06 00..." required class="w-full bg-transparent border-b-2 border-white/10 py-5 text-xl text-white outline-none focus:border-blue-600 transition-colors">
-                            </div>
+                            <div class="form-step active" id="step-1"><label class="block text-2xl font-black mb-6 text-white" data-i18n="form-name">Votre nom ?</label><input type="text" name="name" id="q-name" placeholder="Nom complet" required class="w-full bg-transparent border-b-2 border-white/10 py-5 text-xl text-white outline-none focus:border-blue-600 transition-colors"></div>
+                            <div class="form-step" id="step-2"><label class="block text-2xl font-black mb-6 text-white" data-i18n="form-email">Votre email ?</label><input type="email" name="email" id="q-email" placeholder="votre@email.com" required class="w-full bg-transparent border-b-2 border-white/10 py-5 text-xl text-white outline-none focus:border-blue-600 transition-colors"></div>
+                            <div class="form-step" id="step-3"><label class="block text-2xl font-black mb-6 text-white" data-i18n="form-phone">Votre numéro ?</label><input type="tel" name="phone" id="q-phone" placeholder="06 00..." required class="w-full bg-transparent border-b-2 border-white/10 py-5 text-xl text-white outline-none focus:border-blue-600 transition-colors"></div>
                             <div class="form-step" id="step-4">
                                 <label class="block text-2xl font-black mb-6 text-white" data-i18n="form-service">Quel service ?</label>
                                 <div class="flex flex-wrap gap-3">
@@ -303,10 +306,7 @@
                                 </div>
                                 <input type="hidden" name="service" id="q-service">
                             </div>
-                            <div class="form-step" id="step-5">
-                                <label class="block text-2xl font-black mb-6 text-white" data-i18n="form-desc">Description</label>
-                                <textarea name="message" id="q-desc" placeholder="..." required class="w-full bg-transparent border-b-2 border-white/10 py-5 text-xl text-white outline-none focus:border-blue-600 h-32 resize-none transition-colors"></textarea>
-                            </div>
+                            <div class="form-step" id="step-5"><label class="block text-2xl font-black mb-6 text-white" data-i18n="form-desc">Description</label><textarea name="message" id="q-desc" placeholder="..." required class="w-full bg-transparent border-b-2 border-white/10 py-5 text-xl text-white outline-none focus:border-blue-600 h-32 resize-none transition-colors"></textarea></div>
                             <div class="form-step" id="step-6">
                                 <label class="block text-2xl font-black mb-6 text-white" data-i18n="form-pref">Contact par ?</label>
                                 <div class="flex gap-3">
@@ -316,7 +316,6 @@
                                 <input type="hidden" name="pref" id="q-pref">
                             </div>
                         </div>
-                        
                         <div id="form-nav" class="flex justify-between items-center pt-10">
                             <button type="button" id="prev-btn" onclick="changeStep(-1)" class="opacity-0 pointer-events-none text-slate-400 font-bold uppercase text-xs transition-opacity" data-i18n="form-btn-prev">Retour</button>
                             <button type="button" id="next-btn" onclick="changeStep(1)" class="btn-premium bg-white text-slate-900 border-none px-10" data-i18n="form-btn-next">Suivant</button>
@@ -357,12 +356,12 @@
                 "serv-app-title": "Apps Mobile", "serv-app-desc": "Développement natif et publication stores.",
                 "serv-ia-title": "IA & Robot.", "serv-ia-desc": "Chatbots intelligents et automatisation.",
                 "serv-learn-title": "E-learning", "serv-learn-desc": "Plateformes de formation interactives.",
-                "method-title-marquee": "Notre méthode. Notre méthode. Notre méthode.",
+                "method-title-marquee": "Notre méthode. Stratégie. Design.",
                 "method-1-title": "Stratégie", "method-1-desc": "Analyse de vos besoins et objectifs.",
                 "method-2-title": "Design", "method-2-desc": "Conception visuelle et IA.",
                 "method-3-title": "Publication", "method-3-desc": "Mise en ligne et SEO technique.",
                 "method-4-title": "Maintenance", "method-4-desc": "Support continu et évolutions.",
-                "port-title-marquee": "Nos réalisations. Nos réalisations. Nos réalisations.",
+                "port-title-marquee": "Nos réalisations. Web. 3D. IA.",
                 "form-name": "Votre nom ?", "form-email": "Votre email ?", "form-phone": "Votre numéro ?", "form-service": "Quel service ?", "form-desc": "Description", "form-pref": "Contact par ?",
                 "form-btn-next": "Suivant", "form-btn-prev": "Retour", "form-btn-send": "Envoyer", "form-btn-back": "Retour au site",
                 "form-err-service": "Veuillez sélectionner un service.", "form-err-pref": "Veuillez sélectionner une préférence de contact."
@@ -376,12 +375,12 @@
                 "serv-app-title": "Mobile Apps", "serv-app-desc": "Native development and store publishing.",
                 "serv-ia-title": "AI & Robot.", "serv-ia-desc": "Smart chatbots and automation.",
                 "serv-learn-title": "E-learning", "serv-learn-desc": "Interactive training platforms.",
-                "method-title-marquee": "Our method. Our method. Our method.",
+                "method-title-marquee": "Our method. Strategy. Design.",
                 "method-1-title": "Strategy", "method-1-desc": "Analysis of your needs and goals.",
                 "method-2-title": "Design", "method-2-desc": "Visual conception and AI.",
                 "method-3-title": "Publishing", "method-3-desc": "Going live and technical SEO.",
                 "method-4-title": "Maintenance", "method-4-desc": "Continuous support and updates.",
-                "port-title-marquee": "Our works. Our works. Our works.",
+                "port-title-marquee": "Our works. Web. 3D. AI.",
                 "form-name": "Your name?", "form-email": "Your email?", "form-phone": "Your phone?", "form-service": "Which service?", "form-desc": "Description", "form-pref": "Contact via?",
                 "form-btn-next": "Next", "form-btn-prev": "Back", "form-btn-send": "Send", "form-btn-back": "Back to site",
                 "form-err-service": "Please select a service.", "form-err-pref": "Please select a contact preference."
@@ -395,12 +394,12 @@
                 "serv-app-title": "تطبيقات الجوال", "serv-app-desc": "تطوير التطبيقات ونشرها في المتاجر.",
                 "serv-ia-title": "الذكاء الاصطناعي والروبوت.", "serv-ia-desc": "روبوتات محادثة ذكية وأتمتة.",
                 "serv-learn-title": "التعليم الإلكتروني", "serv-learn-desc": "منصات تدريب تفاعلية.",
-                "method-title-marquee": "منهجيتنا. منهجيتنا. منهجيتنا.",
+                "method-title-marquee": "منهجيتنا. استراتيجية. تصميم.",
                 "method-1-title": "الاستراتيجية", "method-1-desc": "تحليل احتياجاتك وأهدافك.",
                 "method-2-title": "التصميم", "method-2-desc": "التصور المرئي والذكاء الاصطناعي.",
                 "method-3-title": "النشر", "method-3-desc": "الإطلاق وتحسين محركات البحث.",
                 "method-4-title": "الصيانة", "method-4-desc": "دعم مستمر وتحديثات.",
-                "port-title-marquee": "أعمالنا. أعمالنا. أعمالنا.",
+                "port-title-marquee": "أعمالنا. ويب. ثلاثي الأبعاد. ذكاء اصطناعي.",
                 "form-name": "اسمك؟", "form-email": "بريدك الإلكتروني؟", "form-phone": "رقم هاتفك؟", "form-service": "أي خدمة؟", "form-desc": "الوصف", "form-pref": "التواصل عبر؟",
                 "form-btn-next": "التالي", "form-btn-prev": "رجوع", "form-btn-send": "إرسال", "form-btn-back": "العودة للموقع",
                 "form-err-service": "يرجى تحديد خدمة.", "form-err-pref": "يرجى تحديد تفضيل الاتصال."
