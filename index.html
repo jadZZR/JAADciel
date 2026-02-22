@@ -95,7 +95,7 @@
             transition: all 0.5s ease; position: relative; overflow: hidden; cursor: pointer;
         }
         .bento-item:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .bento-blue { background: linear-gradient(135deg, #0f172a 0%, #2563eb 100%) !important; color: white; border: none; }
+        .bento-blue { background: linear-gradient(135deg, #0f172a) !important; color: white; border: none; }
 
         .tag {
             display: inline-block; padding: 0.4rem 1rem; background: rgba(37, 99, 235, 0.1);
@@ -210,7 +210,8 @@
     <!-- FLOATING ACTIONS -->
     <div class="fixed bottom-8 right-8 z-[1500] flex flex-col gap-4">
         <button id="ai-chat-trigger" onclick="toggleAiChat()" class="w-14 h-14 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xl hover:scale-110 transition-transform"><i data-lucide="sparkles"></i></button>
-        <a href="https://wa.me/33600000000" target="_blank" class="w-14 h-14 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-xl hover:scale-110 transition-transform"><i data-lucide="message-circle"></i></a>
+        <!-- WHATSAPP REDIRECTION UPDATED -->
+        <a href="https://wa.me/33788408004" target="_blank" class="w-14 h-14 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-xl hover:scale-110 transition-transform"><i data-lucide="message-circle"></i></a>
     </div>
 
     <!-- HERO -->
@@ -437,7 +438,7 @@
                 points: ["Développement Natif", "Notifications Push IA", "Synchronisation Cloud", "Maintenance Évolutive"], cta: "Apps"
             },
             ia: {
-                title: "IA & Automatisation", tag: "Intelligent Future",
+                title: "IA & Automatisation", tag: "Intelligence Future",
                 desc: "Boostez votre productivité avec l'IA. Nous développons des agents intelligents personnalisés pour libérer votre potentiel créatif.",
                 points: ["Agents conversationnels", "Automatisation workflows", "Analyse prédictive", "Intégration API Gemini"], cta: "IA"
             },
@@ -459,7 +460,7 @@
                         ${data.points.map(p => `<div class="group flex items-center gap-4 p-5 bg-slate-50 rounded-3xl border border-slate-100 transition-all hover:bg-white hover:border-blue-200 hover:shadow-xl hover:shadow-blue-500/10"><div class="w-10 h-10 bg-blue-600 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform"><i data-lucide="check" class="w-5 h-5"></i></div><span class="font-bold text-slate-700 text-sm tracking-tight">${p}</span></div>`).join('')}
                     </div>
                     <div class="flex flex-col sm:flex-row gap-5">
-                        <button onclick="contactForService('${data.cta}')" class="btn-premium btn-primary group px-10 py-5 justify-center">Démarrer mon projet <i data-lucide="zap" class="w-4 h-4 fill-current group-hover:animate-pulse"></i></button>
+                        <button onclick="contactForService('${data.cta}')" class="btn-premium btn-primary group px-10 py-5 justify-center">Démarrer mon projet <i data-lucide="zap" class="w-5 h-5 fill-current group-hover:animate-pulse"></i></button>
                         <button onclick="toggleServiceModal()" class="btn-premium btn-secondary px-10 py-5 justify-center hover:bg-slate-50">Fermer</button>
                     </div>
                 </div>`;
@@ -496,18 +497,6 @@
             }, 300);
         }
 
-        function toggleAiChat() { 
-            const chat = document.getElementById('ai-chat-modal');
-            chat.classList.toggle('active');
-        }
-
-        window.addEventListener('load', () => {
-            const fill = document.getElementById('loader-fill');
-            setTimeout(() => { if(fill) fill.style.width = '100%'; }, 100);
-            setTimeout(() => { document.getElementById('preloader').classList.add('preloader-active'); revealOnScroll(); }, 700);
-            lucide.createIcons();
-        });
-
         const translations = {
             fr: { "nav-expertise": "Expertise", "nav-methode": "Méthode", "nav-realisations": "Réalisations", "nav-contact-btn": "Contact", "nav-close": "Fermer", "hero-btn": "Parlons-en.", "hero-btn-secondary": "Nos créations.", "exp-title-marquee": "On crée pour vous. E-learning. IA.", "serv-web-title": "Web Design Immersif", "serv-web-desc": "Sites immersifs et SEO performant.", "serv-3d-title": "Studio 3D.", "serv-3d-desc": "Graphisme 3D haute qualité pour vos produits.", "serv-app-title": "Apps Mobile", "serv-app-desc": "Développement natif et publication stores.", "serv-ia-title": "IA & Robot.", "serv-ia-desc": "Chatbots intelligents et automatisation.", "serv-learn-title": "E-learning", "serv-learn-desc": "Plateformes de formation interactives.", "method-title-marquee": "Notre méthode. Stratégie. Design. Publication.", "method-1-title": "Stratégie", "method-1-desc": "Analyse de vos besoins et objectifs.", "method-2-title": "Design", "method-2-desc": "Conception visuelle et IA.", "method-3-title": "Publication", "method-3-desc": "Mise en ligne et SEO technique.", "method-4-title": "Maintenance", "method-4-desc": "Support continu et évolutions.", "port-title-marquee": "Nos réalisations. Web. 3D. IA. Robots.", "form-name": "Votre nom ?", "form-email": "Votre email ?", "form-phone": "Votre numéro ?", "form-service": "Quel service ?", "form-desc": "Description", "form-pref": "Contact par ?", "form-btn-next": "Suivant", "form-btn-prev": "Retour", "form-btn-send": "Envoyer", "form-btn-back": "Retour au site", "form-err-service": "Sélectionnez un service.", "form-err-pref": "Sélectionnez un contact." },
             en: { "nav-expertise": "Expertise", "nav-methode": "Method", "nav-realisations": "Works", "nav-contact-btn": "Contact", "nav-close": "Close", "hero-btn": "Let's talk.", "hero-btn-secondary": "Our works.", "exp-title-marquee": "We create for you. E-learning. AI.", "serv-web-title": "Immersive Web Design", "serv-web-desc": "Immersive sites and high-performance SEO.", "serv-3d-title": "3D Studio.", "serv-3d-desc": "High quality 3D graphics for your products.", "serv-app-title": "Mobile Apps", "serv-app-desc": "Native development and store publishing.", "serv-ia-title": "AI & Robot.", "serv-ia-desc": "Smart chatbots and automation.", "serv-learn-title": "E-learning", "serv-learn-desc": "Interactive training platforms.", "method-title-marquee": "Our method. Strategy. Design. Publishing.", "method-1-title": "Strategy", "method-1-desc": "Analysis of your needs and goals.", "method-2-title": "Design", "method-2-desc": "Visual conception and AI.", "method-3-title": "Publishing", "method-3-desc": "Going live and technical SEO.", "method-4-title": "Maintenance", "method-4-desc": "Continuous support and updates.", "port-title-marquee": "Our works. Web. 3D. IA. Robots.", "form-name": "Your name?", "form-email": "Your email?", "form-phone": "Your phone?", "form-service": "Which service?", "form-desc": "Description", "form-pref": "Contact via?", "form-btn-next": "Next", "form-btn-prev": "Back", "form-btn-send": "Send", "form-btn-back": "Back to site", "form-err-service": "Select a service.", "form-err-pref": "Select a contact." },
@@ -522,6 +511,18 @@
         }
 
         function toggleMenu() { document.getElementById('mobile-menu-overlay').classList.toggle('active'); }
+        
+        function toggleAiChat() { 
+            const chat = document.getElementById('ai-chat-modal');
+            chat.classList.toggle('active');
+        }
+
+        window.addEventListener('load', () => {
+            const fill = document.getElementById('loader-fill');
+            setTimeout(() => { if(fill) fill.style.width = '100%'; }, 100);
+            setTimeout(() => { document.getElementById('preloader').classList.add('preloader-active'); revealOnScroll(); }, 700);
+            lucide.createIcons();
+        });
 
         // FORM
         let currentStep = 1;
@@ -535,7 +536,7 @@
                 if (currentStep === 6 && !document.getElementById('q-pref').value) { alert(translations[lang]["form-err-pref"]); return; }
             }
             if (n > 0 && currentStep >= steps.length) { handleFormSubmit(); return; }
-            steps[currentStep - 1].classList.remove('active'); currentStep += n; steps[currentStep - 1].classList.add('active');
+            steps[currentStep-1].classList.remove('active'); currentStep += n; steps[currentStep-1].classList.add('active');
             document.getElementById('form-progress-fill').style.width = (currentStep / steps.length) * 100 + "%";
             document.getElementById('prev-btn').style.opacity = (currentStep === 1) ? "0" : "1";
             document.getElementById('prev-btn').style.pointerEvents = (currentStep === 1) ? "none" : "auto";
